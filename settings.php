@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/udmworkshop/locallib.php');
 
-    $grades = workshop::available_maxgrades_list();
+    $grades = udmworkshop::available_maxgrades_list();
 
     $settings->add(new admin_setting_configselect('workshop/grade', get_string('submissiongrade', 'udmworkshop'),
                         get_string('configgrade', 'udmworkshop'), 80, $grades));
@@ -53,11 +53,11 @@ if ($ADMIN->fulltree) {
     }
 
     $settings->add(new admin_setting_configselect('workshop/strategy', get_string('strategy', 'udmworkshop'),
-                        get_string('configstrategy', 'workshop'), 'accumulative', udmworkshop::available_strategies_list()));
+                        get_string('configstrategy', 'udmworkshop'), 'accumulative', udmworkshop::available_strategies_list()));
 
-    $options = workshop::available_example_modes_list();
+    $options = udmworkshop::available_example_modes_list();
     $settings->add(new admin_setting_configselect('workshop/examplesmode', get_string('examplesmode', 'udmworkshop'),
-                        get_string('configexamplesmode', 'workshop'), udmworkshop::EXAMPLES_VOLUNTARY, $options));
+                        get_string('configexamplesmode', 'udmworkshop'), udmworkshop::EXAMPLES_VOLUNTARY, $options));
 
     // include the settings of allocation subplugins
     $allocators = core_component::get_plugin_list('workshopallocation');

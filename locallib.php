@@ -40,7 +40,7 @@ require_once($CFG->libdir . '/filelib.php');
  * from the module itself. The class should be initialized right after you get
  * $workshop, $cm and $course records at the begining of the script.
  */
-class workshop {
+class udmworkshop {
 
     /** error status of the {@link self::add_allocation()} */
     const ALLOCATION_EXISTS             = -9999;
