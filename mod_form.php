@@ -56,7 +56,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
     public function definition() {
         global $CFG, $PAGE, $USER;
 
-        $workshopconfig = get_config('workshop');
+        $workshopconfig = get_config('udmworkshop');
         $mform = $this->_form;
 
         // General --------------------------------------------------------------------
@@ -95,22 +95,22 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         }
         $radio = array();
         $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('peerassessment', 'udmworkshop'),
-                \workshop::PEER_ASSESSMENT, $options);
+                \udmworkshop::PEER_ASSESSMENT, $options);
         $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfassessment', 'udmworkshop'),
-                \workshop::SELF_ASSESSMENT, $options);
+                \udmworkshop::SELF_ASSESSMENT, $options);
         $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfandpeerassessment', 'udmworkshop'),
-                \workshop::SELF_AND_PEER_ASSESSMENT, $options);
+                \udmworkshop::SELF_AND_PEER_ASSESSMENT, $options);
         $mform->addGroup($radio, 'assessmenttype', get_string('assessmenttype', 'udmworkshop'), array('<br />'), false);
-        $mform->addHelpButton('assessmenttype', 'assessmenttype', 'workshop');
+        $mform->addHelpButton('assessmenttype', 'assessmenttype', 'udmworkshop');
         $mform->setType('assessmenttype', PARAM_INT);
-        $mform->setDefault('assessmenttype', \workshop::PEER_ASSESSMENT);
+        $mform->setDefault('assessmenttype', \udmworkshop::PEER_ASSESSMENT);
 
         $label = get_string('strategy', 'udmworkshop');
-        $mform->addElement('select', 'strategy', $label, workshop::available_strategies_list());
+        $mform->addElement('select', 'strategy', $label, udmworkshop::available_strategies_list());
         $mform->setDefault('strategy', $workshopconfig->strategy);
-        $mform->addHelpButton('strategy', 'strategy', 'workshop');
+        $mform->addHelpButton('strategy', 'strategy', 'udmworkshop');
 
-        $grades = workshop::available_maxgrades_list();
+        $grades = udmworkshop::available_maxgrades_list();
         $gradecategories = grade_get_categories_menu($this->course->id);
 
         $label = get_string('submissiongrade', 'udmworkshop');
@@ -162,7 +162,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $label = get_string('instructauthors', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('editor', 'instructauthorseditor', $label, null,
-                            workshop::instruction_editors_options($this->context));
+                            udmworkshop::instruction_editors_options($this->context));
         $mform->addElement('html', \html_writer::end_div());
 
         $label = get_string('assessassoonsubmitted', 'udmworkshop');

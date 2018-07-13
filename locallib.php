@@ -363,7 +363,7 @@ class udmworkshop {
      * @return array ['string' => 'string']
      */
     public static function available_strategies_list() {
-        $installed = core_component::get_plugin_list('workshopform');
+        $installed = core_component::get_plugin_list('udmworkshopform');
         $forms = array();
         foreach ($installed as $strategy => $strategypath) {
             if (file_exists($strategypath . '/lib.php')) {
@@ -380,7 +380,7 @@ class udmworkshop {
      */
     public static function available_evaluators_list() {
         $evals = array();
-        foreach (core_component::get_plugin_list_with_file('workshopeval', 'lib.php', false) as $eval => $evalpath) {
+        foreach (core_component::get_plugin_list_with_file('udmworkshopeval', 'lib.php', false) as $eval => $evalpath) {
             $evals[$eval] = get_string('pluginname', 'udmworkshopeval_' . $eval);
         }
         return $evals;
