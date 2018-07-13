@@ -740,7 +740,7 @@ function workshop_print_recent_activity($course, $viewfullnames, $timestart) {
         $shown = true;
         echo $OUTPUT->heading(get_string('recentsubmissions', 'workshop'), 3);
         foreach ($submissions as $id => $submission) {
-            $link = new moodle_url('/mod/workshop/submission.php', array('id'=>$id, 'cmid'=>$submission->cmid));
+            $link = new moodle_url('/mod/udm_workshop/submission.php', array('id'=>$id, 'cmid'=>$submission->cmid));
             if ($submission->authornamevisible) {
                 $author = $users[$submission->authorid];
             } else {
@@ -755,7 +755,7 @@ function workshop_print_recent_activity($course, $viewfullnames, $timestart) {
         echo $OUTPUT->heading(get_string('recentassessments', 'workshop'), 3);
         core_collator::asort_objects_by_property($assessments, 'timemodified');
         foreach ($assessments as $id => $assessment) {
-            $link = new moodle_url('/mod/workshop/assessment.php', array('asid' => $id));
+            $link = new moodle_url('/mod/udm_workshop/assessment.php', array('asid' => $id));
             if ($assessment->reviewernamevisible) {
                 $reviewer = $users[$assessment->reviewerid];
             } else {
@@ -1040,7 +1040,7 @@ function workshop_print_recent_mod_activity($activity, $courseid, $detail, $modn
 
         if ($detail) {
             echo html_writer::start_tag('h4', array('class'=>'workshop'));
-            $url = new moodle_url('/mod/workshop/view.php', array('id'=>$activity->cmid));
+            $url = new moodle_url('/mod/udm_workshop/view.php', array('id'=>$activity->cmid));
             $name = s($activity->name);
             echo $OUTPUT->image_icon('icon', $name, $activity->type);
             echo ' ' . $modnames[$activity->type];
@@ -1049,7 +1049,7 @@ function workshop_print_recent_mod_activity($activity, $courseid, $detail, $modn
         }
 
         echo html_writer::start_tag('div', array('class'=>'title'));
-        $url = new moodle_url('/mod/workshop/submission.php', array('cmid'=>$activity->cmid, 'id'=>$activity->content->id));
+        $url = new moodle_url('/mod/udm_workshop/submission.php', array('cmid'=>$activity->cmid, 'id'=>$activity->content->id));
         $name = s($activity->content->title);
         echo html_writer::tag('strong', html_writer::link($url, $name));
         echo html_writer::end_tag('div');
@@ -1077,7 +1077,7 @@ function workshop_print_recent_mod_activity($activity, $courseid, $detail, $modn
 
         if ($detail) {
             echo html_writer::start_tag('h4', array('class'=>'workshop'));
-            $url = new moodle_url('/mod/workshop/view.php', array('id'=>$activity->cmid));
+            $url = new moodle_url('/mod/udm_workshop/view.php', array('id'=>$activity->cmid));
             $name = s($activity->name);
             echo $OUTPUT->image_icon('icon', $name, $activity->type);
             echo ' ' . $modnames[$activity->type];
@@ -1086,7 +1086,7 @@ function workshop_print_recent_mod_activity($activity, $courseid, $detail, $modn
         }
 
         echo html_writer::start_tag('div', array('class'=>'title'));
-        $url = new moodle_url('/mod/workshop/assessment.php', array('asid'=>$activity->content->id));
+        $url = new moodle_url('/mod/udm_workshop/assessment.php', array('asid'=>$activity->content->id));
         $name = s($activity->content->submissiontitle);
         echo html_writer::tag('em', html_writer::link($url, $name));
         echo html_writer::end_tag('div');
@@ -1749,7 +1749,7 @@ function workshop_extend_navigation(navigation_node $navref, stdclass $course, s
     global $CFG;
 
     if (has_capability('mod/workshop:submit', context_module::instance($cm->id))) {
-        $url = new moodle_url('/mod/workshop/submission.php', array('cmid' => $cm->id));
+        $url = new moodle_url('/mod/udm_workshop/submission.php', array('cmid' => $cm->id));
         $mysubmission = $navref->add(get_string('mysubmission', 'workshop'), $url);
         $mysubmission->mainnavonly = true;
     }
@@ -1770,11 +1770,11 @@ function workshop_extend_settings_navigation(settings_navigation $settingsnav, n
     //$workshopobject = $DB->get_record("workshop", array("id" => $PAGE->cm->instance));
 
     if (has_capability('mod/workshop:editdimensions', $PAGE->cm->context)) {
-        $url = new moodle_url('/mod/workshop/editform.php', array('cmid' => $PAGE->cm->id));
+        $url = new moodle_url('/mod/udm_workshop/editform.php', array('cmid' => $PAGE->cm->id));
         $workshopnode->add(get_string('editassessmentform', 'workshop'), $url, settings_navigation::TYPE_SETTING);
     }
     if (has_capability('mod/workshop:allocate', $PAGE->cm->context)) {
-        $url = new moodle_url('/mod/workshop/allocation.php', array('cmid' => $PAGE->cm->id));
+        $url = new moodle_url('/mod/udm_workshop/allocation.php', array('cmid' => $PAGE->cm->id));
         $workshopnode->add(get_string('allocate', 'workshop'), $url, settings_navigation::TYPE_SETTING);
     }
 }
@@ -1913,7 +1913,7 @@ function mod_workshop_core_calendar_provide_event_action(calendar_event $event,
 
     return $factory->create_instance(
         get_string('viewworkshopsummary', 'workshop'),
-        new \moodle_url('/mod/workshop/view.php', array('id' => $cm->id)),
+        new \moodle_url('/mod/udm_workshop/view.php', array('id' => $cm->id)),
         1,
         true
     );

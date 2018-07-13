@@ -94,7 +94,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
         $assessmenteditable = false;
         echo $output->header();
         echo $output->heading(format_string($workshop->name));
-        notice(get_string('exampleneedsubmission', 'workshop'), new moodle_url('/mod/workshop/view.php', array('id' => $cm->id)));
+        notice(get_string('exampleneedsubmission', 'workshop'), new moodle_url('/mod/udm_workshop/view.php', array('id' => $cm->id)));
         echo $output->footer();
         exit;
     } else {
@@ -104,7 +104,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
                 $assessmenteditable = false;
                 echo $output->header();
                 echo $output->heading(format_string($workshop->name));
-                notice(get_string('exampleneedassessed', 'workshop'), new moodle_url('/mod/workshop/view.php', array('id' => $cm->id)));
+                notice(get_string('exampleneedassessed', 'workshop'), new moodle_url('/mod/udm_workshop/view.php', array('id' => $cm->id)));
                 echo $output->footer();
                 exit;
             }

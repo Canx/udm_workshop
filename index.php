@@ -33,7 +33,7 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course);
 
 $PAGE->set_pagelayout('incourse');
-$PAGE->set_url('/mod/workshop/index.php', array('id' => $course->id));
+$PAGE->set_url('/mod/udm_workshop/index.php', array('id' => $course->id));
 $PAGE->set_title($course->fullname);
 $PAGE->set_heading($course->shortname);
 $PAGE->navbar->add(get_string('modulenameplural', 'workshop'));
@@ -73,10 +73,10 @@ if ($usesections) {
 
 foreach ($workshops as $workshop) {
     if (empty($workshop->visible)) {
-        $link = html_writer::link(new moodle_url('/mod/workshop/view.php', array('id' => $workshop->coursemodule)),
+        $link = html_writer::link(new moodle_url('/mod/udm_workshop/view.php', array('id' => $workshop->coursemodule)),
                                   $workshop->name, array('class' => 'dimmed'));
     } else {
-        $link = html_writer::link(new moodle_url('/mod/workshop/view.php', array('id' => $workshop->coursemodule)),
+        $link = html_writer::link(new moodle_url('/mod/udm_workshop/view.php', array('id' => $workshop->coursemodule)),
                                   $workshop->name);
     }
 
