@@ -18,7 +18,7 @@
 /**
  * View, create or edit single example submission
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -52,7 +52,7 @@ if ($edit) {
 } else {
     $PAGE->navbar->add(get_string('example', 'workshop'));
 }
-$output = $PAGE->get_renderer('mod_udm_workshop');
+$output = $PAGE->get_renderer('mod_udmworkshop');
 
 if ($id) { // example is specified
     $example = $workshop->get_example_by_id($id);
@@ -116,10 +116,10 @@ if ($edit and $canmanage) {
     require_once(__DIR__.'/submission_form.php');
 
     $example = file_prepare_standard_editor($example, 'content', $workshop->submission_content_options(),
-        $workshop->context, 'mod_udm_workshop', 'submission_content', $example->id);
+        $workshop->context, 'mod_udmworkshop', 'submission_content', $example->id);
 
     $example = file_prepare_standard_filemanager($example, 'attachment', $workshop->submission_attachment_options(),
-        $workshop->context, 'mod_udm_workshop', 'submission_attachment', $example->id);
+        $workshop->context, 'mod_udmworkshop', 'submission_attachment', $example->id);
 
     $mform = new workshop_submission_form($PAGE->url, array('current' => $example, 'workshop' => $workshop,
         'contentopts' => $workshop->submission_content_options(), 'attachmentopts' => $workshop->submission_attachment_options()));
@@ -157,9 +157,9 @@ if ($edit and $canmanage) {
 
         // Save and relink embedded images and save attachments.
         $formdata = file_postupdate_standard_editor($formdata, 'content', $workshop->submission_content_options(),
-            $workshop->context, 'mod_udm_workshop', 'submission_content', $example->id);
+            $workshop->context, 'mod_udmworkshop', 'submission_content', $example->id);
         $formdata = file_postupdate_standard_filemanager($formdata, 'attachment', $workshop->submission_attachment_options(),
-            $workshop->context, 'mod_udm_workshop', 'submission_attachment', $example->id);
+            $workshop->context, 'mod_udmworkshop', 'submission_attachment', $example->id);
 
         if (empty($formdata->attachment)) {
             // explicit cast to zero integer
@@ -179,7 +179,7 @@ echo $output->heading(format_string($workshop->name), 2);
 // while reading the submitted answer
 if (trim($workshop->instructauthors)) {
     $instructions = file_rewrite_pluginfile_urls($workshop->instructauthors, 'pluginfile.php', $PAGE->context->id,
-        'mod_udm_workshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
+        'mod_udmworkshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
     print_collapsible_region_start('', 'workshop-viewlet-instructauthors', get_string('instructauthors', 'workshop'));
     echo $output->box(format_text($instructions, $workshop->instructauthorsformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
     print_collapsible_region_end();

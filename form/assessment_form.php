@@ -17,7 +17,7 @@
 /**
  * This file defines a base class for all assessment forms
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -67,15 +67,15 @@ class workshop_assessment_form extends moodleform {
         $mform->setType('strategy', PARAM_PLUGIN);
 
         if ($this->workshop->overallfeedbackmode and $this->is_editable()) {
-            $mform->addElement('header', 'overallfeedbacksection', get_string('overallfeedback', 'mod_udm_workshop'));
-            $mform->addElement('editor', 'feedbackauthor_editor', get_string('feedbackauthor', 'mod_udm_workshop'), null,
+            $mform->addElement('header', 'overallfeedbacksection', get_string('overallfeedback', 'mod_udmworkshop'));
+            $mform->addElement('editor', 'feedbackauthor_editor', get_string('feedbackauthor', 'mod_udmworkshop'), null,
                 $this->workshop->overall_feedback_content_options());
             if ($this->workshop->overallfeedbackmode == 2) {
                 $mform->addRule('feedbackauthor_editor', null, 'required', null, 'client');
             }
             if ($this->workshop->overallfeedbackfiles) {
                 $mform->addElement('filemanager', 'feedbackauthorattachment_filemanager',
-                    get_string('feedbackauthorattachment', 'mod_udm_workshop'), null,
+                    get_string('feedbackauthorattachment', 'mod_udmworkshop'), null,
                     $this->workshop->overall_feedback_attachment_options());
             }
         }
@@ -149,7 +149,7 @@ class workshop_assessment_form extends moodleform {
                             'whitelist' => workshop::clean_file_extensions($whitelist),
                             'wrongfiles' => implode(', ', $wrongfiles),
                         );
-                        $errors['feedbackauthorattachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udm_workshop', $a);
+                        $errors['feedbackauthorattachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmworkshop', $a);
                     }
                 }
             }

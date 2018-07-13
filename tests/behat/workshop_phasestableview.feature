@@ -1,4 +1,4 @@
-@mod @mod_udm_workshop @javascript
+@mod @mod_udmworkshop @javascript
 Feature: Workshop access phases table view as teacher role
   In order to use workshop activity
   As a teacher

@@ -66,7 +66,7 @@ class workshop_manual_allocator implements workshop_allocator {
         if ($sameuser) {
             user_preference_allow_ajax_update("workshopallocation_manual_view", PARAM_ALPHAEXT);
         }
-        $PAGE->requires->js_call_amd('mod_udm_workshop/allocation', 'init', array());
+        $PAGE->requires->js_call_amd('mod_udmworkshop/allocation', 'init', array());
 
         if ($perpage and $perpage > 0 and $perpage <= 1000) {
             require_sesskey();

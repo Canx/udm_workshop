@@ -17,7 +17,7 @@
 /**
  * Capability definitions for the workshop module
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

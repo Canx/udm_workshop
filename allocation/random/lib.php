@@ -19,7 +19,7 @@
  * Allocates the submissions randomly
  *
  * @package    workshopallocation_random
- * @subpackage mod_udm_workshop
+ * @subpackage mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -204,7 +204,7 @@ class workshop_random_allocator implements workshop_allocator {
     public function ui() {
         global $PAGE;
 
-        $output = $PAGE->get_renderer('mod_udm_workshop');
+        $output = $PAGE->get_renderer('mod_udmworkshop');
 
         $out  = $output->container_start('random-allocator');
         // the nasty hack follows to bypass the sad fact that moodle quickforms do not allow to actually

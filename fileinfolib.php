@@ -19,7 +19,7 @@
  * Provides code used during file browsing
  *
  * @category  files
- * @package   mod_udm_workshop
+ * @package   mod_udmworkshop
  * @copyright 2009 David Mudrak <david.mudrak@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -56,7 +56,7 @@ class workshop_file_info_submissions_container extends file_info {
      */
     public function get_params() {
         return array('contextid'=>$this->context->id,
-                     'component'=>'mod_udm_workshop',
+                     'component'=>'mod_udmworkshop',
                      'filearea' =>$this->filearea,
                      'itemid'   =>null,
                      'filepath' =>null,
@@ -109,7 +109,7 @@ class workshop_file_info_submissions_container extends file_info {
     private function get_filtered_children($extensions = '*', $countonly = false, $returnemptyfolders = false) {
         global $DB;
         $params = array('contextid' => $this->context->id,
-            'component' => 'mod_udm_workshop',
+            'component' => 'mod_udmworkshop',
             'filearea' => $this->filearea);
         $sql = 'SELECT DISTINCT itemid
                     FROM {files}
@@ -130,7 +130,7 @@ class workshop_file_info_submissions_container extends file_info {
         $rs = $DB->get_recordset_sql($sql, $params);
         $children = array();
         foreach ($rs as $record) {
-            if (($child = $this->browser->get_file_info($this->context, 'mod_udm_workshop', $this->filearea, $record->itemid))
+            if (($child = $this->browser->get_file_info($this->context, 'mod_udmworkshop', $this->filearea, $record->itemid))
                     && ($returnemptyfolders || $child->count_non_empty_children($extensions))) {
                 $children[] = $child;
                 if ($countonly !== false && count($children) >= $countonly) {
@@ -213,7 +213,7 @@ class workshop_file_info_overallfeedback_container extends file_info {
      */
     public function get_params() {
         return array('contextid' => $this->context->id,
-                     'component' => 'mod_udm_workshop',
+                     'component' => 'mod_udmworkshop',
                      'filearea' => $this->filearea,
                      'itemid' => null,
                      'filepath' => null,
@@ -270,7 +270,7 @@ class workshop_file_info_overallfeedback_container extends file_info {
         global $DB;
 
         $params = array('contextid' => $this->context->id,
-            'component' => 'mod_udm_workshop',
+            'component' => 'mod_udmworkshop',
             'filearea' => $this->filearea);
         $sql = "SELECT DISTINCT itemid
                   FROM {files}
@@ -291,7 +291,7 @@ class workshop_file_info_overallfeedback_container extends file_info {
         $rs = $DB->get_recordset_sql($sql, $params);
         $children = array();
         foreach ($rs as $record) {
-            if (($child = $this->browser->get_file_info($this->context, 'mod_udm_workshop', $this->filearea, $record->itemid))
+            if (($child = $this->browser->get_file_info($this->context, 'mod_udmworkshop', $this->filearea, $record->itemid))
                     && ($returnemptyfolders || $child->count_non_empty_children($extensions))) {
                 $children[] = $child;
                 if ($countonly !== false && count($children) >= $countonly) {

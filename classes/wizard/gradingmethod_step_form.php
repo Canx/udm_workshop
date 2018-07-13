@@ -17,14 +17,14 @@
 /**
  * This file defines the class for editing the grading method form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\wizard;
+namespace mod_udmworkshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * The class for editing the grading method form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
@@ -74,7 +74,7 @@ class gradingmethod_step_form extends step_form {
         $html .= \html_writer::end_div();
 
         $mform->addElement('html', $html);
-        $PAGE->requires->js_call_amd('mod_udm_workshop/wizardform', 'init', array());
+        $PAGE->requires->js_call_amd('mod_udmworkshop/wizardform', 'init', array());
 
         if (!$this->workshop->grading_strategy_instance()->form_ready()) {
             $mform->addElement('html', $OUTPUT->notification(get_string('gradingformnotready', 'workshop')));

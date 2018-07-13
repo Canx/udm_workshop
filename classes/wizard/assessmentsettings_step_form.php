@@ -17,14 +17,14 @@
 /**
  * This file defines the class for editing the assessment settings form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\wizard;
+namespace mod_udmworkshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * The class for editing the assessment settings form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
@@ -48,7 +48,7 @@ class assessmentsettings_step_form extends step_form {
         $mform = $this->_form;
         $record = $this->workshop->get_record();
         if (!$this->workshop->is_self_assessment_type()) {
-            $anonymitysettings = new \mod_udm_workshop\anonymity_settings($this->workshop->context);
+            $anonymitysettings = new \mod_udmworkshop\anonymity_settings($this->workshop->context);
             // Display appraisees name.
             if (!empty($record->allowsubmission)) {
                 $label = get_string('displayappraiseesname', 'workshop');
@@ -104,7 +104,7 @@ class assessmentsettings_step_form extends step_form {
 
         // Check the phases borders are valid.
         if ($data['assessmentstart'] > 0 and $data['assessmentend'] > 0 and $data['assessmentstart'] >= $data['assessmentend']) {
-            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udm_workshop');
+            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udmworkshop');
             return $errors;
         }
 
@@ -119,7 +119,7 @@ class assessmentsettings_step_form extends step_form {
             if ($phasesubmissionend > 0 && $phaseassessmentstart > 0 && $phaseassessmentstart < $phasesubmissionend) {
                 foreach (array('assessmentend', 'assessmentstart') as $f) {
                     if ($data[$f] > 0) {
-                        $errors[$f] = get_string('phasesoverlap', 'mod_udm_workshop');
+                        $errors[$f] = get_string('phasesoverlap', 'mod_udmworkshop');
                         break;
                     }
                 }
@@ -142,7 +142,7 @@ class assessmentsettings_step_form extends step_form {
             // Editing an existing workshop - let us prepare the added editor elements (intro done automatically).
             $draftitemid = file_get_submitted_draft_itemid('instructreviewers');
             $data['instructreviewerseditor']['text'] = file_prepare_draft_area($draftitemid, $this->workshop->context->id,
-                                'mod_udm_workshop', 'instructreviewers', 0,
+                                'mod_udmworkshop', 'instructreviewers', 0,
                                 \workshop::instruction_editors_options($this->workshop->context),
                                 $data['instructreviewers']);
             $data['instructreviewerseditor']['format'] = $data['instructreviewersformat'];

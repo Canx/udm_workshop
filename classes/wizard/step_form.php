@@ -17,13 +17,13 @@
 /**
  * This file defines the base class for a wizard step form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\wizard;
+namespace mod_udmworkshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -32,7 +32,7 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * The base class for a wizard step form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

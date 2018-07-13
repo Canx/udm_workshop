@@ -16,7 +16,7 @@
 /**
  * Grading report.
  *
- * @module      mod_udm_workshop/gradingreport
+ * @module      mod_udmworkshop/gradingreport
  * @category    output
  * @author      Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @copyright   2017 Université de Montréal
@@ -59,10 +59,10 @@ define(['jquery'], function ($) {
             receivedGrades.hide();
             givenGrades.show();
         }
-        M.util.set_user_preference('mod_udm_workshop_gradingreportview', viewToDisplay);
+        M.util.set_user_preference('mod_udmworkshop_gradingreportview', viewToDisplay);
     };
 
-    return /** @alias module:mod_udm_workshop/gradingreport */ {
+    return /** @alias module:mod_udmworkshop/gradingreport */ {
         init: function () {
             // Create instance.
             new GradingReport();

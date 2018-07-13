@@ -15,21 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Search area for mod_udm_workshop activities.
+ * Search area for mod_udmworkshop activities.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2015 David Monllao {@link http://www.davidmonllao.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\search;
+namespace mod_udmworkshop\search;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Search area for mod_udm_workshop activities.
+ * Search area for mod_udmworkshop activities.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2015 David Monllao {@link http://www.davidmonllao.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

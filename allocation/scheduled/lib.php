@@ -19,7 +19,7 @@
  * Scheduled allocator that internally executes the random allocation later
  *
  * @package     workshopallocation_scheduled
- * @subpackage  mod_udm_workshop
+ * @subpackage  mod_udmworkshop
  * @copyright   2012 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -111,7 +111,7 @@ class workshop_scheduled_allocator implements workshop_allocator {
     public function ui() {
         global $PAGE;
 
-        $output = $PAGE->get_renderer('mod_udm_workshop');
+        $output = $PAGE->get_renderer('mod_udmworkshop');
 
         $out = $output->container_start('scheduled-allocator');
         // the nasty hack follows to bypass the sad fact that moodle quickforms do not allow to actually

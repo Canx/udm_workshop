@@ -18,14 +18,14 @@
 /**
  * Edit grading form in for a particular instance of workshop
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/locallib.php');
-use mod_udm_workshop\wizard\gradingmethod_step;
+use mod_udmworkshop\wizard\gradingmethod_step;
 
 $cmid       = required_param('cmid', PARAM_INT);
 $wizardstep = optional_param('wizardstep', null, PARAM_ALPHA);

@@ -1,4 +1,4 @@
-@mod @mod_udm_workshop @javascript @_file_upload
+@mod @mod_udmworkshop @javascript @_file_upload
 Feature: Teachers can embed images into instructions and conclusion fields
   In order to display images as a part of instructions or conclusions in the workshop
   As a teacher
@@ -67,8 +67,8 @@ Feature: Teachers can embed images into instructions and conclusion fields
     And I press "Save and display"
     # Save the form and check the images are displayed in appropriate phases.
     And I change phase in workshop "Workshop with embedded images" to "Submission phase"
-    Then "//*[contains(@class, 'instructions')]//img[contains(@src, 'pluginfile.php') and contains(@src, '/mod_udm_workshop/instructauthors/moodlelogo.png') and @alt='How to submit']" "xpath_element" should exist
+    Then "//*[contains(@class, 'instructions')]//img[contains(@src, 'pluginfile.php') and contains(@src, '/mod_udmworkshop/instructauthors/moodlelogo.png') and @alt='How to submit']" "xpath_element" should exist
     And I change phase in workshop "Workshop with embedded images" to "Assessment phase"
-    And "//*[contains(@class, 'instructions')]//img[contains(@src, 'pluginfile.php') and contains(@src, '/mod_udm_workshop/instructreviewers/moodlelogo.png') and @alt='How to assess']" "xpath_element" should exist
+    And "//*[contains(@class, 'instructions')]//img[contains(@src, 'pluginfile.php') and contains(@src, '/mod_udmworkshop/instructreviewers/moodlelogo.png') and @alt='How to assess']" "xpath_element" should exist
     And I change phase in workshop "Workshop with embedded images" to "Closed"
-    And "//*[contains(@class, 'conclusion')]//img[contains(@src, 'pluginfile.php') and contains(@src, '/mod_udm_workshop/conclusion/moodlelogo.png') and @alt='Well done']" "xpath_element" should exist
+    And "//*[contains(@class, 'conclusion')]//img[contains(@src, 'pluginfile.php') and contains(@src, '/mod_udmworkshop/conclusion/moodlelogo.png') and @alt='Well done']" "xpath_element" should exist

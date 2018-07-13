@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_udm_workshop submission deleted event.
+ * The mod_udmworkshop submission deleted event.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2015 Paul Nicholls
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\event;
+namespace mod_udmworkshop\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_udm_workshop submission deleted event class.
+ * The mod_udmworkshop submission deleted event class.
  *
  * @property-read array $other {
  *      Extra information about the event.
@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  *      - string submissiontitle: (optional) Submission title.
  * }
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @since      Moodle 3.1
  * @copyright  2015 Paul Nicholls
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

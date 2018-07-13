@@ -17,7 +17,7 @@
 /**
  * Strings for component 'workshop', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

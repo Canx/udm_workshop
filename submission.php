@@ -17,7 +17,7 @@
 /**
  * View a single (usually the own) submission, submit own work.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -62,7 +62,7 @@ if ($id) { // submission is specified
         )
     );
 
-    $event = \mod_udm_workshop\event\submission_viewed::create($params);
+    $event = \mod_udmworkshop\event\submission_viewed::create($params);
     $event->trigger();
 
 } else { // no submission specified
@@ -140,7 +140,7 @@ if ($submission->id and $delete and $confirm and $deletable) {
         )
     );
     $params['objectid'] = $submission->id;
-    $event = \mod_udm_workshop\event\submission_deleted::create($params);
+    $event = \mod_udmworkshop\event\submission_deleted::create($params);
     $event->add_record_snapshot('workshop', $workshoprecord);
     $event->trigger();
 
@@ -177,10 +177,10 @@ if ($edit) {
     }
 
     $submission = file_prepare_standard_editor($submission, 'content', $workshop->submission_content_options(),
-        $workshop->context, 'mod_udm_workshop', 'submission_content', $submission->id);
+        $workshop->context, 'mod_udmworkshop', 'submission_content', $submission->id);
 
     $submission = file_prepare_standard_filemanager($submission, 'attachment', $workshop->submission_attachment_options(),
-        $workshop->context, 'mod_udm_workshop', 'submission_attachment', $submission->id);
+        $workshop->context, 'mod_udmworkshop', 'submission_attachment', $submission->id);
     // Get fake submission it none given.
    
 
@@ -234,7 +234,7 @@ if ($edit) {
         if (is_null($submission->id)) {
             $submission->id = $formdata->id = $DB->insert_record('workshop_submissions', $formdata);
             $params['objectid'] = $submission->id;
-            $event = \mod_udm_workshop\event\submission_created::create($params);
+            $event = \mod_udmworkshop\event\submission_created::create($params);
             $event->trigger();
         } else {
             if (empty($formdata->id) or empty($submission->id) or ($formdata->id != $submission->id)) {
@@ -245,10 +245,10 @@ if ($edit) {
 
         // Save and relink embedded images and save attachments.
         $formdata = file_postupdate_standard_editor($formdata, 'content', $workshop->submission_content_options(),
-            $workshop->context, 'mod_udm_workshop', 'submission_content', $submission->id);
+            $workshop->context, 'mod_udmworkshop', 'submission_content', $submission->id);
 
         $formdata = file_postupdate_standard_filemanager($formdata, 'attachment', $workshop->submission_attachment_options(),
-            $workshop->context, 'mod_udm_workshop', 'submission_attachment', $submission->id);
+            $workshop->context, 'mod_udmworkshop', 'submission_attachment', $submission->id);
 
         if (empty($formdata->attachment)) {
             // explicit cast to zero integer
@@ -256,18 +256,18 @@ if ($edit) {
         }
         // store the updated values or re-save the new submission (re-saving needed because URLs are now rewritten)
         $DB->update_record('workshop_submissions', $formdata);
-        $event = \mod_udm_workshop\event\submission_updated::create($params);
+        $event = \mod_udmworkshop\event\submission_updated::create($params);
         $event->add_record_snapshot('workshop', $workshoprecord);
         $event->trigger();
 
         // send submitted content for plagiarism detection
         $fs = get_file_storage();
-        $files = $fs->get_area_files($workshop->context->id, 'mod_udm_workshop', 'submission_attachment', $submission->id);
+        $files = $fs->get_area_files($workshop->context->id, 'mod_udmworkshop', 'submission_attachment', $submission->id);
 
         $params['other']['content'] = $formdata->content;
         $params['other']['pathnamehashes'] = array_keys($files);
 
-        $event = \mod_udm_workshop\event\assessable_uploaded::create($params);
+        $event = \mod_udmworkshop\event\assessable_uploaded::create($params);
         $event->set_legacy_logdata($logdata);
         $event->trigger();
 
@@ -316,7 +316,7 @@ if ($edit) {
 }
 
 // Output starts here
-$output = $PAGE->get_renderer('mod_udm_workshop');
+$output = $PAGE->get_renderer('mod_udmworkshop');
 echo $output->header();
 echo $output->heading(format_string($workshop->name), 2);
 if ($workshop->allowsubmission ) {
@@ -327,7 +327,7 @@ if ($workshop->allowsubmission ) {
 // while reading the submitted answer
 if (trim($workshop->instructauthors)) {
     $instructions = file_rewrite_pluginfile_urls($workshop->instructauthors, 'pluginfile.php', $PAGE->context->id,
-        'mod_udm_workshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
+        'mod_udmworkshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
     print_collapsible_region_start('', 'workshop-viewlet-instructauthors', get_string('instructauthors', 'workshop'));
     echo $output->box(format_text($instructions, $workshop->instructauthorsformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
     print_collapsible_region_end();
@@ -488,10 +488,10 @@ if (!empty($CFG->enableportfolios)) {
             require_once($CFG->libdir.'/portfoliolib.php');
 
             $button = new portfolio_add_button();
-            $button->set_callback_options('mod_udm_workshop_portfolio_caller', array(
+            $button->set_callback_options('mod_udmworkshop_portfolio_caller', array(
                 'id' => $workshop->cm->id,
                 'submissionid' => $submission->id,
-            ), 'mod_udm_workshop');
+            ), 'mod_udmworkshop');
             $button->set_formats(PORTFOLIO_FORMAT_RICHHTML);
             echo html_writer::start_tag('div', array('class' => 'singlebutton'));
             echo $button->to_html(PORTFOLIO_ADD_FULL_FORM, get_string('exportsubmission', 'workshop'));

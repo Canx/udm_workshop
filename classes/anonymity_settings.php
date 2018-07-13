@@ -17,12 +17,12 @@
 /**
  * Anonymity settings.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_udm_workshop;
+namespace mod_udmworkshop;
 defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->dirroot/mod/workshop/locallib.php");

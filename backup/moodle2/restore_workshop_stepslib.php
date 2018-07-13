@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_udm_workshop
+ * @package   mod_udmworkshop
  * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -235,29 +235,29 @@ class restore_workshop_activity_structure_step extends restore_activity_structur
         }
 
         // Add workshop related files, no need to match by itemname (just internally handled context)
-        $this->add_related_files('mod_udm_workshop', 'intro', null);
-        $this->add_related_files('mod_udm_workshop', 'instructauthors', null);
-        $this->add_related_files('mod_udm_workshop', 'instructreviewers', null);
-        $this->add_related_files('mod_udm_workshop', 'conclusion', null);
+        $this->add_related_files('mod_udmworkshop', 'intro', null);
+        $this->add_related_files('mod_udmworkshop', 'instructauthors', null);
+        $this->add_related_files('mod_udmworkshop', 'instructreviewers', null);
+        $this->add_related_files('mod_udmworkshop', 'conclusion', null);
 
         // Add example submission related files, matching by 'workshop_examplesubmission' itemname
-        $this->add_related_files('mod_udm_workshop', 'submission_content', 'workshop_examplesubmission');
-        $this->add_related_files('mod_udm_workshop', 'submission_attachment', 'workshop_examplesubmission');
+        $this->add_related_files('mod_udmworkshop', 'submission_content', 'workshop_examplesubmission');
+        $this->add_related_files('mod_udmworkshop', 'submission_attachment', 'workshop_examplesubmission');
 
         // Add reference assessment related files, matching by 'workshop_referenceassessment' itemname
-        $this->add_related_files('mod_udm_workshop', 'overallfeedback_content', 'workshop_referenceassessment');
-        $this->add_related_files('mod_udm_workshop', 'overallfeedback_attachment', 'workshop_referenceassessment');
+        $this->add_related_files('mod_udmworkshop', 'overallfeedback_content', 'workshop_referenceassessment');
+        $this->add_related_files('mod_udmworkshop', 'overallfeedback_attachment', 'workshop_referenceassessment');
 
         // Add example assessment related files, matching by 'workshop_exampleassessment' itemname
-        $this->add_related_files('mod_udm_workshop', 'overallfeedback_content', 'workshop_exampleassessment');
-        $this->add_related_files('mod_udm_workshop', 'overallfeedback_attachment', 'workshop_exampleassessment');
+        $this->add_related_files('mod_udmworkshop', 'overallfeedback_content', 'workshop_exampleassessment');
+        $this->add_related_files('mod_udmworkshop', 'overallfeedback_attachment', 'workshop_exampleassessment');
 
         // Add submission related files, matching by 'workshop_submission' itemname
-        $this->add_related_files('mod_udm_workshop', 'submission_content', 'workshop_submission');
-        $this->add_related_files('mod_udm_workshop', 'submission_attachment', 'workshop_submission');
+        $this->add_related_files('mod_udmworkshop', 'submission_content', 'workshop_submission');
+        $this->add_related_files('mod_udmworkshop', 'submission_attachment', 'workshop_submission');
 
         // Add assessment related files, matching by 'workshop_assessment' itemname
-        $this->add_related_files('mod_udm_workshop', 'overallfeedback_content', 'workshop_assessment');
-        $this->add_related_files('mod_udm_workshop', 'overallfeedback_attachment', 'workshop_assessment');
+        $this->add_related_files('mod_udmworkshop', 'overallfeedback_content', 'workshop_assessment');
+        $this->add_related_files('mod_udmworkshop', 'overallfeedback_attachment', 'workshop_assessment');
     }
 }

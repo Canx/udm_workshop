@@ -17,7 +17,7 @@
 /**
  * Keeps track of upgrades to the workshop module
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   upgrade
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

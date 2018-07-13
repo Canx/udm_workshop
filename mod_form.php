@@ -21,7 +21,7 @@
  * It uses the standard core Moodle formslib. For more info about them, please
  * visit: http://docs.moodle.org/dev/lib/formslib.php
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,7 +35,7 @@ require_once($CFG->libdir . '/filelib.php');
 /**
  * Module settings form for Workshop instances
  */
-class mod_udm_workshop_mod_form extends moodleform_mod {
+class mod_udmworkshop_mod_form extends moodleform_mod {
 
     /** @var object the course this instance is part of */
     protected $course = null;
@@ -206,7 +206,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
 
         // Assessment settings --------------------------------------------------------
         $mform->addElement('header', 'assessmentsettings', get_string('assessmentsettings', 'workshop'));
-        $anonymitysettings = new \mod_udm_workshop\anonymity_settings($this->context);
+        $anonymitysettings = new \mod_udmworkshop\anonymity_settings($this->context);
         // Display appraisees name.
         $label = get_string('displayappraiseesname', 'workshop');
         $mform->addElement('checkbox', 'displayappraiseesname', $label);
@@ -232,11 +232,11 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
         // Feedback -------------------------------------------------------------------
         $mform->addElement('header', 'feedbacksettings', get_string('feedbacksettings', 'workshop'));
 
-        $mform->addElement('select', 'overallfeedbackmode', get_string('overallfeedbackmode', 'mod_udm_workshop'), array(
-            0 => get_string('overallfeedbackmode_0', 'mod_udm_workshop'),
-            1 => get_string('overallfeedbackmode_1', 'mod_udm_workshop'),
-            2 => get_string('overallfeedbackmode_2', 'mod_udm_workshop')));
-        $mform->addHelpButton('overallfeedbackmode', 'overallfeedbackmode', 'mod_udm_workshop');
+        $mform->addElement('select', 'overallfeedbackmode', get_string('overallfeedbackmode', 'mod_udmworkshop'), array(
+            0 => get_string('overallfeedbackmode_0', 'mod_udmworkshop'),
+            1 => get_string('overallfeedbackmode_1', 'mod_udmworkshop'),
+            2 => get_string('overallfeedbackmode_2', 'mod_udmworkshop')));
+        $mform->addHelpButton('overallfeedbackmode', 'overallfeedbackmode', 'mod_udmworkshop');
         $mform->setDefault('overallfeedbackmode', 1);
 
         $options = array();
@@ -292,11 +292,11 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
         $mform->addElement('date_time_selector', 'submissionend', $label, array('optional' => true));
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('submissionendswitch', 'mod_udm_workshop');
+        $label = get_string('submissionendswitch', 'mod_udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('html',  \html_writer::start_div('phaseswitchassessmentinfo'));
         $mform->addElement('checkbox', 'phaseswitchassessment', $label);
-        $mform->addHelpButton('phaseswitchassessment', 'submissionendswitch', 'mod_udm_workshop');
+        $mform->addHelpButton('phaseswitchassessment', 'submissionendswitch', 'mod_udmworkshop');
         $mform->addElement('html', \html_writer::end_div());
 
         $mform->addElement('html', \html_writer::end_div());
@@ -308,7 +308,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
         $mform->addElement('date_time_selector', 'assessmentend', $label, array('optional' => true));
 
         $coursecontext = context_course::instance($this->course->id);
-        plagiarism_get_form_elements_module($mform, $coursecontext, 'mod_udm_workshop');
+        plagiarism_get_form_elements_module($mform, $coursecontext, 'mod_udmworkshop');
 
         // Common module settings, Restrict availability, Activity completion etc. ----
         $features = array('groups' => true, 'groupings' => true,
@@ -331,12 +331,12 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
         }
         $fieldsets = implode(',', $fieldsetarray);
         $inputadvancedsettingselector = "input[name='advancedsettingdisplayed']";
-        $PAGE->requires->js_call_amd('mod_udm_workshop/workshopform', 'init', array($inputadvancedsettingselector,
+        $PAGE->requires->js_call_amd('mod_udmworkshop/workshopform', 'init', array($inputadvancedsettingselector,
             $fieldsets, \workshop::SELF_ASSESSMENT, $scrollto));
 
         $inputallowsubmissionselector = "input[name='allowsubmission']";
         $submissionendselector = "input[name='submissionend[enabled]']";
-        $PAGE->requires->js_call_amd('mod_udm_workshop/wizardsubmissionsettings', 'init',
+        $PAGE->requires->js_call_amd('mod_udmworkshop/wizardsubmissionsettings', 'init',
                 array($inputallowsubmissionselector, $submissionendselector));
     }
 
@@ -354,7 +354,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
             // editing an existing workshop - let us prepare the added editor elements (intro done automatically)
             $draftitemid = file_get_submitted_draft_itemid('instructauthors');
             $data['instructauthorseditor']['text'] = file_prepare_draft_area($draftitemid, $this->context->id,
-                                'mod_udm_workshop', 'instructauthors', 0,
+                                'mod_udmworkshop', 'instructauthors', 0,
                                 workshop::instruction_editors_options($this->context),
                                 $data['instructauthors']);
             $data['instructauthorseditor']['format'] = $data['instructauthorsformat'];
@@ -362,7 +362,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
 
             $draftitemid = file_get_submitted_draft_itemid('instructreviewers');
             $data['instructreviewerseditor']['text'] = file_prepare_draft_area($draftitemid, $this->context->id,
-                                'mod_udm_workshop', 'instructreviewers', 0,
+                                'mod_udmworkshop', 'instructreviewers', 0,
                                 workshop::instruction_editors_options($this->context),
                                 $data['instructreviewers']);
             $data['instructreviewerseditor']['format'] = $data['instructreviewersformat'];
@@ -370,7 +370,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
 
             $draftitemid = file_get_submitted_draft_itemid('conclusion');
             $data['conclusioneditor']['text'] = file_prepare_draft_area($draftitemid, $this->context->id,
-                                'mod_udm_workshop', 'conclusion', 0,
+                                'mod_udmworkshop', 'conclusion', 0,
                                 workshop::instruction_editors_options($this->context),
                                 $data['conclusion']);
             $data['conclusioneditor']['format'] = $data['conclusionformat'];
@@ -378,15 +378,15 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
         } else {
             // adding a new workshop instance
             $draftitemid = file_get_submitted_draft_itemid('instructauthors');
-            file_prepare_draft_area($draftitemid, null, 'mod_udm_workshop', 'instructauthors', 0);    // no context yet, itemid not used
+            file_prepare_draft_area($draftitemid, null, 'mod_udmworkshop', 'instructauthors', 0);    // no context yet, itemid not used
             $data['instructauthorseditor'] = array('text' => '', 'format' => editors_get_preferred_format(), 'itemid' => $draftitemid);
 
             $draftitemid = file_get_submitted_draft_itemid('instructreviewers');
-            file_prepare_draft_area($draftitemid, null, 'mod_udm_workshop', 'instructreviewers', 0);    // no context yet, itemid not used
+            file_prepare_draft_area($draftitemid, null, 'mod_udmworkshop', 'instructreviewers', 0);    // no context yet, itemid not used
             $data['instructreviewerseditor'] = array('text' => '', 'format' => editors_get_preferred_format(), 'itemid' => $draftitemid);
 
             $draftitemid = file_get_submitted_draft_itemid('conclusion');
-            file_prepare_draft_area($draftitemid, null, 'mod_udm_workshop', 'conclusion', 0);    // no context yet, itemid not used
+            file_prepare_draft_area($draftitemid, null, 'mod_udmworkshop', 'conclusion', 0);    // no context yet, itemid not used
             $data['conclusioneditor'] = array('text' => '', 'format' => editors_get_preferred_format(), 'itemid' => $draftitemid);
             $data['allowsubmission'] = 1;
         }
@@ -456,7 +456,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
             if (isset($data[$fieldname])) {
                 $invalidextensions = workshop::invalid_file_extensions($data[$fieldname], array_keys(core_filetypes::get_types()));
                 if ($invalidextensions) {
-                    $errors[$fieldname] = get_string('err_unknownfileextension', 'mod_udm_workshop',
+                    $errors[$fieldname] = get_string('err_unknownfileextension', 'mod_udmworkshop',
                         workshop::clean_file_extensions($invalidextensions));
                 }
             }
@@ -464,10 +464,10 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
 
         // check the phases borders are valid
         if ($data['submissionstart'] > 0 and $data['submissionend'] > 0 and $data['submissionstart'] >= $data['submissionend']) {
-            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udm_workshop');
+            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udmworkshop');
         }
         if ($data['assessmentstart'] > 0 and $data['assessmentend'] > 0 and $data['assessmentstart'] >= $data['assessmentend']) {
-            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udm_workshop');
+            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udmworkshop');
         }
 
         // check the phases do not overlap
@@ -480,7 +480,7 @@ class mod_udm_workshop_mod_form extends moodleform_mod {
             if ($phasesubmissionend > 0 and $phaseassessmentstart > 0 and $phaseassessmentstart < $phasesubmissionend) {
                 foreach (array('submissionend', 'submissionstart', 'assessmentstart', 'assessmentend') as $f) {
                     if ($data[$f] > 0) {
-                        $errors[$f] = get_string('phasesoverlap', 'mod_udm_workshop');
+                        $errors[$f] = get_string('phasesoverlap', 'mod_udmworkshop');
                         break;
                     }
                 }

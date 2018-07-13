@@ -15,23 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * mod_udm_workshop generator tests
+ * mod_udmworkshop generator tests
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   test
  * @copyright  2013 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * Genarator tests class for mod_udm_workshop.
+ * Genarator tests class for mod_udmworkshop.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   test
  * @copyright  2013 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_udm_workshop_generator_testcase extends advanced_testcase {
+class mod_udmworkshop_generator_testcase extends advanced_testcase {
 
     public function test_create_instance() {
         global $DB;
@@ -62,7 +62,7 @@ class mod_udm_workshop_generator_testcase extends advanced_testcase {
         $workshop = $this->getDataGenerator()->create_module('workshop', array('course' => $course));
         $user = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->enrol_user($user->id, $course->id);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udmworkshop');
 
         $id = $workshopgenerator->create_submission($workshop->id, $user->id, array(
             'title' => 'My custom title',
@@ -86,7 +86,7 @@ class mod_udm_workshop_generator_testcase extends advanced_testcase {
         $user2 = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->enrol_user($user1->id, $course->id);
         $this->getDataGenerator()->enrol_user($user2->id, $course->id);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udmworkshop');
 
         $submissionid1 = $workshopgenerator->create_submission($workshop->id, $user1->id);
         $submissionid2 = $workshopgenerator->create_submission($workshop->id, $user2->id);

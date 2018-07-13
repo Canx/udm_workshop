@@ -1,4 +1,4 @@
-@mod @mod_udm_workshop @javascript
+@mod @mod_udmworkshop @javascript
 Feature: Workshop assessment without submission
   In order to use workshop activity
   As a student and as a teacher

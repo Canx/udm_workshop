@@ -16,7 +16,7 @@
 /**
  * Wizard form.
  *
- * @module      mod_udm_workshop/wizardform
+ * @module      mod_udmworkshop/wizardform
  * @category    output
  * @author      Issam Taboubi <issam.taboubi@umontreal.ca>
  * @author      Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
@@ -69,17 +69,17 @@ define(['jquery',
             localthis = this;
         var assessmenttype = $(e.target).val();
         requests = ajax.call([{
-            methodname: 'mod_udm_workshop_data_for_wizard_navigation_page',
+            methodname: 'mod_udmworkshop_data_for_wizard_navigation_page',
             args: {id: parseInt(localthis.cmdid), currentstep: localthis.currentstep, assessmenttype: parseInt(assessmenttype)}
         }]);
         requests[0].done(function(context) {
-            templates.render('mod_udm_workshop/wizard_navigation_page', context).done(function(html) {
+            templates.render('mod_udmworkshop/wizard_navigation_page', context).done(function(html) {
                 $('[data-region="wizardnavigationpage"]').replaceWith(html);
             }).fail(notification.exception);
         }).fail(notification.exception);
     };
 
-    return /** @alias module:mod_udm_workshop/wizardform */ {
+    return /** @alias module:mod_udmworkshop/wizardform */ {
         init: function(cmid, currentstep) {
             // Create instance.
             new Wizardform(cmid, currentstep);

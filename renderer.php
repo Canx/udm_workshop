@@ -18,7 +18,7 @@
 /**
  * Workshop module renderering methods are defined here
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ use core\output\notification;
  * @copyright 2009 David Mudrak <david.mudrak@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_udm_workshop_renderer extends plugin_renderer_base {
+class mod_udmworkshop_renderer extends plugin_renderer_base {
 
     ////////////////////////////////////////////////////////////////////////////
     // External API - methods to render workshop renderable components
@@ -140,7 +140,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
 
         if ($submission->realsubmission) {
             $content = file_rewrite_pluginfile_urls($submission->content, 'pluginfile.php', $this->page->context->id,
-                                                    'mod_udm_workshop', 'submission_content', $submission->id);
+                                                    'mod_udmworkshop', 'submission_content', $submission->id);
             $content = format_text($content, $submission->contentformat, array('overflowdiv'=>true));
             if (!empty($content)) {
                 if (!empty($CFG->enableplagiarism)) {
@@ -239,7 +239,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
         $o .= $this->output->container_end(); // end of header
 
         $content = file_rewrite_pluginfile_urls($example->content, 'pluginfile.php', $this->page->context->id,
-                                                        'mod_udm_workshop', 'submission_content', $example->id);
+                                                        'mod_udmworkshop', 'submission_content', $example->id);
         $content = format_text($content, $example->contentformat, array('overflowdiv'=>true));
         $o .= $this->output->container($content, 'content');
 
@@ -303,12 +303,12 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
             $addclass = ' nbphases' . $numberofphases;
             $o .= html_writer::start_tag('div', array(
                 'class' => 'userplan' . $addclass,
-                'aria-labelledby' => 'mod_udm_workshop-userplanheading',
-                'aria-describedby' => 'mod_udm_workshop-userplanaccessibilitytitle',
+                'aria-labelledby' => 'mod_udmworkshop-userplanheading',
+                'aria-describedby' => 'mod_udmworkshop-userplanaccessibilitytitle',
             ));
             $o .= html_writer::span(get_string('userplanaccessibilitytitle', 'workshop', $numberofphases),
-                'accesshide', array('id' => 'mod_udm_workshop-userplanaccessibilitytitle'));
-            $o .= html_writer::link('#mod_udm_workshop-userplancurrenttasks', get_string('userplanaccessibilityskip', 'workshop'),
+                'accesshide', array('id' => 'mod_udmworkshop-userplanaccessibilitytitle'));
+            $o .= html_writer::link('#mod_udmworkshop-userplancurrenttasks', get_string('userplanaccessibilityskip', 'workshop'),
                 array('class' => 'accesshide'));
             foreach ($plan->phases as $phasecode => $phase) {
                 $classes = 'phase' . $phasecode;
@@ -336,7 +336,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
                 if (!empty($actions)) {
                     $actions = $this->output->container($actions, 'actions');
                 }
-                $title = html_writer::span($phase->title, '', array('id' => 'mod_udm_workshop-userplancurrenttasks'));
+                $title = html_writer::span($phase->title, '', array('id' => 'mod_udmworkshop-userplancurrenttasks'));
                 if ($phase->active) {
                     $title .= ' ' . html_writer::span(get_string('userplancurrentphase', 'workshop'), 'accesshide');
                 }
@@ -550,7 +550,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
         $html = html_writer::start_tag('div', array('class' => 'grading-report-view-switcher clearfix'));
         $views = array('receivedgrades', 'givengrades');
 
-        $pref = 'mod_udm_workshop_gradingreportview';
+        $pref = 'mod_udmworkshop_gradingreportview';
 
         $sameuser = (isset($USER->realuser)) ? false : true;
         if ($sameuser) {
@@ -633,7 +633,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
             $givengrades = 'givengrades';
 
             $gradeviewswitcher = $this->helper_workshop_grading_report_view_switcher();
-            $PAGE->requires->js_call_amd('mod_udm_workshop/gradingreport', 'init');
+            $PAGE->requires->js_call_amd('mod_udmworkshop/gradingreport', 'init');
 
             $table->head[] = $this->helper_sortable_heading(get_string('receivedgrades', 'workshop'));
             $table->colclasses[] = $receivedgrades;
@@ -1003,8 +1003,8 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
                 $options[$option] = $option;
             }
         }
-        $select = new single_select($this->page->url, 'perpage', $options, '', array('' => get_string('showingperpagechange', 'mod_udm_workshop')));
-        $select->label = get_string('showingperpage', 'mod_udm_workshop', $current);
+        $select = new single_select($this->page->url, 'perpage', $options, '', array('' => get_string('showingperpagechange', 'mod_udmworkshop')));
+        $select->label = get_string('showingperpage', 'mod_udmworkshop', $current);
         $select->method = 'post';
 
         return $this->output->container($this->output->render($select), 'perpagewidget');
@@ -1025,8 +1025,8 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
             if ($grades->submissiongrade->hidden) {
                 $cssclass .= ' hiddengrade';
             }
-            $gradetext = $grades->realsubmission ? get_string('submissiongrade', 'mod_udm_workshop') :
-                get_string('assessmentgrade', 'mod_udm_workshop');
+            $gradetext = $grades->realsubmission ? get_string('submissiongrade', 'mod_udmworkshop') :
+                get_string('assessmentgrade', 'mod_udmworkshop');
             $out .= html_writer::tag(
                 'div',
                 html_writer::tag('div', $gradetext, array('class' => 'gradetype')) .
@@ -1042,7 +1042,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
             }
             $out .= html_writer::tag(
                 'div',
-                html_writer::tag('div', get_string('gradinggrade', 'mod_udm_workshop'), array('class' => 'gradetype')) .
+                html_writer::tag('div', get_string('gradinggrade', 'mod_udmworkshop'), array('class' => 'gradetype')) .
                 html_writer::tag('div', $grades->assessmentgrade->str_long_grade, array('class' => 'gradevalue')),
                 array('class' => $cssclass)
             );
@@ -1071,9 +1071,9 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
      * @param manage_competency_frameworks_page $page
      * @return string html for the page
      */
-    public function render_workshop_wizard_navigation_page(mod_udm_workshop\output\wizard_navigation_page $page) {
+    public function render_workshop_wizard_navigation_page(mod_udmworkshop\output\wizard_navigation_page $page) {
         $data = $page->export_for_template($this);
-        return parent::render_from_template('mod_udm_workshop/wizard_navigation_page', $data);
+        return parent::render_from_template('mod_udmworkshop/wizard_navigation_page', $data);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -1096,7 +1096,7 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
 
         $fs     = get_file_storage();
         $ctx    = $this->page->context;
-        $files  = $fs->get_area_files($ctx->id, 'mod_udm_workshop', 'submission_attachment', $submissionid);
+        $files  = $fs->get_area_files($ctx->id, 'mod_udmworkshop', 'submission_attachment', $submissionid);
 
         $outputimgs     = '';   // images to be displayed inline
         $outputfiles    = '';   // list of attachment files
@@ -1108,9 +1108,9 @@ class mod_udm_workshop_renderer extends plugin_renderer_base {
 
             $filepath   = $file->get_filepath();
             $filename   = $file->get_filename();
-            $fileurl    = moodle_url::make_pluginfile_url($ctx->id, 'mod_udm_workshop', 'submission_attachment',
+            $fileurl    = moodle_url::make_pluginfile_url($ctx->id, 'mod_udmworkshop', 'submission_attachment',
                             $submissionid, $filepath, $filename, true);
-            $embedurl   = moodle_url::make_pluginfile_url($ctx->id, 'mod_udm_workshop', 'submission_attachment',
+            $embedurl   = moodle_url::make_pluginfile_url($ctx->id, 'mod_udmworkshop', 'submission_attachment',
                             $submissionid, $filepath, $filename, false);
             $embedurl   = new moodle_url($embedurl, array('preview' => 'bigthumb'));
             $type       = $file->get_mimetype();

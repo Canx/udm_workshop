@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * mod_udm_workshop data generator.
+ * mod_udmworkshop data generator.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   test
  * @copyright  2013 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,14 +26,14 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * mod_udm_workshop data generator class.
+ * mod_udmworkshop data generator class.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   test
  * @copyright  2013 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_udm_workshop_generator extends testing_module_generator {
+class mod_udmworkshop_generator extends testing_module_generator {
 
     public function create_instance($record = null, array $options = null) {
         global $CFG;

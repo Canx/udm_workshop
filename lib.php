@@ -21,7 +21,7 @@
  * All the functions neeeded by Moodle core, gradebook, file subsystem etc
  * are placed here.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -146,19 +146,19 @@ function workshop_add_instance(stdclass $workshop) {
 
     // process the custom wysiwyg editors
     if ($draftitemid = $workshop->instructauthorseditor['itemid']) {
-        $workshop->instructauthors = file_save_draft_area_files($draftitemid, $context->id, 'mod_udm_workshop', 'instructauthors',
+        $workshop->instructauthors = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructauthors',
                 0, workshop::instruction_editors_options($context), $workshop->instructauthorseditor['text']);
         $workshop->instructauthorsformat = $workshop->instructauthorseditor['format'];
     }
 
     if ($draftitemid = $workshop->instructreviewerseditor['itemid']) {
-        $workshop->instructreviewers = file_save_draft_area_files($draftitemid, $context->id, 'mod_udm_workshop', 'instructreviewers',
+        $workshop->instructreviewers = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructreviewers',
                 0, workshop::instruction_editors_options($context), $workshop->instructreviewerseditor['text']);
         $workshop->instructreviewersformat = $workshop->instructreviewerseditor['format'];
     }
 
     if ($draftitemid = $workshop->conclusioneditor['itemid']) {
-        $workshop->conclusion = file_save_draft_area_files($draftitemid, $context->id, 'mod_udm_workshop', 'conclusion',
+        $workshop->conclusion = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'conclusion',
                 0, workshop::instruction_editors_options($context), $workshop->conclusioneditor['text']);
         $workshop->conclusionformat = $workshop->conclusioneditor['format'];
     }
@@ -177,7 +177,7 @@ function workshop_add_instance(stdclass $workshop) {
     }
 
     // Anonymity settings.
-    $anonymitysettings = new \mod_udm_workshop\anonymity_settings($context);
+    $anonymitysettings = new \mod_udmworkshop\anonymity_settings($context);
     $anonymitysettings->save_changes($workshop);
 
     return $workshop->id;
@@ -266,19 +266,19 @@ function workshop_update_instance(stdclass $workshop) {
 
     // process the custom wysiwyg editors
     if ($draftitemid = $workshop->instructauthorseditor['itemid']) {
-        $workshop->instructauthors = file_save_draft_area_files($draftitemid, $context->id, 'mod_udm_workshop', 'instructauthors',
+        $workshop->instructauthors = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructauthors',
                 0, workshop::instruction_editors_options($context), $workshop->instructauthorseditor['text']);
         $workshop->instructauthorsformat = $workshop->instructauthorseditor['format'];
     }
 
     if ($draftitemid = $workshop->instructreviewerseditor['itemid']) {
-        $workshop->instructreviewers = file_save_draft_area_files($draftitemid, $context->id, 'mod_udm_workshop', 'instructreviewers',
+        $workshop->instructreviewers = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructreviewers',
                 0, workshop::instruction_editors_options($context), $workshop->instructreviewerseditor['text']);
         $workshop->instructreviewersformat = $workshop->instructreviewerseditor['format'];
     }
 
     if ($draftitemid = $workshop->conclusioneditor['itemid']) {
-        $workshop->conclusion = file_save_draft_area_files($draftitemid, $context->id, 'mod_udm_workshop', 'conclusion',
+        $workshop->conclusion = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'conclusion',
                 0, workshop::instruction_editors_options($context), $workshop->conclusioneditor['text']);
         $workshop->conclusionformat = $workshop->conclusioneditor['format'];
     }
@@ -296,7 +296,7 @@ function workshop_update_instance(stdclass $workshop) {
     \core_completion\api::update_completion_date_event($workshop->coursemodule, 'workshop', $workshop->id, $completionexpected);
 
     // Anonymity settings.
-    $anonymity_settings = new \mod_udm_workshop\anonymity_settings($context);
+    $anonymity_settings = new \mod_udmworkshop\anonymity_settings($context);
     $anonymity_settings->save_changes($workshop);
 
     return true;
@@ -1147,7 +1147,7 @@ function workshop_cron() {
                     'workshopphase' => $workshop->phase
                 )
             );
-            $event = \mod_udm_workshop\event\phase_switched::create($params);
+            $event = \mod_udmworkshop\event\phase_switched::create($params);
             $event->trigger();
 
             // disable the automatic switching now so that it is not executed again by accident
@@ -1381,7 +1381,7 @@ function workshop_grade_item_category_update($workshop) {
  * The file area workshop_intro for the activity introduction field is added automatically
  * by {@link file_browser::get_file_info_context_module()}
  *
- * @package  mod_udm_workshop
+ * @package  mod_udmworkshop
  * @category files
  *
  * @param stdClass $course
@@ -1411,7 +1411,7 @@ function workshop_get_file_areas($course, $cm, $context) {
  * Besides that, areas instructauthors, instructreviewers and conclusion contain the media
  * embedded using the mod_form.php.
  *
- * @package  mod_udm_workshop
+ * @package  mod_udmworkshop
  * @category files
  *
  * @param stdClass $course the course object
@@ -1435,7 +1435,7 @@ function workshop_pluginfile($course, $cm, $context, $filearea, array $args, $fo
     if ($filearea === 'instructauthors' or $filearea === 'instructreviewers' or $filearea === 'conclusion') {
         // The $args are supposed to contain just the path, not the item id.
         $relativepath = implode('/', $args);
-        $fullpath = "/$context->id/mod_udm_workshop/$filearea/0/$relativepath";
+        $fullpath = "/$context->id/mod_udmworkshop/$filearea/0/$relativepath";
 
         $fs = get_file_storage();
         if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
@@ -1486,7 +1486,7 @@ function workshop_pluginfile($course, $cm, $context, $filearea, array $args, $fo
 
         $fs = get_file_storage();
         $relativepath = implode('/', $args);
-        $fullpath = "/$context->id/mod_udm_workshop/$filearea/$itemid/$relativepath";
+        $fullpath = "/$context->id/mod_udmworkshop/$filearea/$itemid/$relativepath";
         if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
             return false;
         }
@@ -1535,7 +1535,7 @@ function workshop_pluginfile($course, $cm, $context, $filearea, array $args, $fo
 
         $fs = get_file_storage();
         $relativepath = implode('/', $args);
-        $fullpath = "/$context->id/mod_udm_workshop/$filearea/$itemid/$relativepath";
+        $fullpath = "/$context->id/mod_udmworkshop/$filearea/$itemid/$relativepath";
         if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
             return false;
         }
@@ -1550,7 +1550,7 @@ function workshop_pluginfile($course, $cm, $context, $filearea, array $args, $fo
 /**
  * File browsing support for workshop file areas
  *
- * @package  mod_udm_workshop
+ * @package  mod_udmworkshop
  * @category files
  *
  * @param file_browser $browser
@@ -1609,9 +1609,9 @@ function workshop_get_file_info($browser, $areas, $course, $cm, $context, $filea
         $filepath = is_null($filepath) ? '/' : $filepath;
         $filename = is_null($filename) ? '.' : $filename;
 
-        if (!$storedfile = $fs->get_file($context->id, 'mod_udm_workshop', $filearea, $itemid, $filepath, $filename)) {
+        if (!$storedfile = $fs->get_file($context->id, 'mod_udmworkshop', $filearea, $itemid, $filepath, $filename)) {
             if ($filepath === '/' and $filename === '.') {
-                $storedfile = new virtual_root_file($context->id, 'mod_udm_workshop', $filearea, $itemid);
+                $storedfile = new virtual_root_file($context->id, 'mod_udmworkshop', $filearea, $itemid);
             } else {
                 // not found
                 return null;
@@ -1692,9 +1692,9 @@ function workshop_get_file_info($browser, $areas, $course, $cm, $context, $filea
         $filepath = is_null($filepath) ? '/' : $filepath;
         $filename = is_null($filename) ? '.' : $filename;
 
-        if (!$storedfile = $fs->get_file($context->id, 'mod_udm_workshop', $filearea, $itemid, $filepath, $filename)) {
+        if (!$storedfile = $fs->get_file($context->id, 'mod_udmworkshop', $filearea, $itemid, $filepath, $filename)) {
             if ($filepath === '/' and $filename === '.') {
-                $storedfile = new virtual_root_file($context->id, 'mod_udm_workshop', $filearea, $itemid);
+                $storedfile = new virtual_root_file($context->id, 'mod_udmworkshop', $filearea, $itemid);
             } else {
                 // Not found
                 return null;
@@ -1719,9 +1719,9 @@ function workshop_get_file_info($browser, $areas, $course, $cm, $context, $filea
         $filename = is_null($filename) ? '.' : $filename;
 
         $urlbase = $CFG->wwwroot.'/pluginfile.php';
-        if (!$storedfile = $fs->get_file($context->id, 'mod_udm_workshop', $filearea, 0, $filepath, $filename)) {
+        if (!$storedfile = $fs->get_file($context->id, 'mod_udmworkshop', $filearea, 0, $filepath, $filename)) {
             if ($filepath === '/' and $filename === '.') {
-                $storedfile = new virtual_root_file($context->id, 'mod_udm_workshop', $filearea, 0);
+                $storedfile = new virtual_root_file($context->id, 'mod_udmworkshop', $filearea, 0);
             } else {
                 // not found
                 return null;
@@ -1819,7 +1819,7 @@ function workshop_calendar_update(stdClass $workshop, $cmid) {
 
     if ($workshop->submissionstart) {
         $event = clone($base);
-        $event->name = get_string('submissionstartevent', 'mod_udm_workshop', $workshop->name);
+        $event->name = get_string('submissionstartevent', 'mod_udmworkshop', $workshop->name);
         $event->eventtype = WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN;
         $event->type = empty($workshop->submissionend) ? CALENDAR_EVENT_TYPE_ACTION : CALENDAR_EVENT_TYPE_STANDARD;
         $event->timestart = $workshop->submissionstart;
@@ -1837,7 +1837,7 @@ function workshop_calendar_update(stdClass $workshop, $cmid) {
 
     if ($workshop->submissionend) {
         $event = clone($base);
-        $event->name = get_string('submissionendevent', 'mod_udm_workshop', $workshop->name);
+        $event->name = get_string('submissionendevent', 'mod_udmworkshop', $workshop->name);
         $event->eventtype = WORKSHOP_EVENT_TYPE_SUBMISSION_CLOSE;
         $event->type      = CALENDAR_EVENT_TYPE_ACTION;
         $event->timestart = $workshop->submissionend;
@@ -1855,7 +1855,7 @@ function workshop_calendar_update(stdClass $workshop, $cmid) {
 
     if ($workshop->assessmentstart) {
         $event = clone($base);
-        $event->name = get_string('assessmentstartevent', 'mod_udm_workshop', $workshop->name);
+        $event->name = get_string('assessmentstartevent', 'mod_udmworkshop', $workshop->name);
         $event->eventtype = WORKSHOP_EVENT_TYPE_ASSESSMENT_OPEN;
         $event->type      = empty($workshop->assessmentend) ? CALENDAR_EVENT_TYPE_ACTION : CALENDAR_EVENT_TYPE_STANDARD;
         $event->timestart = $workshop->assessmentstart;
@@ -1873,7 +1873,7 @@ function workshop_calendar_update(stdClass $workshop, $cmid) {
 
     if ($workshop->assessmentend) {
         $event = clone($base);
-        $event->name = get_string('assessmentendevent', 'mod_udm_workshop', $workshop->name);
+        $event->name = get_string('assessmentendevent', 'mod_udmworkshop', $workshop->name);
         $event->eventtype = WORKSHOP_EVENT_TYPE_ASSESSMENT_CLOSE;
         $event->type      = CALENDAR_EVENT_TYPE_ACTION;
         $event->timestart = $workshop->assessmentend;
@@ -1906,7 +1906,7 @@ function workshop_calendar_update(stdClass $workshop, $cmid) {
  * @param \core_calendar\action_factory $factory
  * @return \core_calendar\local\event\entities\action_interface|null
  */
-function mod_udm_workshop_core_calendar_provide_event_action(calendar_event $event,
+function mod_udmworkshop_core_calendar_provide_event_action(calendar_event $event,
                                                          \core_calendar\action_factory $factory) {
 
     $cm = get_fast_modinfo($event->courseid)->instances['workshop'][$event->instance];
@@ -1930,17 +1930,17 @@ function mod_udm_workshop_core_calendar_provide_event_action(calendar_event $eve
  */
 function workshop_reset_course_form_definition($mform) {
 
-    $mform->addElement('header', 'workshopheader', get_string('modulenameplural', 'mod_udm_workshop'));
+    $mform->addElement('header', 'workshopheader', get_string('modulenameplural', 'mod_udmworkshop'));
 
-    $mform->addElement('advcheckbox', 'reset_workshop_submissions', get_string('resetsubmissions', 'mod_udm_workshop'));
-    $mform->addHelpButton('reset_workshop_submissions', 'resetsubmissions', 'mod_udm_workshop');
+    $mform->addElement('advcheckbox', 'reset_workshop_submissions', get_string('resetsubmissions', 'mod_udmworkshop'));
+    $mform->addHelpButton('reset_workshop_submissions', 'resetsubmissions', 'mod_udmworkshop');
 
-    $mform->addElement('advcheckbox', 'reset_workshop_assessments', get_string('resetassessments', 'mod_udm_workshop'));
-    $mform->addHelpButton('reset_workshop_assessments', 'resetassessments', 'mod_udm_workshop');
+    $mform->addElement('advcheckbox', 'reset_workshop_assessments', get_string('resetassessments', 'mod_udmworkshop'));
+    $mform->addHelpButton('reset_workshop_assessments', 'resetassessments', 'mod_udmworkshop');
     $mform->disabledIf('reset_workshop_assessments', 'reset_workshop_submissions', 'checked');
 
-    $mform->addElement('advcheckbox', 'reset_workshop_phase', get_string('resetphase', 'mod_udm_workshop'));
-    $mform->addHelpButton('reset_workshop_phase', 'resetphase', 'mod_udm_workshop');
+    $mform->addElement('advcheckbox', 'reset_workshop_phase', get_string('resetphase', 'mod_udmworkshop'));
+    $mform->addHelpButton('reset_workshop_phase', 'resetphase', 'mod_udmworkshop');
 }
 
 /**
@@ -1999,12 +1999,12 @@ function workshop_reset_userdata(stdClass $data) {
 /**
  * Get icon mapping for font-awesome.
  */
-function mod_udm_workshop_get_fontawesome_icon_map() {
+function mod_udmworkshop_get_fontawesome_icon_map() {
     return [
-        'mod_udm_workshop:userplan/task-info' => 'fa-info text-info',
-        'mod_udm_workshop:userplan/task-todo' => 'fa-square-o',
-        'mod_udm_workshop:userplan/task-done' => 'fa-check text-success',
-        'mod_udm_workshop:userplan/task-fail' => 'fa-remove text-danger',
+        'mod_udmworkshop:userplan/task-info' => 'fa-info text-info',
+        'mod_udmworkshop:userplan/task-todo' => 'fa-square-o',
+        'mod_udmworkshop:userplan/task-done' => 'fa-check text-success',
+        'mod_udmworkshop:userplan/task-fail' => 'fa-remove text-danger',
     ];
 }
 

@@ -18,7 +18,7 @@
 /**
  * Assess an example submission
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -74,10 +74,10 @@ $currentdata = (object)array(
 );
 if ($assessmenteditable and $workshop->overallfeedbackmode) {
     $currentdata = file_prepare_standard_editor($currentdata, 'feedbackauthor', $workshop->overall_feedback_content_options(),
-        $workshop->context, 'mod_udm_workshop', 'overallfeedback_content', $assessment->id);
+        $workshop->context, 'mod_udmworkshop', 'overallfeedback_content', $assessment->id);
     if ($workshop->overallfeedbackfiles) {
         $currentdata = file_prepare_standard_filemanager($currentdata, 'feedbackauthorattachment',
-            $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_udm_workshop', 'overallfeedback_attachment',
+            $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_udmworkshop', 'overallfeedback_attachment',
             $assessment->id);
     }
 }
@@ -95,13 +95,13 @@ if ($mform->is_cancelled()) {
     if (isset($data->feedbackauthor_editor)) {
         $coredata->feedbackauthor_editor = $data->feedbackauthor_editor;
         $coredata = file_postupdate_standard_editor($coredata, 'feedbackauthor', $workshop->overall_feedback_content_options(),
-            $workshop->context, 'mod_udm_workshop', 'overallfeedback_content', $assessment->id);
+            $workshop->context, 'mod_udmworkshop', 'overallfeedback_content', $assessment->id);
         unset($coredata->feedbackauthor_editor);
     }
     if (isset($data->feedbackauthorattachment_filemanager)) {
         $coredata->feedbackauthorattachment_filemanager = $data->feedbackauthorattachment_filemanager;
         $coredata = file_postupdate_standard_filemanager($coredata, 'feedbackauthorattachment',
-            $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_udm_workshop', 'overallfeedback_attachment',
+            $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_udmworkshop', 'overallfeedback_attachment',
             $assessment->id);
         unset($coredata->feedbackauthorattachment_filemanager);
         if (empty($coredata->feedbackauthorattachment)) {
@@ -131,7 +131,7 @@ if ($mform->is_cancelled()) {
 }
 
 // output starts here
-$output = $PAGE->get_renderer('mod_udm_workshop');      // workshop renderer
+$output = $PAGE->get_renderer('mod_udmworkshop');      // workshop renderer
 echo $output->header();
 echo $output->heading(format_string($workshop->name));
 echo $output->heading(get_string('assessedexample', 'workshop'), 3);
@@ -143,7 +143,7 @@ echo $output->render($workshop->prepare_example_submission(($example)));
 // for evaluating the assessment
 if (trim($workshop->instructreviewers)) {
     $instructions = file_rewrite_pluginfile_urls($workshop->instructreviewers, 'pluginfile.php', $PAGE->context->id,
-        'mod_udm_workshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
+        'mod_udmworkshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
     print_collapsible_region_start('', 'workshop-viewlet-instructreviewers', get_string('instructreviewers', 'workshop'));
     echo $output->box(format_text($instructions, $workshop->instructreviewersformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
     print_collapsible_region_end();

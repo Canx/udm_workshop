@@ -17,11 +17,11 @@
 /**
  * Subplugin info class.
  *
- * @package   mod_udm_workshop
+ * @package   mod_udmworkshop
  * @copyright 2013 Petr Skoda {@link http://skodak.org}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_udm_workshop\plugininfo;
+namespace mod_udmworkshop\plugininfo;
 
 use core\plugininfo\base;
 

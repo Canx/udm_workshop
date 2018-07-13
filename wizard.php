@@ -17,7 +17,7 @@
 /**
  * Edit grading form in for a particular instance of workshop
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -77,12 +77,12 @@ if ($mform->is_cancelled()) {
 }
 
 // Output for the page.
-$output = $PAGE->get_renderer('mod_udm_workshop');
+$output = $PAGE->get_renderer('mod_udmworkshop');
 
 $header = $output->header();
 $heading = $output->heading_with_help($wizardtitle, 'setupwizard', 'workshop');
 
-$page = new mod_udm_workshop\output\wizard_navigation_page($workshop);
+$page = new mod_udmworkshop\output\wizard_navigation_page($workshop);
 
 $navigation = $output->render_workshop_wizard_navigation_page($page);
 

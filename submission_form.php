@@ -18,7 +18,7 @@
 /**
  * Submit an assignment or edit the already submitted work
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -88,14 +88,14 @@ class workshop_submission_form extends moodleform {
                      WHERE cm.id = ? AND s.authorid = ? AND s.example = 0";
 
             if ($DB->count_records_sql($sql, array($data['cmid'], $USER->id))) {
-                $errors['title'] = get_string('err_multiplesubmissions', 'mod_udm_workshop');
+                $errors['title'] = get_string('err_multiplesubmissions', 'mod_udmworkshop');
             }
         }
 
         $getfiles = file_get_drafarea_files($data['attachment_filemanager']);
         if (empty($getfiles->list) and html_is_blank($data['content_editor']['text'])) {
-            $errors['content_editor'] = get_string('submissionrequiredcontent', 'mod_udm_workshop');
-            $errors['attachment_filemanager'] = get_string('submissionrequiredfile', 'mod_udm_workshop');
+            $errors['content_editor'] = get_string('submissionrequiredcontent', 'mod_udmworkshop');
+            $errors['attachment_filemanager'] = get_string('submissionrequiredfile', 'mod_udmworkshop');
         }
 
         if (isset($data['attachment_filemanager']) and isset($this->_customdata['workshop']->submissionfiletypes)) {
@@ -114,7 +114,7 @@ class workshop_submission_form extends moodleform {
                             'whitelist' => workshop::clean_file_extensions($whitelist),
                             'wrongfiles' => implode(', ', $wrongfiles),
                         );
-                        $errors['attachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udm_workshop', $a);
+                        $errors['attachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmworkshop', $a);
                     }
                 }
             }

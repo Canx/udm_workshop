@@ -17,14 +17,14 @@
 /**
  * This file defines the wizard step class for the submission settings.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Serge Gauthier <serge.gauthier.2@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\wizard;
+namespace mod_udmworkshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -84,7 +84,7 @@ class submissionsettings_step extends step {
             // Process the custom wysiwyg editors.
             if ($draftitemid = $data->instructauthorseditor['itemid']) {
                 $record->instructauthors = file_save_draft_area_files($draftitemid,
-                        $this->workshop->context->id, 'mod_udm_workshop', 'instructauthors', 0,
+                        $this->workshop->context->id, 'mod_udmworkshop', 'instructauthors', 0,
                         \workshop::instruction_editors_options($this->workshop->context), $data->instructauthorseditor['text']);
                 $record->instructauthorsformat = $data->instructauthorseditor['format'];
             }

@@ -16,7 +16,7 @@
 /**
  * Add submission settings for workshop wizard.
  *
- * @module      mod_udm_workshop/submissionsettings
+ * @module      mod_udmworkshop/submissionsettings
  * @category    output
  * @copyright   2017 Université de Montréal
  * @author      Serge Gauthier <serge.gauthier.2@umontreal.ca>
@@ -61,7 +61,7 @@ define(['jquery'], function($) {
     /** @var {String} The checkbox for submissionend. */
     AllowSubmissionCheckbox.prototype.submissionendselector = '';
 
-    return /** @alias module:mod_udm_workshop/submissionsettings*/ {
+    return /** @alias module:mod_udmworkshop/submissionsettings*/ {
         init: function(allowsubmissionselector, submissionendselector) {
             // Create instance.
             new AllowSubmissionCheckbox(allowsubmissionselector, submissionendselector);

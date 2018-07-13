@@ -18,7 +18,7 @@
 /**
  * Defines all the backup steps that will be used by {@link backup_workshop_activity_task}
  *
- * @package     mod_udm_workshop
+ * @package     mod_udmworkshop
  * @category    backup
  * @copyright   2010 David Mudrak <david.mudrak@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -195,25 +195,25 @@ class backup_workshop_activity_structure_step extends backup_activity_structure_
         // file annotations
         ////////////////////////////////////////////////////////////////////////
 
-        $workshop->annotate_files('mod_udm_workshop', 'intro', null); // no itemid used
-        $workshop->annotate_files('mod_udm_workshop', 'instructauthors', null); // no itemid used
-        $workshop->annotate_files('mod_udm_workshop', 'instructreviewers', null); // no itemid used
-        $workshop->annotate_files('mod_udm_workshop', 'conclusion', null); // no itemid used
+        $workshop->annotate_files('mod_udmworkshop', 'intro', null); // no itemid used
+        $workshop->annotate_files('mod_udmworkshop', 'instructauthors', null); // no itemid used
+        $workshop->annotate_files('mod_udmworkshop', 'instructreviewers', null); // no itemid used
+        $workshop->annotate_files('mod_udmworkshop', 'conclusion', null); // no itemid used
 
-        $examplesubmission->annotate_files('mod_udm_workshop', 'submission_content', 'id');
-        $examplesubmission->annotate_files('mod_udm_workshop', 'submission_attachment', 'id');
+        $examplesubmission->annotate_files('mod_udmworkshop', 'submission_content', 'id');
+        $examplesubmission->annotate_files('mod_udmworkshop', 'submission_attachment', 'id');
 
-        $referenceassessment->annotate_files('mod_udm_workshop', 'overallfeedback_content', 'id');
-        $referenceassessment->annotate_files('mod_udm_workshop', 'overallfeedback_attachment', 'id');
+        $referenceassessment->annotate_files('mod_udmworkshop', 'overallfeedback_content', 'id');
+        $referenceassessment->annotate_files('mod_udmworkshop', 'overallfeedback_attachment', 'id');
 
-        $exampleassessment->annotate_files('mod_udm_workshop', 'overallfeedback_content', 'id');
-        $exampleassessment->annotate_files('mod_udm_workshop', 'overallfeedback_attachment', 'id');
+        $exampleassessment->annotate_files('mod_udmworkshop', 'overallfeedback_content', 'id');
+        $exampleassessment->annotate_files('mod_udmworkshop', 'overallfeedback_attachment', 'id');
 
-        $submission->annotate_files('mod_udm_workshop', 'submission_content', 'id');
-        $submission->annotate_files('mod_udm_workshop', 'submission_attachment', 'id');
+        $submission->annotate_files('mod_udmworkshop', 'submission_content', 'id');
+        $submission->annotate_files('mod_udmworkshop', 'submission_attachment', 'id');
 
-        $assessment->annotate_files('mod_udm_workshop', 'overallfeedback_content', 'id');
-        $assessment->annotate_files('mod_udm_workshop', 'overallfeedback_attachment', 'id');
+        $assessment->annotate_files('mod_udmworkshop', 'overallfeedback_content', 'id');
+        $assessment->annotate_files('mod_udmworkshop', 'overallfeedback_attachment', 'id');
 
         // return the root element (workshop), wrapped into standard activity structure
         return $this->prepare_activity_structure($workshop);

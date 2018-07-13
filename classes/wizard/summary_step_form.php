@@ -17,14 +17,14 @@
 /**
  * This file defines a base class for the summary form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\wizard;
+namespace mod_udmworkshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * The class for editing the summary form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
@@ -113,7 +113,7 @@ class summary_step_form extends step_form {
 
         // Anonymity.
         if (!$this->workshop->is_self_assessment_type()) {
-            $anonymitysettings = new \mod_udm_workshop\anonymity_settings($this->workshop->context);
+            $anonymitysettings = new \mod_udmworkshop\anonymity_settings($this->workshop->context);
             // Display appraisees name.
             if (!empty($record->allowsubmission)) {
                 $yesno = ($anonymitysettings->display_appraisees_name()) ? get_string('yes') : get_string('no');

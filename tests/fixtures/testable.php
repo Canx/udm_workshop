@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * mod_udm_workshop fixtures
+ * mod_udmworkshop fixtures
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   phpunit
  * @copyright  2014 Petr Skoda
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

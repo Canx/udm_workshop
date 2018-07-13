@@ -16,7 +16,7 @@
 /**
  * Sets the equal height to the user plan widget boxes.
  *
- * @module      mod_udm_workshop/workshopview
+ * @module      mod_udmworkshop/workshopview
  * @category    output
  * @copyright   Loc Nguyen <loc.nguyendinh@harveynash.vn>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -40,7 +40,7 @@ define(['jquery'], function($) {
         group.height(tallest);
     }
 
-    return /** @alias module:mod_udm_workshop/workshopview */ {
+    return /** @alias module:mod_udmworkshop/workshopview */ {
         init: function() {
             var $dt = $('.path-mod-workshop .userplan dt');
             var $dd = $('.path-mod-workshop .userplan dd');

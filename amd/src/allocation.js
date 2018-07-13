@@ -15,7 +15,7 @@
 /**
  * Allocation form.
  *
- * @module      mod_udm_workshop/allocation
+ * @module      mod_udmworkshop/allocation
  * @category    output
  * @author      Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright   2017 Université de Montréal
@@ -186,7 +186,7 @@ define(['jquery',
         dialogue.yuiDialogue.hide();
     };
 
-    return /** @alias module:mod_udm_workshop/allocation */ {
+    return /** @alias module:mod_udmworkshop/allocation */ {
         init: function () {
             // Create instance.
             new Allocation();

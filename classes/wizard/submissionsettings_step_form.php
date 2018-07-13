@@ -17,14 +17,14 @@
 /**
  * This file defines the class for editing the submission settings form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Serge Gauthier <serge.gauthier.2@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\wizard;
+namespace mod_udmworkshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * The class for editing the submission settings form.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Serge Gauthier <serge.gauthier.2@umontreal.ca>
  * @copyright  2017 Université de Montréal
@@ -72,10 +72,10 @@ class submissionsettings_step_form extends step_form {
         $label = get_string('submissionend', 'workshop');
         $mform->addElement('date_time_selector', 'submissionend', $label, array('optional' => true));
 
-        $label = get_string('submissionendswitch', 'mod_udm_workshop');
+        $label = get_string('submissionendswitch', 'mod_udmworkshop');
         $mform->addElement('html',  \html_writer::start_div('phaseswitchassessmentinfo'));
         $mform->addElement('checkbox', 'phaseswitchassessment', $label);
-        $mform->addHelpButton('phaseswitchassessment', 'submissionendswitch', 'mod_udm_workshop');
+        $mform->addHelpButton('phaseswitchassessment', 'submissionendswitch', 'mod_udmworkshop');
         $mform->addElement('html', \html_writer::end_div());
 
         $mform->addElement('html', \html_writer::end_div());
@@ -84,7 +84,7 @@ class submissionsettings_step_form extends step_form {
         $fieldselectors = implode(',' , $fieldselectors);
         $inputallowsubmissionselector = "input[name='allowsubmission']";
         $submissionendselector = "input[name='submissionend[enabled]']";
-        $PAGE->requires->js_call_amd('mod_udm_workshop/wizardsubmissionsettings', 'init',
+        $PAGE->requires->js_call_amd('mod_udmworkshop/wizardsubmissionsettings', 'init',
                 array($inputallowsubmissionselector, $submissionendselector));
 
     }
@@ -118,7 +118,7 @@ class submissionsettings_step_form extends step_form {
 
         // Check the phases borders are valid.
         if ($data['submissionstart'] > 0 and $data['submissionend'] > 0 and $data['submissionstart'] >= $data['submissionend']) {
-            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udm_workshop');
+            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udmworkshop');
             return $errors;
         }
 
@@ -133,7 +133,7 @@ class submissionsettings_step_form extends step_form {
             if ($phasesubmissionend > 0 && $phaseassessmentstart > 0 && $phaseassessmentstart < $phasesubmissionend) {
                 foreach (array('submissionend', 'submissionstart') as $f) {
                     if ($data[$f] > 0) {
-                        $errors[$f] = get_string('phasesoverlap', 'mod_udm_workshop');
+                        $errors[$f] = get_string('phasesoverlap', 'mod_udmworkshop');
                         break;
                     }
                 }
@@ -156,7 +156,7 @@ class submissionsettings_step_form extends step_form {
         // Editing an existing workshop - let us prepare the added editor elements (intro done automatically).
         $draftitemid = file_get_submitted_draft_itemid('instructauthors');
         $data['instructauthorseditor']['text'] = file_prepare_draft_area($draftitemid, $this->workshop->context->id,
-                'mod_udm_workshop', 'instructauthors', 0, \workshop::instruction_editors_options($this->workshop->context),
+                'mod_udmworkshop', 'instructauthors', 0, \workshop::instruction_editors_options($this->workshop->context),
                 $data['instructauthors']);
         $data['instructauthorseditor']['format'] = $data['instructauthorsformat'];
         $data['instructauthorseditor']['itemid'] = $draftitemid;

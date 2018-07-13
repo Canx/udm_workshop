@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the {@link mod_udm_workshop_portfolio_caller} class.
+ * Provides the {@link mod_udmworkshop_portfolio_caller} class.
  *
- * @package   mod_udm_workshop
+ * @package   mod_udmworkshop
  * @category  portfolio
  * @copyright Loc Nguyen <ndloc1905@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,11 +29,11 @@ require_once($CFG->libdir . '/portfolio/caller.php');
 /**
  * Workshop portfolio caller class to integrate with portfolio API.
  *
- * @package   mod_udm_workshop
+ * @package   mod_udmworkshop
  * @copyright Loc Nguyen <ndloc1905@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
+class mod_udmworkshop_portfolio_caller extends portfolio_module_caller_base {
 
     /** @var workshop The workshop instance where the export is happening. */
     protected $workshop;
@@ -197,7 +197,7 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
         if ($writingleap) {
             // Add an extra LEAP2A selection entry. In Mahara, this maps to a journal.
             $selection = new portfolio_format_leap2a_entry('workshop'.$this->workshop->id,
-                get_string('pluginname', 'mod_udm_workshop').': '.s($this->workshop->name), 'selection');
+                get_string('pluginname', 'mod_udmworkshop').': '.s($this->workshop->name), 'selection');
             $leapwriter->add_entry($selection);
             $leapwriter->make_selection($selection, $leapids, 'Grouping');
             $leapxml = $leapwriter->to_xml();
@@ -218,7 +218,7 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
     protected function add_area_files($filearea, $itemid) {
 
         $fs = get_file_storage();
-        $areafiles = $fs->get_area_files($this->workshop->context->id, 'mod_udm_workshop', $filearea, $itemid, null, false);
+        $areafiles = $fs->get_area_files($this->workshop->context->id, 'mod_udmworkshop', $filearea, $itemid, null, false);
         if ($areafiles) {
             $this->multifiles = array_merge($this->multifiles, array_values($areafiles));
         }
@@ -237,7 +237,7 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
     protected function export_header(workshop_submission $workshopsubmission) {
 
         $output = '';
-        $output .= html_writer::tag('h2', get_string('pluginname', 'mod_udm_workshop').': '.s($this->workshop->name));
+        $output .= html_writer::tag('h2', get_string('pluginname', 'mod_udmworkshop').': '.s($this->workshop->name));
         $output .= html_writer::tag('h3', s($workshopsubmission->title));
 
         $created = get_string('userdatecreated', 'workshop', userdate($workshopsubmission->timecreated));
@@ -268,11 +268,11 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
 
         if (!$workshopsubmission->is_anonymous()) {
             $author = username_load_fields_from_object((object)[], $workshopsubmission, 'author');
-            $output .= html_writer::div(get_string('byfullnamewithoutlink', 'mod_udm_workshop', fullname($author)));
+            $output .= html_writer::div(get_string('byfullnamewithoutlink', 'mod_udmworkshop', fullname($author)));
         }
 
         $content = $this->format_exported_text($workshopsubmission->content, $workshopsubmission->contentformat);
-        $content = portfolio_rewrite_pluginfile_urls($content, $this->workshop->context->id, 'mod_udm_workshop',
+        $content = portfolio_rewrite_pluginfile_urls($content, $this->workshop->context->id, 'mod_udmworkshop',
             'submission_content', $workshopsubmission->id, $this->exporter->get('format'));
         $output .= html_writer::div($content);
 
@@ -298,9 +298,9 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
             $workshopassessment = $this->workshop->prepare_assessment($assessment, $mform, $options);
 
             if ($assessment->reviewerid == $this->get('user')->id) {
-                $workshopassessment->title = get_string('assessmentbyyourself', 'mod_udm_workshop');
+                $workshopassessment->title = get_string('assessmentbyyourself', 'mod_udmworkshop');
             } else {
-                $workshopassessment->title = get_string('assessment', 'mod_udm_workshop');
+                $workshopassessment->title = get_string('assessment', 'mod_udmworkshop');
             }
 
             $output .= html_writer::empty_tag('hr');
@@ -308,9 +308,9 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
         }
 
         if (trim($this->workshop->instructauthors)) {
-            $output .= html_writer::tag('h3', get_string('instructauthors', 'mod_udm_workshop'));
+            $output .= html_writer::tag('h3', get_string('instructauthors', 'mod_udmworkshop'));
             $content = $this->format_exported_text($this->workshop->instructauthors, $this->workshop->instructauthorsformat);
-            $content = portfolio_rewrite_pluginfile_urls($content, $this->workshop->context->id, 'mod_udm_workshop',
+            $content = portfolio_rewrite_pluginfile_urls($content, $this->workshop->context->id, 'mod_udmworkshop',
                 'instructauthors', 0, $this->exporter->get('format'));
             $output .= $content;
         }
@@ -337,15 +337,15 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
         $output .= html_writer::tag('h3', $title);
 
         if ($assessment->reviewer) {
-            $output .= html_writer::div(get_string('byfullnamewithoutlink', 'mod_udm_workshop', fullname($assessment->reviewer)));
+            $output .= html_writer::div(get_string('byfullnamewithoutlink', 'mod_udmworkshop', fullname($assessment->reviewer)));
             $output .= html_writer::empty_tag('br');
         }
 
         if ($this->workshop->overallfeedbackmode) {
             if ($assessment->feedbackauthorattachment or trim($assessment->feedbackauthor) !== '') {
-                $output .= html_writer::tag('h3', get_string('overallfeedback', 'mod_udm_workshop'));
+                $output .= html_writer::tag('h3', get_string('overallfeedback', 'mod_udmworkshop'));
                 $content = $this->format_exported_text($assessment->feedbackauthor, $assessment->feedbackauthorformat);
-                $content = portfolio_rewrite_pluginfile_urls($content, $this->workshop->context->id, 'mod_udm_workshop',
+                $content = portfolio_rewrite_pluginfile_urls($content, $this->workshop->context->id, 'mod_udmworkshop',
                     'overallfeedback_content', $assessment->id , $this->exporter->get('format'));
                 $output .= $content;
 
@@ -513,7 +513,7 @@ class mod_udm_workshop_portfolio_caller extends portfolio_module_caller_base {
      * @return string
      */
     public static function display_name() {
-        return get_string('pluginname', 'mod_udm_workshop');
+        return get_string('pluginname', 'mod_udmworkshop');
     }
 
     /**

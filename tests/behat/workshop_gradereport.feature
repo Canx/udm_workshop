@@ -1,4 +1,4 @@
-@mod @mod_udm_workshop @javascript
+@mod @mod_udmworkshop @javascript
 Feature: Workshop teacher report
   In order to use workshop activity
   As a teacher

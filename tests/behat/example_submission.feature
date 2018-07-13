@@ -1,4 +1,4 @@
-@mod @mod_udm_workshop @_file_upload
+@mod @mod_udmworkshop @_file_upload
 Feature: Provide example submission
   In order to let students practise the assessment process in the workshop
   As a teacher

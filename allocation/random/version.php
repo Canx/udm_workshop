@@ -18,7 +18,7 @@
  * Defines the version of the subplugin
  *
  * @package    workshopallocation_random
- * @subpackage mod_udm_workshop
+ * @subpackage mod_udmworkshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

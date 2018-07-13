@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_udm_workshop assessment evaluated event.
+ * The mod_udmworkshop assessment evaluated event.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @copyright  2013 Adrian Greeve
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_udm_workshop\event;
+namespace mod_udmworkshop\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_udm_workshop assessment evaluated event class.
+ * The mod_udmworkshop assessment evaluated event class.
  *
  * @property-read array $other {
  *      Extra information about the event.
@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  *      - string finalgrade: (may be null) final grade.
  * }
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @since      Moodle 2.7
  * @copyright  2013 Adrian Greeve
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -69,7 +69,7 @@ class assessment_evaluated extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventassessmentevaluated', 'mod_udm_workshop');
+        return get_string('eventassessmentevaluated', 'mod_udmworkshop');
     }
 
     /**

@@ -31,7 +31,7 @@ use core\output\notification as notif;
 /**
  * Manual allocation renderer class
  */
-class workshopallocation_manual_renderer extends mod_udm_workshop_renderer  {
+class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
 
     /** @var workshop module instance */
     protected $workshop;
@@ -105,7 +105,7 @@ class workshopallocation_manual_renderer extends mod_udm_workshop_renderer  {
         // Allocation header.
         $header = html_writer::start_tag('fieldset');
         $header .= html_writer::start_tag('legend');
-        $header .= get_string(\mod_udm_workshop\wizard\peerallocation_step::NAME, 'workshop');
+        $header .= get_string(\mod_udmworkshop\wizard\peerallocation_step::NAME, 'workshop');
         $header .= html_writer::end_tag('legend');
         if ($this->workshop->assessmenttype != \workshop::SELF_ASSESSMENT) {
             $header .= $this->helper_header_allocation();

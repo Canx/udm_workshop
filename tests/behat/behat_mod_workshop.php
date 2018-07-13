@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Steps definitions related to mod_udm_workshop.
+ * Steps definitions related to mod_udmworkshop.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   test
  * @copyright  2014 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -31,14 +31,14 @@ use Behat\Gherkin\Node\TableNode as TableNode;
 use Behat\Mink\Exception\ExpectationException as ExpectationException;
 
 /**
- * Steps definitions related to mod_udm_workshop.
+ * Steps definitions related to mod_udmworkshop.
  *
- * @package    mod_udm_workshop
+ * @package    mod_udmworkshop
  * @category   test
  * @copyright  2014 Marina Glancy
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class behat_mod_udm_workshop extends behat_base {
+class behat_mod_udmworkshop extends behat_base {
     /**
      * Changes the submission phase for the workshop.
      *
