@@ -1788,7 +1788,7 @@ class workshop {
      */
     public function view_url() {
         global $CFG;
-        return new moodle_url('/mod/udm_workshop/view.php', array('id' => $this->cm->id));
+        return new moodle_url('/mod/udmworkshop/view.php', array('id' => $this->cm->id));
     }
 
     /**
@@ -1822,7 +1822,7 @@ class workshop {
     public function assess_url($assessmentid) {
         global $CFG;
         $assessmentid = clean_param($assessmentid, PARAM_INT);
-        return new moodle_url('/mod/udm_workshop/assessment.php', array('asid' => $assessmentid));
+        return new moodle_url('/mod/udmworkshop/assessment.php', array('asid' => $assessmentid));
     }
 
     /**
@@ -1832,7 +1832,7 @@ class workshop {
     public function exassess_url($assessmentid) {
         global $CFG;
         $assessmentid = clean_param($assessmentid, PARAM_INT);
-        return new moodle_url('/mod/udm_workshop/exassessment.php', array('asid' => $assessmentid));
+        return new moodle_url('/mod/udmworkshop/exassessment.php', array('asid' => $assessmentid));
     }
 
     /**
@@ -1840,7 +1840,7 @@ class workshop {
      */
     public function submission_url($id=null) {
         global $CFG;
-        return new moodle_url('/mod/udm_workshop/submission.php', array('cmid' => $this->cm->id, 'id' => $id));
+        return new moodle_url('/mod/udmworkshop/submission.php', array('cmid' => $this->cm->id, 'id' => $id));
     }
 
     /**
@@ -1849,7 +1849,7 @@ class workshop {
      */
     public function exsubmission_url($id) {
         global $CFG;
-        return new moodle_url('/mod/udm_workshop/exsubmission.php', array('cmid' => $this->cm->id, 'id' => $id));
+        return new moodle_url('/mod/udmworkshop/exsubmission.php', array('cmid' => $this->cm->id, 'id' => $id));
     }
 
     /**
@@ -1860,7 +1860,7 @@ class workshop {
     public function compare_url($sid, array $aids) {
         global $CFG;
 
-        $url = new moodle_url('/mod/udm_workshop/compare.php', array('cmid' => $this->cm->id, 'sid' => $sid));
+        $url = new moodle_url('/mod/udmworkshop/compare.php', array('cmid' => $this->cm->id, 'sid' => $sid));
         $i = 0;
         foreach ($aids as $aid) {
             $url->param("aid{$i}", $aid);
@@ -1876,7 +1876,7 @@ class workshop {
      */
     public function excompare_url($sid, $aid) {
         global $CFG;
-        return new moodle_url('/mod/udm_workshop/excompare.php', array('cmid' => $this->cm->id, 'sid' => $sid, 'aid' => $aid));
+        return new moodle_url('/mod/udmworkshop/excompare.php', array('cmid' => $this->cm->id, 'sid' => $sid, 'aid' => $aid));
     }
 
     /**
@@ -1897,7 +1897,7 @@ class workshop {
         if (!empty($method)) {
             $params['method'] = $method;
         }
-        return new moodle_url('/mod/udm_workshop/allocation.php', $params);
+        return new moodle_url('/mod/udmworkshop/allocation.php', $params);
     }
 
     /**
@@ -1907,7 +1907,7 @@ class workshop {
     public function switchphase_url($phasecode) {
         global $CFG;
         $phasecode = clean_param($phasecode, PARAM_INT);
-        return new moodle_url('/mod/udm_workshop/switchphase.php', array('cmid' => $this->cm->id, 'phase' => $phasecode));
+        return new moodle_url('/mod/udmworkshop/switchphase.php', array('cmid' => $this->cm->id, 'phase' => $phasecode));
     }
 
     /**
@@ -1915,7 +1915,7 @@ class workshop {
      */
     public function aggregate_url() {
         global $CFG;
-        return new moodle_url('/mod/udm_workshop/aggregate.php', array('cmid' => $this->cm->id));
+        return new moodle_url('/mod/udmworkshop/aggregate.php', array('cmid' => $this->cm->id));
     }
 
     /**
@@ -1923,7 +1923,7 @@ class workshop {
      */
     public function toolbox_url($tool) {
         global $CFG;
-        return new moodle_url('/mod/udm_workshop/toolbox.php', array('id' => $this->cm->id, 'tool' => $tool));
+        return new moodle_url('/mod/udmworkshop/toolbox.php', array('id' => $this->cm->id, 'tool' => $tool));
     }
 
     /**
@@ -1939,7 +1939,7 @@ class workshop {
         } else if (!empty($this->wizardstep)) {
             $params['step'] = $this->wizardstep;
         }
-        return new moodle_url('/mod/udm_workshop/wizard.php', $params);
+        return new moodle_url('/mod/udmworkshop/wizard.php', $params);
     }
 
     /**
@@ -3233,7 +3233,7 @@ class workshop {
         static $baseurl;
 
         if (!isset($baseurl)) {
-            $baseurl = new moodle_url('/mod/udm_workshop/');
+            $baseurl = new moodle_url('/mod/udmworkshop/');
             $baseurl = $baseurl->out();
         }
 
