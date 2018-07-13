@@ -1,4 +1,4 @@
-@mod @mod_workshop @javascript
+@mod @mod_udm_workshop @javascript
 Feature: Workshop with submission, user can not assess himself without submitting his own work
   In order to use workshop activity
   As a student

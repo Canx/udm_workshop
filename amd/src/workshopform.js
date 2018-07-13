@@ -16,7 +16,7 @@
 /**
  * Add avanced settings to workshop form.
  *
- * @module      mod_workshop/workshopform
+ * @module      mod_udm_workshop/workshopform
  * @category    output
  * @copyright   2017 Université de Montréal
  * @author      Issam Taboubi <issam.taboubi@umontreal.ca>
@@ -151,7 +151,7 @@ define(['jquery', 'core/str', 'core/notification'], function($, str, notificatio
         }
     };
 
-    return /** @alias module:mod_workshop/workshopform*/ {
+    return /** @alias module:mod_udm_workshop/workshopform*/ {
         init: function(inputadvancedsettingselector, fieldsets, selfassessmentvalue, scrollto) {
             // Create instance.
             new workshopform(inputadvancedsettingselector, fieldsets, selfassessmentvalue, scrollto);

@@ -15,21 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_workshop assessable uploaded event.
+ * The mod_udm_workshop assessable uploaded event.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2013 Frédéric Massart
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_workshop\event;
+namespace mod_udm_workshop\event;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_workshop assessable uploaded event class.
+ * The mod_udm_workshop assessable uploaded event class.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @since      Moodle 2.6
  * @copyright  2013 Frédéric Massart
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -96,7 +96,7 @@ class assessable_uploaded extends \core\event\assessable_uploaded {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventassessableuploaded', 'mod_workshop');
+        return get_string('eventassessableuploaded', 'mod_udm_workshop');
     }
 
     /**

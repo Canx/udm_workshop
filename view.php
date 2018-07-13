@@ -21,7 +21,7 @@
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -69,7 +69,7 @@ $eventdata['objectid']         = $workshop->id;
 $eventdata['context']          = $workshop->context;
 
 $PAGE->set_url($workshop->view_url());
-$event = \mod_workshop\event\course_module_viewed::create($eventdata);
+$event = \mod_udm_workshop\event\course_module_viewed::create($eventdata);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('workshop', $workshoprecord);
 $event->add_record_snapshot('course_modules', $cm);
@@ -114,13 +114,13 @@ if ($eval) {
     redirect($PAGE->url);
 }
 
-$output = $PAGE->get_renderer('mod_workshop');
+$output = $PAGE->get_renderer('mod_udm_workshop');
 
 /// Output starts here
 
 echo $output->header();
 echo $output->heading_with_help(format_string($workshop->name), 'userplan', 'workshop');
-echo $output->heading(format_string($currentphasetitle), 3, null, 'mod_workshop-userplanheading');
+echo $output->heading(format_string($currentphasetitle), 3, null, 'mod_udm_workshop-userplanheading');
 if (has_capability('moodle/course:manageactivities', $workshop->context, $USER->id)) {
     echo $output->render_workshop_wizard_button($workshop->wizard_url());
 }
@@ -158,7 +158,7 @@ case workshop::PHASE_SETUP:
 case workshop::PHASE_SUBMISSION:
     if (trim($workshop->instructauthors)) {
         $instructions = file_rewrite_pluginfile_urls($workshop->instructauthors, 'pluginfile.php', $PAGE->context->id,
-            'mod_workshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
+            'mod_udm_workshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
         print_collapsible_region_start('', 'workshop-viewlet-instructauthors', get_string('instructauthors', 'workshop'));
         echo $output->box(format_text($instructions, $workshop->instructauthorsformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
         print_collapsible_region_end();
@@ -238,7 +238,7 @@ case workshop::PHASE_SUBMISSION:
             if ($groupmode == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $workshop->context)) {
                 $allowedgroups = groups_get_activity_allowed_groups($workshop->cm);
                 if (empty($allowedgroups)) {
-                    echo $output->container(get_string('groupnoallowed', 'mod_workshop'), 'groupwidget error');
+                    echo $output->container(get_string('groupnoallowed', 'mod_udm_workshop'), 'groupwidget error');
                     break;
                 }
                 if (! in_array($groupid, array_keys($allowedgroups))) {
@@ -363,7 +363,7 @@ case workshop::PHASE_ASSESSMENT:
 
     if (trim($workshop->instructreviewers)) {
         $instructions = file_rewrite_pluginfile_urls($workshop->instructreviewers, 'pluginfile.php', $PAGE->context->id,
-            'mod_workshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
+            'mod_udm_workshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
         print_collapsible_region_start('', 'workshop-viewlet-instructreviewers', get_string('instructreviewers', 'workshop'));
         echo $output->box(format_text($instructions, $workshop->instructreviewersformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
         print_collapsible_region_end();
@@ -488,8 +488,8 @@ case workshop::PHASE_EVALUATION:
                 // Print a drop-down selector to change the current evaluation method.
                 $selector = new single_select($PAGE->url, 'eval', workshop::available_evaluators_list(),
                     $workshop->evaluation, false, 'evaluationmethodchooser');
-                $selector->set_label(get_string('evaluationmethod', 'mod_workshop'));
-                $selector->set_help_icon('evaluationmethod', 'mod_workshop');
+                $selector->set_label(get_string('evaluationmethod', 'mod_udm_workshop'));
+                $selector->set_help_icon('evaluationmethod', 'mod_udm_workshop');
                 $selector->method = 'post';
                 echo $output->render($selector);
                 // load the grading evaluator
@@ -596,7 +596,7 @@ case workshop::PHASE_EVALUATION:
 case workshop::PHASE_CLOSED:
     if (trim($workshop->conclusion)) {
         $conclusion = file_rewrite_pluginfile_urls($workshop->conclusion, 'pluginfile.php', $workshop->context->id,
-            'mod_workshop', 'conclusion', null, workshop::instruction_editors_options($workshop->context));
+            'mod_udm_workshop', 'conclusion', null, workshop::instruction_editors_options($workshop->context));
         print_collapsible_region_start('', 'workshop-viewlet-conclusion', get_string('conclusion', 'workshop'));
         echo $output->box(format_text($conclusion, $workshop->conclusionformat, array('overflowdiv'=>true)), array('generalbox', 'conclusion'));
         print_collapsible_region_end();
@@ -720,5 +720,5 @@ case workshop::PHASE_CLOSED:
     break;
 default:
 }
-$PAGE->requires->js_call_amd('mod_workshop/workshopview', 'init');
+$PAGE->requires->js_call_amd('mod_udm_workshop/workshopview', 'init');
 echo $output->footer();

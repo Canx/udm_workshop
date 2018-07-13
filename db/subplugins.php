@@ -18,7 +18,7 @@
 /**
  * Workshop subplugin types declaration
  *
- * @package   mod_workshop
+ * @package   mod_udm_workshop
  * @copyright 2010 Petr Skoda (http://skodak.org)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

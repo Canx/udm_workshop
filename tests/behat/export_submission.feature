@@ -1,4 +1,4 @@
-@mod @mod_workshop
+@mod @mod_udm_workshop
 Feature: Exporting workshop submissions and assessments to a portfolio
   In order to archive my workshop contribution in a personal storage
   As a student or as a teacher

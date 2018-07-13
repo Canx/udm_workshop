@@ -1,1 +1,1 @@
-yourassessment,mod_workshop
+yourassessment,mod_udm_workshop

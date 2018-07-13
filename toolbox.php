@@ -18,7 +18,7 @@
 /**
  * Various workshop maintainance utilities
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2010 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -48,14 +48,14 @@ case 'clearaggregatedgrades':
     require_capability('mod/workshop:overridegrades', $workshop->context);
     $workshop->clear_submission_grades();
     $workshop->clear_grading_grades();
-    $event = \mod_workshop\event\assessment_evaluations_reset::create($params);
+    $event = \mod_udm_workshop\event\assessment_evaluations_reset::create($params);
     $event->trigger();
     break;
 
 case 'clearassessments':
     require_capability('mod/workshop:overridegrades', $workshop->context);
     $workshop->clear_assessments();
-    $event = \mod_workshop\event\assessments_reset::create($params);
+    $event = \mod_udm_workshop\event\assessments_reset::create($params);
     $event->trigger();
     break;
 }

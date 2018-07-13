@@ -17,14 +17,14 @@
 /**
  * This file defines the class for editing the peer allocation form.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_workshop\wizard;
+namespace mod_udm_workshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * The class for editing the peer allocation form.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
@@ -57,7 +57,7 @@ class peerallocation_step_form extends step_form {
     public function display() {
         global $PAGE;
         $html = '';
-        $output = $PAGE->get_renderer('mod_workshop');
+        $output = $PAGE->get_renderer('mod_udm_workshop');
         // Other allocations.
         $allocators = \workshop::installed_allocators();
         unset($allocators['manual']);

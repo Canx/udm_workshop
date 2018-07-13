@@ -17,14 +17,14 @@
 /**
  * This file defines the class for editing the assessment type form.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Serge Gauthier <serge.gauthier.2@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_workshop\wizard;
+namespace mod_udm_workshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/formslib.php');
 /**
  * The class for editing the assessment type form.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Serge Gauthier <serge.gauthier.2@umontreal.ca>
  * @copyright  2017 Université de Montréal
@@ -63,7 +63,7 @@ class assessmenttype_step_form extends step_form {
         $mform->addHelpButton('assessmenttype', 'assessmenttype', 'workshop');
         $mform->setType('assessmenttype', PARAM_INT);
 
-        $PAGE->requires->js_call_amd('mod_workshop/wizardform', 'init',
+        $PAGE->requires->js_call_amd('mod_udm_workshop/wizardform', 'init',
                 array($this->workshop->cm->id, assessmenttype_step::NAME));
     }
 

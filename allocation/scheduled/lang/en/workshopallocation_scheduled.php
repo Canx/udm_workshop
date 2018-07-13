@@ -19,7 +19,7 @@
  * Strings for the Workshop's scheduled allocator
  *
  * @package     workshopallocation_scheduled
- * @subpackage  mod_workshop
+ * @subpackage  mod_udm_workshop
  * @copyright   2012 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

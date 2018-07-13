@@ -17,12 +17,12 @@
 /**
  * Class containing data for the wizard navigation page
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_workshop\output;
+namespace mod_udm_workshop\output;
 defined('MOODLE_INTERNAL') || die();
 
 use renderable;
@@ -63,7 +63,7 @@ class wizard_navigation_page implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
 
         $data = new \stdClass();
-        $name = \mod_workshop\wizard\assessmenttype_step::NAME;
+        $name = \mod_udm_workshop\wizard\assessmenttype_step::NAME;
         $data->steplist = [];
         do {
 

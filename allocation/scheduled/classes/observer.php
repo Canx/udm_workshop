@@ -35,13 +35,13 @@ defined('MOODLE_INTERNAL') || die();
 class observer {
 
     /**
-     * Triggered when the '\mod_workshop\event\course_module_viewed' event is triggered.
+     * Triggered when the '\mod_udm_workshop\event\course_module_viewed' event is triggered.
      *
      * This does the same job as {@link workshopallocation_scheduled_cron()} but for the
      * single workshop. The idea is that we do not need to wait for cron to execute.
      * Displaying the workshop main view.php can trigger the scheduled allocation, too.
      *
-     * @param \mod_workshop\event\course_module_viewed $event
+     * @param \mod_udm_workshop\event\course_module_viewed $event
      * @return bool
      */
     public static function workshop_viewed($event) {

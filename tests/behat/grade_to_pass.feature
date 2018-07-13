@@ -1,4 +1,4 @@
-@mod @mod_workshop
+@mod @mod_udm_workshop
 Feature: Setting grades to pass via workshop editing form
   In order to define grades to pass
   As a teacher

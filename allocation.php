@@ -21,7 +21,7 @@
  * The allocation logic itself is delegated to allocators - subplugins in ./allocation
  * folder.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -46,12 +46,12 @@ require_capability('mod/workshop:allocate', $context);
 
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string(\mod_workshop\wizard\peerallocation_step::NAME, 'workshop'));
+$PAGE->navbar->add(get_string(\mod_udm_workshop\wizard\peerallocation_step::NAME, 'workshop'));
 
 //
 // Output starts here
 //
-$output = $PAGE->get_renderer('mod_workshop');
+$output = $PAGE->get_renderer('mod_udm_workshop');
 $html = '';
 
 // Other allocations.

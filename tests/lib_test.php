@@ -16,7 +16,7 @@
 /**
  * Unit tests for mod/workshop/lib.php.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2017 Simey Lameze <simey@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +31,7 @@ require_once($CFG->dirroot . '/mod/workshop/lib.php');
  * @copyright  2017 Simey Lameze <simey@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_workshop_lib_testcase extends advanced_testcase {
+class mod_udm_workshop_lib_testcase extends advanced_testcase {
 
     /**
      * Test calendar event provide action open.
@@ -47,7 +47,7 @@ class mod_workshop_lib_testcase extends advanced_testcase {
         $event = $this->create_action_event($course->id, $workshop->id, WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN);
 
         $factory = new \core_calendar\action_factory();
-        $actionevent = mod_workshop_core_calendar_provide_event_action($event, $factory);
+        $actionevent = mod_udm_workshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
         $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
@@ -69,7 +69,7 @@ class mod_workshop_lib_testcase extends advanced_testcase {
         $event = $this->create_action_event($course->id, $workshop->id, WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN);
 
         $factory = new \core_calendar\action_factory();
-        $actionevent = mod_workshop_core_calendar_provide_event_action($event, $factory);
+        $actionevent = mod_udm_workshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
         $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
@@ -93,7 +93,7 @@ class mod_workshop_lib_testcase extends advanced_testcase {
         $event = $this->create_action_event($course->id, $workshop->id, WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN);
 
         $factory = new \core_calendar\action_factory();
-        $actionevent = mod_workshop_core_calendar_provide_event_action($event, $factory);
+        $actionevent = mod_udm_workshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
         $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
@@ -116,7 +116,7 @@ class mod_workshop_lib_testcase extends advanced_testcase {
         $event = $this->create_action_event($course->id, $workshop->id, WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN);
 
         $factory = new \core_calendar\action_factory();
-        $actionevent = mod_workshop_core_calendar_provide_event_action($event, $factory);
+        $actionevent = mod_udm_workshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
         $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());

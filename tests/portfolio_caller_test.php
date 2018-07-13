@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Unit tests for mod_workshop_portfolio_caller class defined in mod/workshop/classes/portfolio_caller.php
+ * Unit tests for mod_udm_workshop_portfolio_caller class defined in mod/workshop/classes/portfolio_caller.php
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2016 An Pham Van <an.phamvan@harveynash.vn>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,13 +31,13 @@ require_once(__DIR__ . '/fixtures/testable.php');
 require_once($CFG->dirroot . '/mod/workshop/classes/portfolio_caller.php');
 
 /**
- * Unit tests for mod_workshop_portfolio_caller class
+ * Unit tests for mod_udm_workshop_portfolio_caller class
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2016 An Pham Van <an.phamvan@harveynash.vn>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
+class mod_udm_workshop_porfolio_caller_testcase extends advanced_testcase {
 
     /** @var stdClass $workshop Basic workshop data stored in an object. */
     protected $workshop;
@@ -66,7 +66,7 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
     }
 
     /**
-     * Test the method mod_workshop_portfolio_caller::load_data()
+     * Test the method mod_udm_workshop_portfolio_caller::load_data()
      */
     public function test_load_data() {
         $this->resetAfterTest(true);
@@ -75,11 +75,11 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
         $student2 = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id);
         $this->getDataGenerator()->enrol_user($student2->id, $this->workshop->course->id);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
         $asid1 = $workshopgenerator->create_assessment($subid1, $student2->id);
 
-        $portfoliocaller = new mod_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
+        $portfoliocaller = new mod_udm_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
         $portfoliocaller->set_formats_from_button([]);
         $portfoliocaller->load_data();
 
@@ -92,17 +92,17 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
     }
 
     /**
-     * Test the method mod_workshop_portfolio_caller::get_return_url()
+     * Test the method mod_udm_workshop_portfolio_caller::get_return_url()
      */
     public function test_get_return_url() {
         $this->resetAfterTest(true);
 
         $student1 = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
 
-        $portfoliocaller = new mod_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
+        $portfoliocaller = new mod_udm_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
         $portfoliocaller->set_formats_from_button([]);
         $portfoliocaller->load_data();
 
@@ -112,17 +112,17 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
     }
 
     /**
-     * Test the method mod_workshop_portfolio_caller::get_navigation()
+     * Test the method mod_udm_workshop_portfolio_caller::get_navigation()
      */
     public function test_get_navigation() {
         $this->resetAfterTest(true);
 
         $student1 = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
 
-        $portfoliocaller = new mod_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
+        $portfoliocaller = new mod_udm_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
         $portfoliocaller->set_formats_from_button([]);
         $portfoliocaller->load_data();
 
@@ -130,7 +130,7 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
     }
 
     /**
-     * Test the method mod_workshop_portfolio_caller::check_permissions()
+     * Test the method mod_udm_workshop_portfolio_caller::check_permissions()
      */
     public function test_check_permissions_exportownsubmissionassessment() {
         global $DB;
@@ -142,12 +142,12 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
         $roleids = $DB->get_records_menu('role', null, '', 'shortname, id');
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id, $roleids['student']);
         $this->getDataGenerator()->enrol_user($student2->id, $this->workshop->course->id, $roleids['student']);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
         $asid1 = $workshopgenerator->create_assessment($subid1, $student2->id);
         $this->setUser($student1);
 
-        $portfoliocaller = new mod_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
+        $portfoliocaller = new mod_udm_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
 
         role_change_permission($roleids['student'], $context, 'mod/workshop:exportsubmissions', CAP_PREVENT);
         $this->assertFalse($portfoliocaller->check_permissions());
@@ -157,7 +157,7 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
     }
 
     /**
-     * Test the method mod_workshop_portfolio_caller::get_sha1()
+     * Test the method mod_udm_workshop_portfolio_caller::get_sha1()
      */
     public function test_get_sha1() {
         $this->resetAfterTest(true);
@@ -166,11 +166,11 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
         $student2 = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id);
         $this->getDataGenerator()->enrol_user($student2->id, $this->workshop->course->id);
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
         $asid1 = $workshopgenerator->create_assessment($subid1, $student2->id);
 
-        $portfoliocaller = new mod_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
+        $portfoliocaller = new mod_udm_workshop_portfolio_caller(['id' => $this->workshop->cm->id, 'submissionid' => $subid1]);
         $portfoliocaller->set_formats_from_button([]);
         $portfoliocaller->load_data();
 
@@ -184,7 +184,7 @@ class mod_workshop_porfolio_caller_testcase extends advanced_testcase {
     public function test_display_name() {
         $this->resetAfterTest(true);
 
-        $name = mod_workshop_portfolio_caller::display_name();
-        $this->assertEquals(get_string('pluginname', 'mod_workshop'), $name);
+        $name = mod_udm_workshop_portfolio_caller::display_name();
+        $this->assertEquals(get_string('pluginname', 'mod_udm_workshop'), $name);
     }
 }

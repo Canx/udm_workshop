@@ -19,7 +19,7 @@
  * Workshop webservice functions.
  *
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -30,8 +30,8 @@ defined('MOODLE_INTERNAL') || die();
 $functions = array(
 
     // Workshop related functions.
-    'mod_workshop_data_for_wizard_navigation_page' => array(
-        'classname'    => 'mod_workshop\external',
+    'mod_udm_workshop_data_for_wizard_navigation_page' => array(
+        'classname'    => 'mod_udm_workshop\external',
         'methodname'   => 'data_for_wizard_navigation_page',
         'classpath'    => '',
         'description'  => 'Loads the data required to render the wizard_navigation_page',

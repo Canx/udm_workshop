@@ -17,7 +17,7 @@
 /**
  * Unit tests for workshop events.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @category   phpunit
  * @copyright  2013 Adrian Greeve <adrian@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -35,7 +35,7 @@ require_once(__DIR__ . '/fixtures/testable.php');
 /**
  * Test cases for the internal workshop api
  */
-class mod_workshop_events_testcase extends advanced_testcase {
+class mod_udm_workshop_events_testcase extends advanced_testcase {
 
     /** @var stdClass $workshop Basic workshop data stored in an object. */
     protected $workshop;
@@ -118,7 +118,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
         $events = $sink->get_events();
         $event = reset($events);
 
-        $this->assertInstanceOf('\mod_workshop\event\assessment_evaluated', $event);
+        $this->assertInstanceOf('\mod_udm_workshop\event\assessment_evaluated', $event);
         $this->assertEquals('workshop_aggregations', $event->objecttable);
         $this->assertEquals(context_module::instance($cm->id), $event->get_context());
         $this->assertEventContextNotUsed($event);
@@ -144,7 +144,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
         $events = $sink->get_events();
         $event = reset($events);
 
-        $this->assertInstanceOf('\mod_workshop\event\assessment_reevaluated', $event);
+        $this->assertInstanceOf('\mod_udm_workshop\event\assessment_reevaluated', $event);
         $this->assertEquals('workshop_aggregations', $event->objecttable);
         $this->assertEquals(context_module::instance($cm->id), $event->get_context());
         $expected = array($this->course->id, 'workshop', 'update aggregate grade',
@@ -162,7 +162,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
         $this->resetAfterTest();
         $this->setAdminUser();
 
-        $event = \mod_workshop\event\assessment_evaluations_reset::create(array(
+        $event = \mod_udm_workshop\event\assessment_evaluations_reset::create(array(
             'context'  => $this->context,
             'courseid' => $this->course->id,
             'other' => array('workshopid' => $this->workshop->id)
@@ -191,7 +191,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
 
         $context = context_course::instance($this->course->id);
 
-        $event = \mod_workshop\event\course_module_instance_list_viewed::create(array('context' => $context));
+        $event = \mod_udm_workshop\event\course_module_instance_list_viewed::create(array('context' => $context));
 
         // Trigger and capture the event.
         $sink = $this->redirectEvents();
@@ -217,7 +217,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
         $user = $this->getDataGenerator()->create_user();
         $submissionid = 48;
 
-        $event = \mod_workshop\event\submission_created::create(array(
+        $event = \mod_udm_workshop\event\submission_created::create(array(
                 'objectid'      => $submissionid,
                 'context'       => $this->context,
                 'courseid'      => $this->course->id,
@@ -253,7 +253,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
         $user = $this->getDataGenerator()->create_user();
         $submissionid = 48;
 
-        $event = \mod_workshop\event\submission_updated::create(array(
+        $event = \mod_udm_workshop\event\submission_updated::create(array(
                 'objectid'      => $submissionid,
                 'context'       => $this->context,
                 'courseid'      => $this->course->id,
@@ -289,7 +289,7 @@ class mod_workshop_events_testcase extends advanced_testcase {
         $user = $this->getDataGenerator()->create_user();
         $submissionid = 48;
 
-        $event = \mod_workshop\event\submission_viewed::create(array(
+        $event = \mod_udm_workshop\event\submission_viewed::create(array(
                 'objectid'      => $submissionid,
                 'context'       => $this->context,
                 'courseid'      => $this->course->id,

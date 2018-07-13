@@ -1,4 +1,4 @@
-@mod @mod_workshop @javascript
+@mod @mod_udm_workshop @javascript
 Feature: Workshop particpant
   In order to use workshop activity
   As a participant

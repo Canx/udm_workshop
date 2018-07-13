@@ -18,7 +18,7 @@
 /**
  * Defines {@link backup_workshop_activity_task} class
  *
- * @package     mod_workshop
+ * @package     mod_udm_workshop
  * @category    backup
  * @copyright   2010 David Mudrak <david.mudrak@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

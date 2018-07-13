@@ -1,4 +1,4 @@
-@mod @mod_workshop
+@mod @mod_udm_workshop
 Feature: Workshop submission and assessment
   In order to use workshop activity
   As a student

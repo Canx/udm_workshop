@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_workshop assessment_reevaluated event.
+ * The mod_udm_workshop assessment_reevaluated event.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2013 Adrian Greeve
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_workshop\event;
+namespace mod_udm_workshop\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_workshop assessment_reevaluated event class.
+ * The mod_udm_workshop assessment_reevaluated event class.
  *
  * @property-read array $other {
  *      Extra information about the event.
@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  *      - float finalgrade: (may be null) final grade.
  * }
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @since      Moodle 2.7
  * @copyright  2013 Adrian Greeve
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -79,7 +79,7 @@ class assessment_reevaluated extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventassessmentreevaluated', 'mod_workshop');
+        return get_string('eventassessmentreevaluated', 'mod_udm_workshop');
     }
 
     /**

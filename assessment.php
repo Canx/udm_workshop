@@ -29,7 +29,7 @@
  * has been prepared for him/her (during the allocation). So even a user without the
  * peerassess capability (like a 'teacher', for example) can become a reviewer.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -88,7 +88,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
         and !has_capability('mod/workshop:manageexamples', $workshop->context)) {
     // the reviewer must have submitted their own submission
     $reviewersubmission = $workshop->get_submission_by_author($assessment->reviewerid);
-    $output = $PAGE->get_renderer('mod_workshop');
+    $output = $PAGE->get_renderer('mod_udm_workshop');
     if (!$reviewersubmission) {
         // no money, no love
         $assessmenteditable = false;
@@ -136,10 +136,10 @@ if (is_null($assessment->grade) and !$assessmenteditable) {
     );
     if ($assessmenteditable and $workshop->overallfeedbackmode) {
         $currentdata = file_prepare_standard_editor($currentdata, 'feedbackauthor', $workshop->overall_feedback_content_options(),
-            $workshop->context, 'mod_workshop', 'overallfeedback_content', $assessment->id);
+            $workshop->context, 'mod_udm_workshop', 'overallfeedback_content', $assessment->id);
         if ($workshop->overallfeedbackfiles) {
             $currentdata = file_prepare_standard_filemanager($currentdata, 'feedbackauthorattachment',
-                $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_workshop', 'overallfeedback_attachment',
+                $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_udm_workshop', 'overallfeedback_attachment',
                 $assessment->id);
         }
     }
@@ -157,13 +157,13 @@ if (is_null($assessment->grade) and !$assessmenteditable) {
         if (isset($data->feedbackauthor_editor)) {
             $coredata->feedbackauthor_editor = $data->feedbackauthor_editor;
             $coredata = file_postupdate_standard_editor($coredata, 'feedbackauthor', $workshop->overall_feedback_content_options(),
-                $workshop->context, 'mod_workshop', 'overallfeedback_content', $assessment->id);
+                $workshop->context, 'mod_udm_workshop', 'overallfeedback_content', $assessment->id);
             unset($coredata->feedbackauthor_editor);
         }
         if (isset($data->feedbackauthorattachment_filemanager)) {
             $coredata->feedbackauthorattachment_filemanager = $data->feedbackauthorattachment_filemanager;
             $coredata = file_postupdate_standard_filemanager($coredata, 'feedbackauthorattachment',
-                $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_workshop', 'overallfeedback_attachment',
+                $workshop->overall_feedback_attachment_options(), $workshop->context, 'mod_udm_workshop', 'overallfeedback_attachment',
                 $assessment->id);
             unset($coredata->feedbackauthorattachment_filemanager);
             if (empty($coredata->feedbackauthorattachment)) {
@@ -188,11 +188,11 @@ if (is_null($assessment->grade) and !$assessmenteditable) {
 
             if (is_null($assessment->grade)) {
                 // All workshop_assessments are created when allocations are made. The create event is of more use located here.
-                $event = \mod_workshop\event\submission_assessed::create($params);
+                $event = \mod_udm_workshop\event\submission_assessed::create($params);
                 $event->trigger();
             } else {
                 $params['other']['grade'] = $assessment->grade;
-                $event = \mod_workshop\event\submission_reassessed::create($params);
+                $event = \mod_udm_workshop\event\submission_reassessed::create($params);
                 $event->trigger();
             }
         }
@@ -241,7 +241,7 @@ if ($canoverridegrades or $cansetassessmentweight) {
 }
 
 // output starts here
-$output = $PAGE->get_renderer('mod_workshop');      // workshop renderer
+$output = $PAGE->get_renderer('mod_udm_workshop');      // workshop renderer
 echo $output->header();
 echo $output->heading(format_string($workshop->name));
 $head = $workshop->allowsubmission ? get_string('assessedsubmission', 'workshop') : get_string('assessedpeer', 'workshop');
@@ -255,7 +255,7 @@ echo $output->render($workshop->prepare_submission($submission, $canviewauthorna
 // for evaluating the assessment
 if (trim($workshop->instructreviewers)) {
     $instructions = file_rewrite_pluginfile_urls($workshop->instructreviewers, 'pluginfile.php', $PAGE->context->id,
-        'mod_workshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
+        'mod_udm_workshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
     print_collapsible_region_start('', 'workshop-viewlet-instructreviewers', get_string('instructreviewers', 'workshop'));
     echo $output->box(format_text($instructions, $workshop->instructreviewersformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
     print_collapsible_region_end();

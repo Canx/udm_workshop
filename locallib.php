@@ -22,7 +22,7 @@
  * workshop_something() taking the workshop instance as the first
  * parameter, we use a class workshop that provides all methods.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -1319,8 +1319,8 @@ class workshop {
         $this->delete_assessment(array_keys($assessments));
 
         $fs = get_file_storage();
-        $fs->delete_area_files($this->context->id, 'mod_workshop', 'submission_content', $submission->id);
-        $fs->delete_area_files($this->context->id, 'mod_workshop', 'submission_attachment', $submission->id);
+        $fs->delete_area_files($this->context->id, 'mod_udm_workshop', 'submission_content', $submission->id);
+        $fs->delete_area_files($this->context->id, 'mod_udm_workshop', 'submission_attachment', $submission->id);
 
         $DB->delete_records('workshop_submissions', array('id' => $submission->id));
         if ($keepallocation and !empty($assessments)) {
@@ -1568,15 +1568,15 @@ class workshop {
         if (is_array($id)) {
             $DB->delete_records_list('workshop_grades', 'assessmentid', $id);
             foreach ($id as $itemid) {
-                $fs->delete_area_files($this->context->id, 'mod_workshop', 'overallfeedback_content', $itemid);
-                $fs->delete_area_files($this->context->id, 'mod_workshop', 'overallfeedback_attachment', $itemid);
+                $fs->delete_area_files($this->context->id, 'mod_udm_workshop', 'overallfeedback_content', $itemid);
+                $fs->delete_area_files($this->context->id, 'mod_udm_workshop', 'overallfeedback_attachment', $itemid);
             }
             $DB->delete_records_list('workshop_assessments', 'id', $id);
 
         } else {
             $DB->delete_records('workshop_grades', array('assessmentid' => $id));
-            $fs->delete_area_files($this->context->id, 'mod_workshop', 'overallfeedback_content', $id);
-            $fs->delete_area_files($this->context->id, 'mod_workshop', 'overallfeedback_attachment', $id);
+            $fs->delete_area_files($this->context->id, 'mod_udm_workshop', 'overallfeedback_content', $id);
+            $fs->delete_area_files($this->context->id, 'mod_udm_workshop', 'overallfeedback_attachment', $id);
             $DB->delete_records('workshop_assessments', array('id' => $id));
         }
 
@@ -1658,7 +1658,7 @@ class workshop {
      * @throws \invalid_parameter_exception
      */
     public function get_validated_wizard_class_name($name, $basename) {
-        $namespace = '\\mod_workshop\\wizard\\';
+        $namespace = '\\mod_udm_workshop\\wizard\\';
         $name = $namespace . $name;
         $basename = $namespace . $basename;
         if (!class_exists($name) || !is_subclass_of($name, $basename)) {
@@ -2139,7 +2139,7 @@ class workshop {
                 'workshopphase' => $this->phase
             )
         );
-        $event = \mod_workshop\event\phase_switched::create($eventdata);
+        $event = \mod_udm_workshop\event\phase_switched::create($eventdata);
         $event->trigger();
         return true;
     }
@@ -2880,13 +2880,13 @@ class workshop {
             if ($result === true) {
                 $status[] = array(
                     'component' => $componentstr,
-                    'item' => get_string('resetassessments', 'mod_workshop'),
+                    'item' => get_string('resetassessments', 'mod_udm_workshop'),
                     'error' => false,
                 );
             } else {
                 $status[] = array(
                     'component' => $componentstr,
-                    'item' => get_string('resetassessments', 'mod_workshop'),
+                    'item' => get_string('resetassessments', 'mod_udm_workshop'),
                     'error' => $result,
                 );
             }
@@ -2898,13 +2898,13 @@ class workshop {
             if ($result === true) {
                 $status[] = array(
                     'component' => $componentstr,
-                    'item' => get_string('resetsubmissions', 'mod_workshop'),
+                    'item' => get_string('resetsubmissions', 'mod_udm_workshop'),
                     'error' => false,
                 );
             } else {
                 $status[] = array(
                     'component' => $componentstr,
-                    'item' => get_string('resetsubmissions', 'mod_workshop'),
+                    'item' => get_string('resetsubmissions', 'mod_udm_workshop'),
                     'error' => $result,
                 );
             }
@@ -2916,7 +2916,7 @@ class workshop {
             $this->reset_phase();
             $status[] = array(
                 'component' => $componentstr,
-                'item' => get_string('resetsubmissions', 'mod_workshop'),
+                'item' => get_string('resetsubmissions', 'mod_udm_workshop'),
                 'error' => false,
             );
         }
@@ -3101,7 +3101,7 @@ class workshop {
                 $record->timegraded = $timegraded;
                 $record->id = $DB->insert_record('workshop_aggregations', $record);
                 $params['objectid'] = $record->id;
-                $event = \mod_workshop\event\assessment_evaluated::create($params);
+                $event = \mod_udm_workshop\event\assessment_evaluated::create($params);
                 $event->trigger();
             } else {
                 $record = new stdclass();
@@ -3110,7 +3110,7 @@ class workshop {
                 $record->timegraded = $timegraded;
                 $DB->update_record('workshop_aggregations', $record);
                 $params['objectid'] = $agid;
-                $event = \mod_workshop\event\assessment_reevaluated::create($params);
+                $event = \mod_udm_workshop\event\assessment_reevaluated::create($params);
                 $event->trigger();
             }
         }
@@ -3603,7 +3603,7 @@ class workshop_user_plan implements renderable {
         if ($workshop->phase == workshop::PHASE_SUBMISSION and $workshop->phaseswitchassessment
                 and has_capability('mod/workshop:switchphase', $workshop->context, $userid)) {
             $task = new stdClass();
-            $task->title = get_string('switchphase30auto', 'mod_workshop', workshop::timestamp_formats($workshop->submissionend));
+            $task->title = get_string('switchphase30auto', 'mod_udm_workshop', workshop::timestamp_formats($workshop->submissionend));
             $task->completed = 'info';
             $phase->tasks['autoswitchinfo'] = $task;
         }
@@ -3849,7 +3849,7 @@ class workshop_user_plan implements renderable {
                 if ($phase->active) {
                     if (isset($nextphases[$workshop->phase])) {
                         $task = new stdClass();
-                        $task->title = get_string('switchphasenext', 'mod_workshop');
+                        $task->title = get_string('switchphasenext', 'mod_udm_workshop');
                         $task->link = $workshop->switchphase_url($nextphases[$workshop->phase]);
                         $task->details = '';
                         $task->completed = null;
@@ -4445,7 +4445,7 @@ class workshop_assessment extends workshop_assessment_base implements renderable
         }
 
         $content = file_rewrite_pluginfile_urls($this->feedbackauthor, 'pluginfile.php', $this->workshop->context->id,
-            'mod_workshop', 'overallfeedback_content', $this->id);
+            'mod_udm_workshop', 'overallfeedback_content', $this->id);
         $content = format_text($content, $this->feedbackauthorformat,
             array('overflowdiv' => true, 'context' => $this->workshop->context));
 
@@ -4476,16 +4476,16 @@ class workshop_assessment extends workshop_assessment_base implements renderable
 
         $attachments = array();
         $fs = get_file_storage();
-        $files = $fs->get_area_files($this->workshop->context->id, 'mod_workshop', 'overallfeedback_attachment', $this->id);
+        $files = $fs->get_area_files($this->workshop->context->id, 'mod_udm_workshop', 'overallfeedback_attachment', $this->id);
         foreach ($files as $file) {
             if ($file->is_directory()) {
                 continue;
             }
             $filepath = $file->get_filepath();
             $filename = $file->get_filename();
-            $fileurl = moodle_url::make_pluginfile_url($this->workshop->context->id, 'mod_workshop',
+            $fileurl = moodle_url::make_pluginfile_url($this->workshop->context->id, 'mod_udm_workshop',
                 'overallfeedback_attachment', $this->id, $filepath, $filename, true);
-            $previewurl = new moodle_url(moodle_url::make_pluginfile_url($this->workshop->context->id, 'mod_workshop',
+            $previewurl = new moodle_url(moodle_url::make_pluginfile_url($this->workshop->context->id, 'mod_udm_workshop',
                 'overallfeedback_attachment', $this->id, $filepath, $filename, false), array('preview' => 'bigthumb'));
             $attachments[] = (object)array(
                 'filepath' => $filepath,
@@ -4651,7 +4651,7 @@ class workshop_grading_report implements renderable {
 
     /**
      * Grades in $data must be already rounded to the set number of decimals or must be null
-     * (in which later case, the [mod_workshop,nullgrade] string shall be displayed)
+     * (in which later case, the [mod_udm_workshop,nullgrade] string shall be displayed)
      *
      * @param stdClass $data prepared by {@link workshop::prepare_grading_report_data()}
      * @param stdClass $options display options (showauthornames, showreviewernames, sortby, sorthow, showsubmissiongrade, showgradinggrade)

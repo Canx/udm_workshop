@@ -516,7 +516,7 @@ path-mod-workshop .wizard-navigation ol:before {
 }
 
 .path-mod-workshop .userplan dd.phasetasks li {
-    background-image: url([[pix:mod_workshop|userplan/task-todo]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-todo]]);
     background-position: top left;
     background-repeat: no-repeat;
     list-style-type: none;
@@ -529,15 +529,15 @@ path-mod-workshop .wizard-navigation ol:before {
 }
 
 .path-mod-workshop .userplan dd.phasetasks li.completed {
-    background-image: url([[pix:mod_workshop|userplan/task-done]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-done]]);
 }
 
 .path-mod-workshop .userplan dd.phasetasks li.fail {
-    background-image: url([[pix:mod_workshop|userplan/task-fail]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-fail]]);
 }
 
 .path-mod-workshop .userplan dd.phasetasks li.info {
-    background-image: url([[pix:mod_workshop|userplan/task-info]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-info]]);
 }
 
 .path-mod-workshop .userplan dd.phasetasks .tasks {
@@ -971,7 +971,7 @@ path-mod-workshop .wizard-navigation ol:before {
     overflow: hidden;
 }
 .path-mod-workshop .completedstatus {
-    background-image: url([[pix:mod_workshop|userplan/task-todo]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-todo]]);
     background-position: top left;
     background-repeat: no-repeat;
     min-height: 16px;
@@ -984,18 +984,18 @@ path-mod-workshop .wizard-navigation ol:before {
 }
 
 .path-mod-workshop .completedstatus.completed {
-    background-image: url([[pix:mod_workshop|userplan/task-done]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-done]]);
 }
 
 .path-mod-workshop .completedstatus.fail {
-    background-image: url([[pix:mod_workshop|userplan/task-fail]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-fail]]);
 }
 
 .path-mod-workshop .completedstatus.info {
-    background-image: url([[pix:mod_workshop|userplan/task-info]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-info]]);
 }
 .path-mod-workshop .otherphases li {
-    background-image: url([[pix:mod_workshop|userplan/task-todo]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-todo]]);
     background-position: top left;
     background-repeat: no-repeat;
     list-style-type: none;
@@ -1007,14 +1007,14 @@ path-mod-workshop .wizard-navigation ol:before {
     background-position: top right;
 }
 .path-mod-workshop .otherphases li.completed {
-    background-image: url([[pix:mod_workshop|userplan/task-done]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-done]]);
 }
 
 .path-mod-workshop .otherphases li.fail {
-    background-image: url([[pix:mod_workshop|userplan/task-fail]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-fail]]);
 }
 .path-mod-workshop .otherphases li.info {
-    background-image: url([[pix:mod_workshop|userplan/task-info]]);
+    background-image: url([[pix:mod_udm_workshop|userplan/task-info]]);
 }
 .path-mod-workshop .otherphases span.phasename {
     font-size: 1.1em;

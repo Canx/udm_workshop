@@ -17,7 +17,7 @@
 /**
  * Unit tests for workshop api class defined in mod/workshop/locallib.php
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @category   phpunit
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,7 +33,7 @@ require_once(__DIR__ . '/fixtures/testable.php');
 /**
  * Test cases for the internal workshop api
  */
-class mod_workshop_internal_api_testcase extends advanced_testcase {
+class mod_udm_workshop_internal_api_testcase extends advanced_testcase {
 
     /** @var object */
     protected $course;
@@ -575,7 +575,7 @@ class mod_workshop_internal_api_testcase extends advanced_testcase {
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id);
         $this->getDataGenerator()->enrol_user($student2->id, $this->workshop->course->id);
 
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
 
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
         $subid2 = $workshopgenerator->create_submission($this->workshop->id, $student2->id);
@@ -609,7 +609,7 @@ class mod_workshop_internal_api_testcase extends advanced_testcase {
         $this->getDataGenerator()->enrol_user($student1->id, $this->workshop->course->id);
         $this->getDataGenerator()->enrol_user($student2->id, $this->workshop->course->id);
 
-        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_workshop');
+        $workshopgenerator = $this->getDataGenerator()->get_plugin_generator('mod_udm_workshop');
 
         $subid1 = $workshopgenerator->create_submission($this->workshop->id, $student1->id);
         $subid2 = $workshopgenerator->create_submission($this->workshop->id, $student2->id);

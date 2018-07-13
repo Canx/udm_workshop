@@ -17,14 +17,14 @@
 /**
  * Defines the version of workshop
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017081400;        // The current module version (YYYYMMDDXX)
+$plugin->version   = 2018061401;        // The current module version (YYYYMMDDXX)
 $plugin->requires  = 2017050500;        // Requires this Moodle version.
 $plugin->component = 'mod_udm_workshop';
 $plugin->cron      = 60;                // Give as a chance every minute.

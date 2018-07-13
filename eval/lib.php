@@ -17,7 +17,7 @@
 /**
  * This file defines interface of all grading evaluation classes
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -83,7 +83,7 @@ class workshop_evaluation_settings_form extends moodleform {
 
         $workshop = $this->_customdata['workshop'];
 
-        $mform->addElement('header', 'general', get_string('evaluationsettings', 'mod_workshop'));
+        $mform->addElement('header', 'general', get_string('evaluationsettings', 'mod_udm_workshop'));
 
         $this->definition_sub();
 

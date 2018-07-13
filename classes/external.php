@@ -17,13 +17,13 @@
 /**
  * This is the external API for this module.
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace mod_workshop;
+namespace mod_udm_workshop;
 defined('MOODLE_INTERNAL') || die();
 
 require_once("$CFG->libdir/externallib.php");
@@ -99,8 +99,8 @@ class external extends external_api {
 
         self::validate_context($workshop->context);
 
-        $renderable = new \mod_workshop\output\wizard_navigation_page($workshop, $params['assessmenttype']);
-        $renderer = $PAGE->get_renderer('mod_workshop');
+        $renderable = new \mod_udm_workshop\output\wizard_navigation_page($workshop, $params['assessmenttype']);
+        $renderer = $PAGE->get_renderer('mod_udm_workshop');
 
         $data = $renderable->export_for_template($renderer);
 

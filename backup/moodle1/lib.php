@@ -18,7 +18,7 @@
 /**
  * Provides support for the conversion of moodle1 backup to the moodle2 format
  *
- * @package   mod_workshop
+ * @package   mod_udm_workshop
  * @copyright 2011 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Workshop conversion handler
  */
-class moodle1_mod_workshop_handler extends moodle1_mod_handler {
+class moodle1_mod_udm_workshop_handler extends moodle1_mod_handler {
 
     /** @var array the temporary in-memory cache for the current <MOD> contents */
     protected $currentworkshop = null;
@@ -123,7 +123,7 @@ class moodle1_mod_workshop_handler extends moodle1_mod_handler {
         $this->inforefman = $this->converter->get_inforef_manager('activity', $moduleid);
 
         // get a fresh new file manager for this instance
-        $this->fileman = $this->converter->get_file_manager($contextid, 'mod_workshop');
+        $this->fileman = $this->converter->get_file_manager($contextid, 'mod_udm_workshop');
 
         // convert course files embedded into the intro
         $this->fileman->filearea = 'intro';

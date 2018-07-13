@@ -17,7 +17,7 @@
 /**
  * Display example submission followed by its reference assessment and the user's assessment to compare them
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -70,7 +70,7 @@ $PAGE->set_heading($course->fullname);
 $PAGE->navbar->add(get_string('examplecomparing', 'workshop'));
 
 // Output starts here
-$output = $PAGE->get_renderer('mod_workshop');
+$output = $PAGE->get_renderer('mod_udm_workshop');
 echo $output->header();
 echo $output->heading(format_string($workshop->name));
 echo $output->heading(get_string('assessedexample', 'workshop'), 3);

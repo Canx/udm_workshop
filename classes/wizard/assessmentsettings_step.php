@@ -17,14 +17,14 @@
 /**
  * Edit grading form in for a particular instance of workshop
  *
- * @package    mod_workshop
+ * @package    mod_udm_workshop
  * @author     Gilles-Philippe Leblanc <gilles-philippe.leblanc@umontreal.ca>
  * @author     Issam Taboubi <issam.taboubi@umontreal.ca>
  * @copyright  2017 Université de Montréal
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_workshop\wizard;
+namespace mod_udm_workshop\wizard;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -53,7 +53,7 @@ class assessmentsettings_step extends step {
         // Intructions for reviewers.
         if ($draftitemid = $data->instructreviewerseditor['itemid']) {
             $record->instructreviewers = file_save_draft_area_files($draftitemid, $this->workshop->context->id,
-                'mod_workshop',
+                'mod_udm_workshop',
                 'instructreviewers',
                 0, \workshop::instruction_editors_options($this->workshop->context), $data->instructreviewerseditor['text']);
             $record->instructreviewersformat = $data->instructreviewerseditor['format'];
@@ -73,7 +73,7 @@ class assessmentsettings_step extends step {
         if (isset($data->displayappraisersname)) {
             $record->displayappraisersname = $data->displayappraisersname;
         }
-        $anonymitysettings = new \mod_workshop\anonymity_settings($this->workshop->context);
+        $anonymitysettings = new \mod_udm_workshop\anonymity_settings($this->workshop->context);
         $anonymitysettings->save_changes($record);
         // Update time modified.
         $record->timemodified = time();

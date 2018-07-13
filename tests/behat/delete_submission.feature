@@ -1,4 +1,4 @@
-@mod @mod_workshop
+@mod @mod_udm_workshop
 Feature: Workshop submission removal
   In order to get rid of accidentally submitted or otherwise inappropriate contents
   As a student and as a teacher
