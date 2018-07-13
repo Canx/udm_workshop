@@ -45,8 +45,8 @@ require_capability('mod/workshop:editdimensions', $workshop->context);
 $PAGE->set_url($workshop->previewform_url());
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('editingassessmentform', 'workshop'), $workshop->editform_url(), navigation_node::TYPE_CUSTOM);
-$PAGE->navbar->add(get_string('previewassessmentform', 'workshop'));
+$PAGE->navbar->add(get_string('editingassessmentform', 'workshop'), $udmworkshop->editform_url(), navigation_node::TYPE_CUSTOM);
+$PAGE->navbar->add(get_string('previewassessmentform', 'udmworkshop'));
 $currenttab = 'editform';
 
 // load the grading strategy logic
@@ -58,6 +58,6 @@ $mform = $strategy->get_assessment_form($workshop->editform_url(), 'preview');
 // output starts here
 echo $OUTPUT->header();
 echo $OUTPUT->heading(format_string($workshop->name));
-echo $OUTPUT->heading(get_string('assessmentform', 'workshop'), 3);
+echo $OUTPUT->heading(get_string('assessmentform', 'udmworkshop'), 3);
 $mform->display();
 echo $OUTPUT->footer();

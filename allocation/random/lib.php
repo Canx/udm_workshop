@@ -122,17 +122,17 @@ class workshop_random_allocator implements workshop_allocator {
             $options['excludesamegroup'] = $settings->excludesamegroup;
             $randomallocations  = $this->random_allocation($authors, $reviewers, $curassessments, $result, $options);
             $newallocations     = array_merge($newallocations, $randomallocations);
-            $result->log(get_string('numofrandomlyallocatedsubmissions', 'workshopallocation_random', count($randomallocations)));
+            $result->log(get_string('numofrandomlyallocatedsubmissions', 'udmworkshopallocation_random', count($randomallocations)));
             unset($randomallocations);
         }
         if ($settings->addselfassessment) {
             $selfallocations    = $this->self_allocation($authors, $reviewers, $assessments);
             $newallocations     = array_merge($newallocations, $selfallocations);
-            $result->log(get_string('numofselfallocatedsubmissions', 'workshopallocation_random', count($selfallocations)));
+            $result->log(get_string('numofselfallocatedsubmissions', 'udmworkshopallocation_random', count($selfallocations)));
             unset($selfallocations);
         }
         if (empty($newallocations)) {
-            $result->log(get_string('noallocationtoadd', 'workshopallocation_random'), 'info');
+            $result->log(get_string('noallocationtoadd', 'udmworkshopallocation_random'), 'info');
         } else {
             $newnonexistingallocations = $newallocations;
             $this->filter_current_assessments($newnonexistingallocations, $assessments);
@@ -166,9 +166,9 @@ class workshop_random_allocator implements workshop_allocator {
                     $a->authorname = '#'.$authorid;
                 }
                 if (in_array($newallocation, $newnonexistingallocations)) {
-                    $result->log(get_string('allocationaddeddetail', 'workshopallocation_random', $a), 'ok', 1);
+                    $result->log(get_string('allocationaddeddetail', 'udmworkshopallocation_random', $a), 'ok', 1);
                 } else {
-                    $result->log(get_string('allocationreuseddetail', 'workshopallocation_random', $a), 'ok', 1);
+                    $result->log(get_string('allocationreuseddetail', 'udmworkshopallocation_random', $a), 'ok', 1);
                 }
             }
         }
@@ -176,7 +176,7 @@ class workshop_random_allocator implements workshop_allocator {
             $delassessments = $this->get_unkept_assessments($assessments, $newallocations, $settings->addselfassessment);
             // random allocator should not be able to delete assessments that have already been graded
             // by reviewer
-            $result->log(get_string('numofdeallocatedassessment', 'workshopallocation_random', count($delassessments)), 'info');
+            $result->log(get_string('numofdeallocatedassessment', 'udmworkshopallocation_random', count($delassessments)), 'info');
             foreach ($delassessments as $delassessmentkey => $delassessmentid) {
                 $author = (object) [];
                 $reviewer = (object) [];
@@ -187,10 +187,10 @@ class workshop_random_allocator implements workshop_allocator {
                     'reviewername' => fullname($reviewer),
                 ];
                 if (!is_null($assessments[$delassessmentid]->grade)) {
-                    $result->log(get_string('allocationdeallocategraded', 'workshopallocation_random', $a), 'error', 1);
+                    $result->log(get_string('allocationdeallocategraded', 'udmworkshopallocation_random', $a), 'error', 1);
                     unset($delassessments[$delassessmentkey]);
                 } else {
-                    $result->log(get_string('assessmentdeleteddetail', 'workshopallocation_random', $a), 'info', 1);
+                    $result->log(get_string('assessmentdeleteddetail', 'udmworkshopallocation_random', $a), 'info', 1);
                 }
             }
             $this->workshop->delete_assessment($delassessments);
@@ -235,12 +235,12 @@ class workshop_random_allocator implements workshop_allocator {
                         $list[] = fullname($nogroupuser);
                     }
                     $a = implode(', ', $list);
-                    $out .= $output->box(get_string('nogroupusers', 'workshopallocation_random', $a), 'generalbox warning nogroupusers');
+                    $out .= $output->box(get_string('nogroupusers', 'udmworkshopallocation_random', $a), 'generalbox warning nogroupusers');
                 }
             }
         }
 
-        // TODO $out .= $output->heading(get_string('stats', 'workshopallocation_random'));
+        // TODO $out .= $output->heading(get_string('stats', 'udmworkshopallocation_random'));
 
         $out .= $output->container_end();
 
@@ -456,14 +456,14 @@ class workshop_random_allocator implements workshop_allocator {
 
         if (workshop_random_allocator_setting::NUMPER_SUBMISSION == $numper) {
             // circles are authors, squares are reviewers
-            $result->log(get_string('resultnumperauthor', 'workshopallocation_random', $numofreviews), 'info');
+            $result->log(get_string('resultnumperauthor', 'udmworkshopallocation_random', $numofreviews), 'info');
             $allcircles = $authors;
             $allsquares = $reviewers;
             // get current workload
             list($circlelinks, $squarelinks) = $this->convert_assessments_to_links($assessments);
         } elseif (workshop_random_allocator_setting::NUMPER_REVIEWER == $numper) {
             // circles are reviewers, squares are authors
-            $result->log(get_string('resultnumperreviewer', 'workshopallocation_random', $numofreviews), 'info');
+            $result->log(get_string('resultnumperreviewer', 'udmworkshopallocation_random', $numofreviews), 'info');
             $allcircles = $reviewers;
             $allsquares = $authors;
             // get current workload
@@ -543,14 +543,14 @@ class workshop_random_allocator implements workshop_allocator {
                         if (NOGROUPS == $gmode) {
                             if (in_array(0, $failedgroups)) {
                                 $keeptrying = false;
-                                $result->log(get_string('resultnomorepeers', 'workshopallocation_random'), 'error', 1);
+                                $result->log(get_string('resultnomorepeers', 'udmworkshopallocation_random'), 'error', 1);
                                 break;
                             }
                             $targetgroup = 0;
                         } elseif (SEPARATEGROUPS == $gmode) {
                             if (in_array($circlegroupid, $failedgroups)) {
                                 $keeptrying = false;
-                                $result->log(get_string('resultnomorepeersingroup', 'workshopallocation_random'), 'error', 1);
+                                $result->log(get_string('resultnomorepeersingroup', 'udmworkshopallocation_random'), 'error', 1);
                                 break;
                             }
                             $targetgroup = $circlegroupid;
@@ -571,7 +571,7 @@ class workshop_random_allocator implements workshop_allocator {
                         }
                         if ($targetgroup === false) {
                             $keeptrying = false;
-                            $result->log(get_string('resultnotenoughpeers', 'workshopallocation_random'), 'error', 1);
+                            $result->log(get_string('resultnotenoughpeers', 'udmworkshopallocation_random'), 'error', 1);
                             break;
                         }
                         $result->log('next square should be from group id ' . $targetgroup, 'debug', 1);

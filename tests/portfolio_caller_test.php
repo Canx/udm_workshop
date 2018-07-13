@@ -185,6 +185,6 @@ class mod_udmworkshop_porfolio_caller_testcase extends advanced_testcase {
         $this->resetAfterTest(true);
 
         $name = mod_udmworkshop_portfolio_caller::display_name();
-        $this->assertEquals(get_string('pluginname', 'mod_udmworkshop'), $name);
+        $this->assertEquals(get_string('pluginname', 'mod_udmudmworkshop'), $name);
     }
 }

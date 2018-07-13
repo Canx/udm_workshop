@@ -52,7 +52,7 @@ class gradingmethod_step_form extends step_form {
         $mform->addElement('hidden', 'samestep', 0);
         $mform->setType('samestep', PARAM_INT);
 
-        $label = get_string('strategy', 'workshop');
+        $label = get_string('strategy', 'udmworkshop');
         $mform->addElement('select', 'strategy', $label, \workshop::available_strategies_list());
         $mform->setDefault('strategy', $workshopconfig->strategy);
         $mform->addHelpButton('strategy', 'strategy', 'workshop');
@@ -77,7 +77,7 @@ class gradingmethod_step_form extends step_form {
         $PAGE->requires->js_call_amd('mod_udmworkshop/wizardform', 'init', array());
 
         if (!$this->workshop->grading_strategy_instance()->form_ready()) {
-            $mform->addElement('html', $OUTPUT->notification(get_string('gradingformnotready', 'workshop')));
+            $mform->addElement('html', $OUTPUT->notification(get_string('gradingformnotready', 'udmworkshop')));
         }
 
     }

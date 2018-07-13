@@ -52,7 +52,7 @@ if ($confirm) {
 
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('switchingphase', 'workshop'));
+$PAGE->navbar->add(get_string('switchingphase', 'udmworkshop'));
 
 //
 // Output starts here
@@ -63,6 +63,6 @@ $text = 'info';
 if ($phase == $workshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted) {
     $text = 'mixed';
 }
-echo $OUTPUT->confirm(get_string('switchphase' . $phase . $text, 'workshop'),
+echo $OUTPUT->confirm(get_string('switchphase' . $phase . $text, 'udmworkshop'),
                         new moodle_url($PAGE->url, array('confirm' => 1)), $workshop->view_url());
 echo $OUTPUT->footer();

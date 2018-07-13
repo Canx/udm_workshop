@@ -92,17 +92,17 @@ class behat_mod_udmworkshop extends behat_base {
      */
     public function i_edit_assessment_form_in_workshop_as($workshopname, $table) {
         try {
-            $this->execute('behat_general::assert_page_contains_text', get_string('setupwizard', 'workshop'));
+            $this->execute('behat_general::assert_page_contains_text', get_string('setupwizard', 'udmworkshop'));
             $this->execute('behat_general::click_link', get_string('manageactionnew', 'core_grading'));
         } catch (Exception $ex) {
             $this->execute('behat_general::click_link', $workshopname);
             $this->execute('behat_navigation::i_navigate_to_in_current_page_administration',
-                get_string('editassessmentform', 'workshop'));
+                get_string('editassessmentform', 'udmworkshop'));
         }
 
         $this->execute("behat_forms::i_set_the_following_fields_to_these_values", $table);
 
-        $this->execute("behat_forms::press_button", get_string('saveandclose', 'workshop'));
+        $this->execute("behat_forms::press_button", get_string('saveandclose', 'udmworkshop'));
     }
 
     /**
@@ -118,8 +118,8 @@ class behat_mod_udmworkshop extends behat_base {
         $submissionliteral = behat_context_helper::escape($submission);
         $xpath = "//div[contains(concat(' ', normalize-space(@class), ' '), ' assessment-summary ') ".
                 "and contains(.,$submissionliteral)]";
-        $assess = $this->escape(get_string('assess', 'workshop'));
-        $saveandclose = $this->escape(get_string('saveandclose', 'workshop'));
+        $assess = $this->escape(get_string('assess', 'udmworkshop'));
+        $saveandclose = $this->escape(get_string('saveandclose', 'udmworkshop'));
 
         $this->execute('behat_general::click_link', $workshopname);
 
@@ -330,43 +330,43 @@ class behat_mod_udmworkshop extends behat_base {
 
         $xpath = '';
         switch ($fieldname) {
-            case get_string('assessmenttype', 'workshop'):
+            case get_string('assessmenttype', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_assessmenttype']";
                 break;
-            case get_string('strategy', 'workshop'):
+            case get_string('strategy', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_strategy']";
                 break;
-            case get_string('allowsubmission', 'workshop'):
+            case get_string('allowsubmission', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_allowsubmission']";
                 break;
-            case get_string('submissionendswitch', 'workshop'):
+            case get_string('submissionendswitch', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_switchassessment']";
                 break;
-            case get_string('assessassoonsubmitted', 'workshop'):
+            case get_string('assessassoonsubmitted', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_assessassoonsubmitted']";
                 break;
-            case get_string('allocate', 'workshop'):
+            case get_string('allocate', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_peerallocationdetails']";
                 break;
-            case get_string('displayappraiseesname', 'workshop'):
+            case get_string('displayappraiseesname', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_displayappraiseesname']";
                 break;
-            case get_string('displayappraisersname', 'workshop'):
+            case get_string('displayappraisersname', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_displayappraisersname']";
                 break;
-            case get_string('assesswithoutsubmission', 'workshop'):
+            case get_string('assesswithoutsubmission', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_assesswithoutsubmission']";
                 break;
-            case get_string('submissionstart', 'workshop'):
+            case get_string('submissionstart', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_submissionstart']";
                 break;
-            case get_string('submissionend', 'workshop'):
+            case get_string('submissionend', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_submissionend']";
                 break;
-            case get_string('assessmentstart', 'workshop'):
+            case get_string('assessmentstart', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_assessmentstart']";
                 break;
-            case get_string('assessmentend', 'workshop'):
+            case get_string('assessmentend', 'udmworkshop'):
                 $xpath = "//div[@id='fitem_id_summary_assessmentend']";
                 break;
             default:
@@ -440,7 +440,7 @@ class behat_mod_udmworkshop extends behat_base {
             default:
                 $class = "";
         }
-        $this->execute('behat_general::click_link', get_string('otherphases', 'workshop'));
+        $this->execute('behat_general::click_link', get_string('otherphases', 'udmworkshop'));
         $xpath = "//div[contains(@class, 'otherphases') and //a[contains(text(), 'Other phases')]]";
         $xpath .= "//li[contains(., '$message') ";
         $xpath .= "and contains(., '$total') ";
@@ -471,7 +471,7 @@ class behat_mod_udmworkshop extends behat_base {
             default:
                 $class = "";
         }
-        $this->execute('behat_general::click_link', get_string('otherphases', 'workshop'));
+        $this->execute('behat_general::click_link', get_string('otherphases', 'udmworkshop'));
         $messageliteral = behat_context_helper::escape($message);
         $xpath = "//div[contains(@class, 'otherphases') and //a[contains(text(), 'Other phases')]]";
         $xpath .= "//li[contains(., $messageliteral) ";

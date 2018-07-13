@@ -37,33 +37,33 @@ class workshop_feedbackauthor_form extends moodleform {
         $editoropts = $this->_customdata['editoropts'];
         $options    = $this->_customdata['options'];
 
-        $mform->addElement('header', 'feedbackauthorform', get_string('feedbackauthor', 'workshop'));
+        $mform->addElement('header', 'feedbackauthorform', get_string('feedbackauthor', 'udmworkshop'));
 
         if (!empty($options['editablepublished'])) {
             $text = $workshop->allowsubmission ? 'publishsubmission' : 'publishassessment';
-            $mform->addElement('checkbox', 'published', get_string($text, 'workshop'));
+            $mform->addElement('checkbox', 'published', get_string($text, 'udmworkshop'));
             $mform->addHelpButton('published', $text, 'workshop');
             $mform->setDefault('published', false);
         }
 
         $text = $workshop->allowsubmission ? 'gradecalculated' : 'gradecalculatedfrompeer';
-        $mform->addElement('static', 'grade', get_string($text, 'workshop'));
+        $mform->addElement('static', 'grade', get_string($text, 'udmworkshop'));
 
-        $grades = array('' => get_string('notoverridden', 'workshop'));
+        $grades = array('' => get_string('notoverridden', 'udmworkshop'));
         for ($i = (int)$workshop->grade; $i >= 0; $i--) {
             $grades[$i] = $i;
         }
 
         $text = $workshop->allowsubmission ? 'gradeover' : 'gradeoverfrompeer';
-        $mform->addElement('select', 'gradeover', get_string($text, 'workshop'), $grades);
+        $mform->addElement('select', 'gradeover', get_string($text, 'udmworkshop'), $grades);
 
-        $mform->addElement('editor', 'feedbackauthor_editor', get_string('feedbackauthor', 'workshop'), null, $editoropts);
+        $mform->addElement('editor', 'feedbackauthor_editor', get_string('feedbackauthor', 'udmworkshop'), null, $editoropts);
         $mform->setType('feedbackauthor_editor', PARAM_RAW);
 
         $mform->addElement('hidden', 'submissionid');
         $mform->setType('submissionid', PARAM_INT);
 
-        $mform->addElement('submit', 'save', get_string('saveandclose', 'workshop'));
+        $mform->addElement('submit', 'save', get_string('saveandclose', 'udmworkshop'));
 
         $this->set_data($current);
     }

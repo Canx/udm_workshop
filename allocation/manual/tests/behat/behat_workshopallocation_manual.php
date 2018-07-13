@@ -79,9 +79,9 @@ class behat_workshopallocation_manual extends behat_base {
         }
 
         // Check the success string to appear.
-        $seeresults = get_string('seeresults', 'workshop');
+        $seeresults = get_string('seeresults', 'udmworkshop');
         $allocatedtext = behat_context_helper::escape(
-            get_string('allocationdonedetail', 'workshop', $seeresults));
+            get_string('allocationdonedetail', 'udmworkshop', $seeresults));
         $this->find('xpath', "//*[contains(.,$allocatedtext)]");
     }
 
@@ -143,9 +143,9 @@ class behat_workshopallocation_manual extends behat_base {
         }
 
         // Check the success string to appear.
-        $seeresults = get_string('seeresults', 'workshop');
+        $seeresults = get_string('seeresults', 'udmworkshop');
         $allocatedtext = behat_context_helper::escape(
-            get_string('allocationdonedetail', 'workshop', $seeresults));
+            get_string('allocationdonedetail', 'udmworkshop', $seeresults));
         $this->find('xpath', "//*[contains(.,$allocatedtext)]");
     }
 
@@ -287,7 +287,7 @@ class behat_workshopallocation_manual extends behat_base {
             $this->execute('behat_general::assert_page_contains_text', "Setup wizard");
         } catch (Exception $ex) {
             $this->find_link($workshopname)->click();
-            $this->execute('behat_navigation::i_navigate_to_in_current_page_administration', get_string('allocate', 'workshop'));
+            $this->execute('behat_navigation::i_navigate_to_in_current_page_administration', get_string('allocate', 'udmworkshop'));
         }
 
         $rows = $table->getRows();

@@ -111,8 +111,8 @@ function workshopform_numerrors_upgrade_element(stdclass $old, $newworkshopid) {
     $new->sort = $old->elementno;
     $new->description = $old->description;
     $new->descriptionformat = FORMAT_HTML;
-    $new->grade0 = get_string('grade0default', 'workshopform_numerrors');
-    $new->grade1 = get_string('grade1default', 'workshopform_numerrors');
+    $new->grade0 = get_string('grade0default', 'udmworkshopform_numerrors');
+    $new->grade1 = get_string('grade1default', 'udmworkshopform_numerrors');
     // calculate new weight of the element. Negative weights are not supported any more and
     // are replaced with weight = 0. Legacy workshop did not store the raw weight but the index
     // in the array of weights (see $WORKSHOP_EWEIGHTS in workshop 1.x)

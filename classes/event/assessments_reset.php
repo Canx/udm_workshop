@@ -77,7 +77,7 @@ class assessments_reset extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventsubmissionassessmentsreset', 'mod_udmworkshop');
+        return get_string('eventsubmissionassessmentsreset', 'mod_udmudmworkshop');
     }
 
     /**

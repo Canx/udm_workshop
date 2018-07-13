@@ -37,19 +37,19 @@ class workshop_submission_form extends moodleform {
         $contentopts    = $this->_customdata['contentopts'];
         $attachmentopts = $this->_customdata['attachmentopts'];
 
-        $mform->addElement('header', 'general', get_string('submission', 'workshop'));
+        $mform->addElement('header', 'general', get_string('submission', 'udmworkshop'));
 
-        $mform->addElement('text', 'title', get_string('submissiontitle', 'workshop'));
+        $mform->addElement('text', 'title', get_string('submissiontitle', 'udmworkshop'));
         $mform->setType('title', PARAM_TEXT);
         $mform->addRule('title', null, 'required', null, 'client');
         $mform->addRule('title', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
 
-        $mform->addElement('editor', 'content_editor', get_string('submissioncontent', 'workshop'), null, $contentopts);
+        $mform->addElement('editor', 'content_editor', get_string('submissioncontent', 'udmworkshop'), null, $contentopts);
         $mform->setType('content', PARAM_RAW);
 
         if ($workshop->nattachments > 0) {
-            $mform->addElement('static', 'filemanagerinfo', get_string('nattachments', 'workshop'), $workshop->nattachments);
-            $mform->addElement('filemanager', 'attachment_filemanager', get_string('submissionattachment', 'workshop'),
+            $mform->addElement('static', 'filemanagerinfo', get_string('nattachments', 'workshop'), $udmworkshop->nattachments);
+            $mform->addElement('filemanager', 'attachment_filemanager', get_string('submissionattachment', 'udmworkshop'),
                                 null, $attachmentopts);
         }
 
@@ -88,14 +88,14 @@ class workshop_submission_form extends moodleform {
                      WHERE cm.id = ? AND s.authorid = ? AND s.example = 0";
 
             if ($DB->count_records_sql($sql, array($data['cmid'], $USER->id))) {
-                $errors['title'] = get_string('err_multiplesubmissions', 'mod_udmworkshop');
+                $errors['title'] = get_string('err_multiplesubmissions', 'mod_udmudmworkshop');
             }
         }
 
         $getfiles = file_get_drafarea_files($data['attachment_filemanager']);
         if (empty($getfiles->list) and html_is_blank($data['content_editor']['text'])) {
-            $errors['content_editor'] = get_string('submissionrequiredcontent', 'mod_udmworkshop');
-            $errors['attachment_filemanager'] = get_string('submissionrequiredfile', 'mod_udmworkshop');
+            $errors['content_editor'] = get_string('submissionrequiredcontent', 'mod_udmudmworkshop');
+            $errors['attachment_filemanager'] = get_string('submissionrequiredfile', 'mod_udmudmworkshop');
         }
 
         if (isset($data['attachment_filemanager']) and isset($this->_customdata['workshop']->submissionfiletypes)) {
@@ -114,7 +114,7 @@ class workshop_submission_form extends moodleform {
                             'whitelist' => workshop::clean_file_extensions($whitelist),
                             'wrongfiles' => implode(', ', $wrongfiles),
                         );
-                        $errors['attachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmworkshop', $a);
+                        $errors['attachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmudmworkshop', $a);
                     }
                 }
             }

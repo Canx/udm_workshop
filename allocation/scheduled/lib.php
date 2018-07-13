@@ -83,9 +83,9 @@ class workshop_scheduled_allocator implements workshop_allocator {
             $settings = workshop_random_allocator_setting::instance_from_object($settings);
             $this->store_settings($enabled, $reset, $settings, $result);
             if ($enabled) {
-                $msg = get_string('resultenabled', 'workshopallocation_scheduled');
+                $msg = get_string('resultenabled', 'udmworkshopallocation_scheduled');
             } else {
-                $msg = get_string('resultdisabled', 'workshopallocation_scheduled');
+                $msg = get_string('resultdisabled', 'udmworkshopallocation_scheduled');
             }
             $result->set_status(workshop_allocation_result::STATUS_CONFIGURED, $msg);
             return $result;
@@ -139,19 +139,19 @@ class workshop_scheduled_allocator implements workshop_allocator {
 
         if ($this->workshop->phase != workshop::PHASE_SUBMISSION) {
             $result->set_status(workshop_allocation_result::STATUS_FAILED,
-                get_string('resultfailedphase', 'workshopallocation_scheduled'));
+                get_string('resultfailedphase', 'udmworkshopallocation_scheduled'));
             return $result;
         }
 
         if (empty($this->workshop->submissionend)) {
             $result->set_status(workshop_allocation_result::STATUS_FAILED,
-                get_string('resultfaileddeadline', 'workshopallocation_scheduled'));
+                get_string('resultfaileddeadline', 'udmworkshopallocation_scheduled'));
             return $result;
         }
 
         if ($this->workshop->submissionend > time()) {
             $result->set_status(workshop_allocation_result::STATUS_VOID,
-                get_string('resultvoiddeadline', 'workshopallocation_scheduled'));
+                get_string('resultvoiddeadline', 'udmworkshopallocation_scheduled'));
             return $result;
         }
 
@@ -160,19 +160,19 @@ class workshop_scheduled_allocator implements workshop_allocator {
 
         if ($current === false) {
             $result->set_status(workshop_allocation_result::STATUS_FAILED,
-                get_string('resultfailedconfig', 'workshopallocation_scheduled'));
+                get_string('resultfailedconfig', 'udmworkshopallocation_scheduled'));
             return $result;
         }
 
         if (!$current->enabled) {
             $result->set_status(workshop_allocation_result::STATUS_VOID,
-                get_string('resultdisabled', 'workshopallocation_scheduled'));
+                get_string('resultdisabled', 'udmworkshopallocation_scheduled'));
             return $result;
         }
 
         if (!is_null($current->timeallocated) and $current->timeallocated >= $this->workshop->submissionend) {
             $result->set_status(workshop_allocation_result::STATUS_VOID,
-                get_string('resultvoidexecuted', 'workshopallocation_scheduled'));
+                get_string('resultvoidexecuted', 'udmworkshopallocation_scheduled'));
             return $result;
         }
 

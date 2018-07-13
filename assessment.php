@@ -53,7 +53,7 @@ $workshop = new workshop($workshop, $cm, $course, null, array(\workshop::SKIP_AL
 $PAGE->set_url($workshop->assess_url($assessment->id));
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$text = $workshop->allowsubmission ? get_string('assessingsubmission', 'workshop') : get_string('assessingpeer', 'workshop');
+$text = $workshop->allowsubmission ? get_string('assessingsubmission', 'workshop') : get_string('assessingpeer', 'udmworkshop');
 $PAGE->navbar->add($text);
 
 $canviewallassessments  = has_capability('mod/workshop:viewallassessments', $workshop->context);
@@ -94,7 +94,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
         $assessmenteditable = false;
         echo $output->header();
         echo $output->heading(format_string($workshop->name));
-        notice(get_string('exampleneedsubmission', 'workshop'), new moodle_url('/mod/udmworkshop/view.php', array('id' => $cm->id)));
+        notice(get_string('exampleneedsubmission', 'workshop'), new moodle_url('/mod/udmudmworkshop/view.php', array('id' => $cm->id)));
         echo $output->footer();
         exit;
     } else {
@@ -104,7 +104,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
                 $assessmenteditable = false;
                 echo $output->header();
                 echo $output->heading(format_string($workshop->name));
-                notice(get_string('exampleneedassessed', 'workshop'), new moodle_url('/mod/udmworkshop/view.php', array('id' => $cm->id)));
+                notice(get_string('exampleneedassessed', 'workshop'), new moodle_url('/mod/udmudmworkshop/view.php', array('id' => $cm->id)));
                 echo $output->footer();
                 exit;
             }
@@ -244,7 +244,7 @@ if ($canoverridegrades or $cansetassessmentweight) {
 $output = $PAGE->get_renderer('mod_udmworkshop');      // workshop renderer
 echo $output->header();
 echo $output->heading(format_string($workshop->name));
-$head = $workshop->allowsubmission ? get_string('assessedsubmission', 'workshop') : get_string('assessedpeer', 'workshop');
+$head = $workshop->allowsubmission ? get_string('assessedsubmission', 'workshop') : get_string('assessedpeer', 'udmworkshop');
 echo $output->heading($head, 3);
 
 $submission = $workshop->get_submission_by_id($submission->id);     // reload so can be passed to the renderer
@@ -256,7 +256,7 @@ echo $output->render($workshop->prepare_submission($submission, $canviewauthorna
 if (trim($workshop->instructreviewers)) {
     $instructions = file_rewrite_pluginfile_urls($workshop->instructreviewers, 'pluginfile.php', $PAGE->context->id,
         'mod_udmworkshop', 'instructreviewers', null, workshop::instruction_editors_options($PAGE->context));
-    print_collapsible_region_start('', 'workshop-viewlet-instructreviewers', get_string('instructreviewers', 'workshop'));
+    print_collapsible_region_start('', 'workshop-viewlet-instructreviewers', get_string('instructreviewers', 'udmworkshop'));
     echo $output->box(format_text($instructions, $workshop->instructreviewersformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
     print_collapsible_region_end();
 }
@@ -272,7 +272,7 @@ if ($isreviewer) {
         'showweight'    => true,
     );
     $assessment = $workshop->prepare_assessment($assessment, $mform, $options);
-    $assessment->title = get_string('assessmentbyyourself', 'workshop');
+    $assessment->title = get_string('assessmentbyyourself', 'udmworkshop');
     $assessment->realsubmission = $submission->realsubmission;
     echo $output->render($assessment);
 

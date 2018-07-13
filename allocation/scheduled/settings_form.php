@@ -54,33 +54,33 @@ class workshop_scheduled_allocator_form extends workshop_random_allocator_form {
             $strtimeexecuted = workshop::timestamp_formats($current->timeallocated);
         }
 
-        $mform->addElement('header', 'scheduledallocationsettings', get_string('scheduledallocationsettings', 'workshopallocation_scheduled'));
+        $mform->addElement('header', 'scheduledallocationsettings', get_string('scheduledallocationsettings', 'udmworkshopallocation_scheduled'));
         $mform->addHelpButton('scheduledallocationsettings', 'scheduledallocationsettings', 'workshopallocation_scheduled');
 
-        $mform->addElement('checkbox', 'enablescheduled', get_string('enablescheduled', 'workshopallocation_scheduled'), get_string('enablescheduledinfo', 'workshopallocation_scheduled'), 1);
+        $mform->addElement('checkbox', 'enablescheduled', get_string('enablescheduled', 'workshopallocation_scheduled'), get_string('enablescheduledinfo', 'udmworkshopallocation_scheduled'), 1);
 
-        $mform->addElement('header', 'scheduledallocationinfo', get_string('currentstatus', 'workshopallocation_scheduled'));
+        $mform->addElement('header', 'scheduledallocationinfo', get_string('currentstatus', 'udmworkshopallocation_scheduled'));
 
         if ($current === false) {
-            $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                get_string('resultdisabled', 'workshopallocation_scheduled').' '. $OUTPUT->pix_icon('i/invalid', ''));
+            $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                get_string('resultdisabled', 'udmworkshopallocation_scheduled').' '. $OUTPUT->pix_icon('i/invalid', ''));
 
         } else {
             if (!empty($current->timeallocated)) {
-                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                    get_string('currentstatusexecution1', 'workshopallocation_scheduled', $strtimeexecuted).' '.
+                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                    get_string('currentstatusexecution1', 'udmworkshopallocation_scheduled', $strtimeexecuted).' '.
                     $OUTPUT->pix_icon('i/valid', ''));
 
                 if ($current->resultstatus == workshop_allocation_result::STATUS_EXECUTED) {
-                    $strstatus = get_string('resultexecuted', 'workshopallocation_scheduled').' '.
+                    $strstatus = get_string('resultexecuted', 'udmworkshopallocation_scheduled').' '.
                         $OUTPUT->pix_icon('i/valid', '');
 
                 } else if ($current->resultstatus == workshop_allocation_result::STATUS_FAILED) {
-                    $strstatus = get_string('resultfailed', 'workshopallocation_scheduled').' '.
+                    $strstatus = get_string('resultfailed', 'udmworkshopallocation_scheduled').' '.
                         $OUTPUT->pix_icon('i/invalid', '');
 
                 } else {
-                    $strstatus = get_string('resultvoid', 'workshopallocation_scheduled').' '.
+                    $strstatus = get_string('resultvoid', 'udmworkshopallocation_scheduled').' '.
                         $OUTPUT->pix_icon('i/invalid', '');
 
                 }
@@ -88,47 +88,47 @@ class workshop_scheduled_allocator_form extends workshop_random_allocator_form {
                 if (!empty($current->resultmessage)) {
                     $strstatus .= html_writer::empty_tag('br').$current->resultmessage; // yes, this is ugly. better solution suggestions are welcome.
                 }
-                $mform->addElement('static', 'inforesult', get_string('currentstatusresult', 'workshopallocation_scheduled'), $strstatus);
+                $mform->addElement('static', 'inforesult', get_string('currentstatusresult', 'udmworkshopallocation_scheduled'), $strstatus);
 
                 if ($current->timeallocated < $workshop->submissionend) {
-                    $mform->addElement('static', 'infoexpected', get_string('currentstatusnext', 'workshopallocation_scheduled'),
-                        get_string('currentstatusexecution2', 'workshopallocation_scheduled', $strtimeexpected).' '.
+                    $mform->addElement('static', 'infoexpected', get_string('currentstatusnext', 'udmworkshopallocation_scheduled'),
+                        get_string('currentstatusexecution2', 'udmworkshopallocation_scheduled', $strtimeexpected).' '.
                         $OUTPUT->pix_icon('i/caution', ''));
                     $mform->addHelpButton('infoexpected', 'currentstatusnext', 'workshopallocation_scheduled');
                 } else {
-                    $mform->addElement('checkbox', 'reenablescheduled', get_string('currentstatusreset', 'workshopallocation_scheduled'),
-                       get_string('currentstatusresetinfo', 'workshopallocation_scheduled'));
+                    $mform->addElement('checkbox', 'reenablescheduled', get_string('currentstatusreset', 'udmworkshopallocation_scheduled'),
+                       get_string('currentstatusresetinfo', 'udmworkshopallocation_scheduled'));
                     $mform->addHelpButton('reenablescheduled', 'currentstatusreset', 'workshopallocation_scheduled');
                 }
 
             } else if (empty($current->enabled)) {
-                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                    get_string('resultdisabled', 'workshopallocation_scheduled').' '.
+                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                    get_string('resultdisabled', 'udmworkshopallocation_scheduled').' '.
                         $OUTPUT->pix_icon('i/invalid', ''));
 
             } else if ($workshop->phase != workshop::PHASE_SUBMISSION) {
-                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                    get_string('resultfailed', 'workshopallocation_scheduled').' '.
+                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                    get_string('resultfailed', 'udmworkshopallocation_scheduled').' '.
                     $OUTPUT->pix_icon('i/invalid', '') .
                     html_writer::empty_tag('br').
-                    get_string('resultfailedphase', 'workshopallocation_scheduled'));
+                    get_string('resultfailedphase', 'udmworkshopallocation_scheduled'));
 
             } else if (empty($workshop->submissionend)) {
-                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                    get_string('resultfailed', 'workshopallocation_scheduled').' '.
+                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                    get_string('resultfailed', 'udmworkshopallocation_scheduled').' '.
                     $OUTPUT->pix_icon('i/invalid', '') .
                     html_writer::empty_tag('br').
-                    get_string('resultfaileddeadline', 'workshopallocation_scheduled'));
+                    get_string('resultfaileddeadline', 'udmworkshopallocation_scheduled'));
 
             } else if ($workshop->submissionend < time()) {
                 // next cron will execute it
-                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                    get_string('currentstatusexecution4', 'workshopallocation_scheduled').' '.
+                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                    get_string('currentstatusexecution4', 'udmworkshopallocation_scheduled').' '.
                     $OUTPUT->pix_icon('i/caution', ''));
 
             } else {
-                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'workshopallocation_scheduled'),
-                    get_string('currentstatusexecution3', 'workshopallocation_scheduled', $strtimeexpected).' '.
+                $mform->addElement('static', 'infostatus', get_string('currentstatusexecution', 'udmworkshopallocation_scheduled'),
+                    get_string('currentstatusexecution3', 'udmworkshopallocation_scheduled', $strtimeexpected).' '.
                     $OUTPUT->pix_icon('i/caution', ''));
             }
         }

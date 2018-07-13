@@ -46,7 +46,7 @@ require_capability('mod/workshop:allocate', $context);
 
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string(\mod_udmworkshop\wizard\peerallocation_step::NAME, 'workshop'));
+$PAGE->navbar->add(get_string(\mod_udmworkshop\wizard\peerallocation_step::NAME, 'udmworkshop'));
 
 //
 // Output starts here

@@ -99,7 +99,7 @@ class moodle1_workshopform_rubric_handler extends moodle1_workshopform_handler {
         // write the xml describing the artificial single rubric item
         $this->xmlwriter->begin_tag('workshopform_rubric_dimension', array('id' => $firstelement['id']));
         $this->xmlwriter->full_tag('sort', 1);
-        $this->xmlwriter->full_tag('description', trim(get_string('dimensionnumber', 'workshopform_rubric', '')));
+        $this->xmlwriter->full_tag('description', trim(get_string('dimensionnumber', 'udmworkshopform_rubric', '')));
         $this->xmlwriter->full_tag('descriptionformat', FORMAT_HTML);
 
         foreach ($this->elements as $element) {

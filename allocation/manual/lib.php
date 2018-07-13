@@ -169,20 +169,20 @@ class workshop_manual_allocator implements workshop_allocator {
                 case self::MSG_ADDED:
                     $hlauthorid     = $m[1];
                     $hlreviewerid   = $m[2];
-                    $link = html_writer::link('#', get_string('seeresults', 'workshop'),
+                    $link = html_writer::link('#', get_string('seeresults', 'udmworkshop'),
                             array('class' => 'manual-allocation-see-results'));
-                    $message = new workshop_message(get_string('allocationdonedetail', 'workshop', $link),
+                    $message = new workshop_message(get_string('allocationdonedetail', 'udmworkshop', $link),
                     workshop_message::TYPE_OK);
                 break;
                 case self::MSG_EXISTS:
                     $hlauthorid     = $m[1];
                     $hlreviewerid   = $m[2];
-                    $message        = new workshop_message(get_string('allocationexists', 'workshopallocation_manual'),
+                    $message        = new workshop_message(get_string('allocationexists', 'udmworkshopallocation_manual'),
                         workshop_message::TYPE_INFO);
                     break;
                 case self::MSG_NOSUBMISSION:
                     $hlauthorid     = $m[1];
-                    $message        = new workshop_message(get_string('nosubmissionfound', 'workshop'),
+                    $message        = new workshop_message(get_string('nosubmissionfound', 'udmworkshop'),
                         workshop_message::TYPE_ERROR);
                     break;
                 case self::MSG_CONFIRM_DEL:
@@ -192,14 +192,14 @@ class workshop_manual_allocator implements workshop_allocator {
                         $a->author = $this->get_user_info($hlauthorid);
                         $a->reviewer = $this->get_user_info($hlreviewerid);
                     if ($m[4] == 0) {
-                        $message = new workshop_message(get_string('areyousuretodeallocate', 'workshopallocation_manual', $a),
+                        $message = new workshop_message(get_string('areyousuretodeallocate', 'udmworkshopallocation_manual', $a),
                            workshop_message::TYPE_INFO);
                     } else {
-                        $message = new workshop_message(get_string('areyousuretodeallocategraded', 'workshopallocation_manual', $a),
+                        $message = new workshop_message(get_string('areyousuretodeallocategraded', 'udmworkshopallocation_manual', $a),
                             workshop_message::TYPE_ERROR);
                     }
                     $url = new moodle_url($PAGE->url, array('mode' => 'del', 'what' => $m[1], 'confirm' => 1, 'sesskey' => sesskey()));
-                    $label = get_string('iamsure', 'workshop');
+                    $label = get_string('iamsure', 'udmworkshop');
                     $message->set_action($url, $label);
                     $hlauthorid = -1;
                     $hlreviewerid = -1;
@@ -207,16 +207,16 @@ class workshop_manual_allocator implements workshop_allocator {
                 case self::MSG_DELETED:
                     $hlauthorid     = $m[1];
                     $hlreviewerid   = $m[2];
-                        $link = html_writer::link('#', get_string('seeresults', 'workshop'),
+                        $link = html_writer::link('#', get_string('seeresults', 'udmworkshop'),
                             array('class' => 'manual-allocation-see-results'));
-                        $assessmentdeletedtext = get_string('assessmentdeleted', 'workshop', $link);
+                        $assessmentdeletedtext = get_string('assessmentdeleted', 'udmworkshop', $link);
                         $message = new workshop_message($assessmentdeletedtext,
                             workshop_message::TYPE_OK);
                     break;
                 case self::MSG_DELETE_ERROR:
                     $hlauthorid     = $m[1];
                     $hlreviewerid   = $m[2];
-                    $message        = new workshop_message(get_string('assessmentnotdeleted', 'workshop'),
+                    $message        = new workshop_message(get_string('assessmentnotdeleted', 'udmworkshop'),
                         workshop_message::TYPE_ERROR);
                     break;
             }

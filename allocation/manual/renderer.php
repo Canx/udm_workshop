@@ -89,9 +89,9 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
 
         $table              = new html_table();
         $table->attributes['class'] = 'allocations' . ' ' . $classtableviewselected;
-        $table->head        = array(get_string('participant', 'workshop'),
-                                    get_string('participantreviewedby', 'workshop'),
-                                    get_string('participantrevierof', 'workshop'));
+        $table->head        = array(get_string('participant', 'udmworkshop'),
+                                    get_string('participantreviewedby', 'udmworkshop'),
+                                    get_string('participantrevierof', 'udmworkshop'));
         $table->rowclasses  = array();
         $table->colclasses  = array('peer', 'reviewedby', 'reviewerof');
         $table->data        = array();
@@ -105,7 +105,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
         // Allocation header.
         $header = html_writer::start_tag('fieldset');
         $header .= html_writer::start_tag('legend');
-        $header .= get_string(\mod_udmworkshop\wizard\peerallocation_step::NAME, 'workshop');
+        $header .= get_string(\mod_udmworkshop\wizard\peerallocation_step::NAME, 'udmworkshop');
         $header .= html_writer::end_tag('legend');
         if ($this->workshop->assessmenttype != \workshop::SELF_ASSESSMENT) {
             $header .= $this->helper_header_allocation();
@@ -134,9 +134,9 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
         $html = html_writer::start_div('manual-allocator');
         $table              = new html_table();
         $table->attributes['class'] = 'allocations';
-        $threviewedby = get_string('participantreviewedby', 'workshop');
-        $threviewerof = get_string('participantrevierof', 'workshop');
-        $table->head        = array(get_string('participant', 'workshop'),
+        $threviewedby = get_string('participantreviewedby', 'udmworkshop');
+        $threviewerof = get_string('participantrevierof', 'udmworkshop');
+        $table->head        = array(get_string('participant', 'udmworkshop'),
                                     ($this->view == 'reviewedby') ? $threviewedby : $threviewerof);
         $table->rowclasses  = array();
         $table->colclasses  = array('peer', $this->view);
@@ -197,7 +197,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
             $o .= html_writer::start_tag('span',
                 array('role' => 'listitem', 'aria-selected' => true, 'class' => "label label-info selfassessment"));
             $o .= html_writer::start_tag('span');
-            $o .= get_string('himself', 'workshopallocation_manual');
+            $o .= get_string('himself', 'udmworkshopallocation_manual');
             $o .= html_writer::end_tag('span');
             $o .= html_writer::end_tag('li');
         }
@@ -213,7 +213,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
     protected function helper_header_allocation() {
         $header = html_writer::start_tag('div', array('class' => 'header-allocation'));
         $header .= html_writer::start_tag('div', array('class' => 'allocation-view-switcher'));
-        $label = get_string('allocateaccordingto', 'workshop');
+        $label = get_string('allocateaccordingto', 'udmworkshop');
         $header .= html_writer::label($label, 'allocation-view-switcher');
 
         $checkreviewedby = ($this->view == 'reviewedby') ? 'checked' : null;
@@ -226,7 +226,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
             'value' => 'reviewee'
         );
         $radioreviewedby = html_writer::empty_tag('input', $radioattributes);
-        $radioreviewedby .= html_writer::label(get_string('reviewee', 'workshopallocation_manual'), 'id_allocationreviewee');
+        $radioreviewedby .= html_writer::label(get_string('reviewee', 'udmworkshopallocation_manual'), 'id_allocationreviewee');
         $radioreviewedby = html_writer::span($radioreviewedby);
 
         $checkreviewerof = ($this->view == 'reviewerof') ? 'checked' : null;
@@ -239,7 +239,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
             'value' => 'reviewer'
         );
         $radioreviewerof = html_writer::empty_tag('input', $radioattributes);
-        $radioreviewerof .= html_writer::label(get_string('reviewer', 'workshopallocation_manual'), 'id_allocationreviewer');
+        $radioreviewerof .= html_writer::label(get_string('reviewer', 'udmworkshopallocation_manual'), 'id_allocationreviewer');
         $radioreviewerof = html_writer::span($radioreviewerof);
 
         $header .= $radioreviewedby . $radioreviewerof;
@@ -253,7 +253,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
         if (!empty($allocators)) {
             foreach ($allocators as $methodid => $methodname) {
                  $header .= html_writer::link('#',
-                    get_string('pluginname', 'workshopallocation_' . $methodid),
+                    get_string('pluginname', 'udmworkshopallocation_' . $methodid),
                     array('class' => 'btn btn-default', 'data-title' => $methodname, 'data-method' => $methodid));
             }
         }
@@ -292,7 +292,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
                     $o .= $this->output->container(html_writer::link($link, format_string($allocation->submissiontitle)), 'title');
                     $submissionfound = true;
                 } else {
-                    $msg = get_string('nosubmissionfound', 'workshop');
+                    $msg = get_string('nosubmissionfound', 'udmworkshop');
                     if ($this->workshop->phase > workshop::PHASE_SUBMISSION ||
                             ($this->workshop->phase == workshop::PHASE_SUBMISSION && $this->workshop->assessassoonsubmitted)) {
                         // Reviewer impacted by the missing submission.
@@ -307,10 +307,10 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
                             }
                         }
                         if ($selfreviewer) {
-                            $listreviewers[] = get_string('himself', 'workshopallocation_manual');
+                            $listreviewers[] = get_string('himself', 'udmworkshopallocation_manual');
                         }
                         if (!empty($listreviewers)) {
-                            $msg .= '<br/>' . get_string('preventassessment', 'workshopallocation_manual',
+                            $msg .= '<br/>' . get_string('preventassessment', 'udmworkshopallocation_manual',
                                 implode(', ', $listreviewers));
                         }
                     }
@@ -332,23 +332,23 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
                         }
                     }
                     if ($selfreviewee) {
-                        $listreviewees[] = get_string('himself', 'workshopallocation_manual');
+                        $listreviewees[] = get_string('himself', 'udmworkshopallocation_manual');
                     }
                     if (!empty($listreviewees)) {
                         $msg .= !empty($msg) ? '<br/>' : '';
-                        $msg .= get_string('awaitingsubmission', 'workshopallocation_manual', implode(', ', $listreviewees));
+                        $msg .= get_string('awaitingsubmission', 'udmworkshopallocation_manual', implode(', ', $listreviewees));
                     }
                 }
             }
             if (!$reviewerfound && (!$this->workshop->allowsubmission || ($this->workshop->allowsubmission && $submissionfound))) {
                 $msg .= !empty($msg) ? '<br/>' : '';
-                $msg .= get_string('usernoreviewer', 'workshopallocation_manual');
+                $msg .= get_string('usernoreviewer', 'udmworkshopallocation_manual');
             }
 
             if (is_null($allocation->submissiongrade)) {
-                $o .= $this->output->container(get_string('nogradeyet', 'workshop'), array('grade', 'missing'));
+                $o .= $this->output->container(get_string('nogradeyet', 'udmworkshop'), array('grade', 'missing'));
             } else {
-                $o .= $this->output->container(get_string('alreadygraded', 'workshop'), array('grade', 'missing'));
+                $o .= $this->output->container(get_string('alreadygraded', 'udmworkshop'), array('grade', 'missing'));
             }
 
             if (!empty($msg)) {
@@ -405,7 +405,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
             $o .= html_writer::start_tag('span',
                 array('role' => 'listitem', 'aria-selected' => true, 'class' => "label label-info selfassessment"));
             $o .= html_writer::start_tag('span');
-            $o .= get_string('himself', 'workshopallocation_manual');
+            $o .= get_string('himself', 'udmworkshopallocation_manual');
             $o .= html_writer::end_tag('span');
             $o .= html_writer::end_tag('li');
         }
@@ -476,7 +476,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
             $o .= html_writer::start_tag('span',
                 array('role' => 'listitem', 'aria-selected' => true, 'class' => "label label-info selfassessment"));
             $o .= html_writer::start_tag('span');
-            $o .= get_string('himself', 'workshopallocation_manual');
+            $o .= get_string('himself', 'udmworkshopallocation_manual');
             $o .= html_writer::end_tag('span');
             $o .= html_writer::end_tag('li');
         }
@@ -497,7 +497,7 @@ class workshopallocation_manual_renderer extends mod_udmworkshop_renderer  {
                 $handler = new moodle_url($this->page->url,
                     array('mode' => 'new', 'by' => $allocation->userid, 'sesskey' => sesskey(), 'view' => 'reviewerof'));
                 $select = new single_select($handler,
-                    'of', $options, '', array('' => get_string('chooseuser', 'workshop')), 'addreviewby' . $allocation->userid);
+                    'of', $options, '', array('' => get_string('chooseuser', 'udmworkshop')), 'addreviewby' . $allocation->userid);
                 $select->attributes['id'] = uniqid();
                 $select->class = 'addreviewee';
                 $o .= $this->output->render($select);

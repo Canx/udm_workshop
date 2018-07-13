@@ -48,9 +48,9 @@ $PAGE->set_url($workshop->exsubmission_url($id), array('edit' => $edit));
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
 if ($edit) {
-    $PAGE->navbar->add(get_string('exampleediting', 'workshop'));
+    $PAGE->navbar->add(get_string('exampleediting', 'udmworkshop'));
 } else {
-    $PAGE->navbar->add(get_string('example', 'workshop'));
+    $PAGE->navbar->add(get_string('example', 'udmworkshop'));
 }
 $output = $PAGE->get_renderer('mod_udmworkshop');
 
@@ -104,7 +104,7 @@ if ($id and $assess and $canassess) {
         // the training assessment of the example was not found but the allocation already
         // exists. this probably means that the user is the author of the reference assessment.
         echo $output->header();
-        echo $output->box(get_string('assessmentreferenceconflict', 'workshop'));
+        echo $output->box(get_string('assessmentreferenceconflict', 'udmworkshop'));
         echo $output->continue_button($workshop->view_url());
         echo $output->footer();
         die();
@@ -180,7 +180,7 @@ echo $output->heading(format_string($workshop->name), 2);
 if (trim($workshop->instructauthors)) {
     $instructions = file_rewrite_pluginfile_urls($workshop->instructauthors, 'pluginfile.php', $PAGE->context->id,
         'mod_udmworkshop', 'instructauthors', null, workshop::instruction_editors_options($PAGE->context));
-    print_collapsible_region_start('', 'workshop-viewlet-instructauthors', get_string('instructauthors', 'workshop'));
+    print_collapsible_region_start('', 'workshop-viewlet-instructauthors', get_string('instructauthors', 'udmworkshop'));
     echo $output->box(format_text($instructions, $workshop->instructauthorsformat, array('overflowdiv'=>true)), array('generalbox', 'instructions'));
     print_collapsible_region_end();
 }
@@ -195,12 +195,12 @@ if ($edit and $canmanage) {
 // else display the example...
 if ($example->id) {
     if ($canmanage and $delete) {
-    echo $output->confirm(get_string('exampledeleteconfirm', 'workshop'),
+    echo $output->confirm(get_string('exampledeleteconfirm', 'udmworkshop'),
             new moodle_url($PAGE->url, array('delete' => 1, 'confirm' => 1)), $workshop->view_url());
     }
     if ($canmanage and !$delete and !$DB->record_exists_select('workshop_assessments',
             'grade IS NOT NULL AND weight=1 AND submissionid = ?', array($example->id))) {
-        echo $output->confirm(get_string('assessmentreferenceneeded', 'workshop'),
+        echo $output->confirm(get_string('assessmentreferenceneeded', 'udmworkshop'),
                 new moodle_url($PAGE->url, array('assess' => 1)), $workshop->view_url());
     }
     echo $output->render($workshop->prepare_example_submission($example));
@@ -210,16 +210,16 @@ echo $output->container_start('buttonsbar');
 if ($canmanage) {
     if (empty($edit) and empty($delete)) {
         $aurl = new moodle_url($workshop->exsubmission_url($example->id), array('edit' => 'on'));
-        echo $output->single_button($aurl, get_string('exampleedit', 'workshop'), 'get');
+        echo $output->single_button($aurl, get_string('exampleedit', 'udmworkshop'), 'get');
 
         $aurl = new moodle_url($workshop->exsubmission_url($example->id), array('delete' => 'on'));
-        echo $output->single_button($aurl, get_string('exampledelete', 'workshop'), 'get');
+        echo $output->single_button($aurl, get_string('exampledelete', 'udmworkshop'), 'get');
     }
 }
 // ...and optionally assess it
 if ($canassess or ($canmanage and empty($edit) and empty($delete))) {
     $aurl = new moodle_url($workshop->exsubmission_url($example->id), array('assess' => 'on', 'sesskey' => sesskey()));
-    echo $output->single_button($aurl, get_string('exampleassess', 'workshop'), 'get');
+    echo $output->single_button($aurl, get_string('exampleassess', 'udmworkshop'), 'get');
 }
 echo $output->container_end(); // buttonsbar
 // and possibly display the example's review(s) - todo

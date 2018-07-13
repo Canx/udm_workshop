@@ -67,37 +67,37 @@ class workshop_assessment_form extends moodleform {
         $mform->setType('strategy', PARAM_PLUGIN);
 
         if ($this->workshop->overallfeedbackmode and $this->is_editable()) {
-            $mform->addElement('header', 'overallfeedbacksection', get_string('overallfeedback', 'mod_udmworkshop'));
-            $mform->addElement('editor', 'feedbackauthor_editor', get_string('feedbackauthor', 'mod_udmworkshop'), null,
+            $mform->addElement('header', 'overallfeedbacksection', get_string('overallfeedback', 'mod_udmudmworkshop'));
+            $mform->addElement('editor', 'feedbackauthor_editor', get_string('feedbackauthor', 'mod_udmudmworkshop'), null,
                 $this->workshop->overall_feedback_content_options());
             if ($this->workshop->overallfeedbackmode == 2) {
                 $mform->addRule('feedbackauthor_editor', null, 'required', null, 'client');
             }
             if ($this->workshop->overallfeedbackfiles) {
                 $mform->addElement('filemanager', 'feedbackauthorattachment_filemanager',
-                    get_string('feedbackauthorattachment', 'mod_udmworkshop'), null,
+                    get_string('feedbackauthorattachment', 'mod_udmudmworkshop'), null,
                     $this->workshop->overall_feedback_attachment_options());
             }
         }
 
         if (!empty($this->options['editableweight']) and $this->is_editable()) {
-            $mform->addElement('header', 'assessmentsettings', get_string('assessmentweight', 'workshop'));
+            $mform->addElement('header', 'assessmentsettings', get_string('assessmentweight', 'udmworkshop'));
             $mform->addElement('select', 'weight',
-                    get_string('assessmentweight', 'workshop'), workshop::available_assessment_weights_list());
+                    get_string('assessmentweight', 'workshop'), udmworkshop::available_assessment_weights_list());
             $mform->setDefault('weight', 1);
             $mform->addHelpButton('weight', 'assessmentweight', 'workshop');
         }
 
         $buttonarray = array();
         if ($this->mode == 'preview') {
-            $buttonarray[] = $mform->createElement('cancel', 'backtoeditform', get_string('backtoeditform', 'workshop'));
+            $buttonarray[] = $mform->createElement('cancel', 'backtoeditform', get_string('backtoeditform', 'udmworkshop'));
         }
         if ($this->mode == 'assessment') {
             if (!empty($this->options['pending'])) {
-                $buttonarray[] = $mform->createElement('submit', 'saveandshownext', get_string('saveandshownext', 'workshop'));
+                $buttonarray[] = $mform->createElement('submit', 'saveandshownext', get_string('saveandshownext', 'udmworkshop'));
             }
-            $buttonarray[] = $mform->createElement('submit', 'saveandclose', get_string('saveandclose', 'workshop'));
-            $buttonarray[] = $mform->createElement('submit', 'saveandcontinue', get_string('saveandcontinue', 'workshop'));
+            $buttonarray[] = $mform->createElement('submit', 'saveandclose', get_string('saveandclose', 'udmworkshop'));
+            $buttonarray[] = $mform->createElement('submit', 'saveandcontinue', get_string('saveandcontinue', 'udmworkshop'));
             $buttonarray[] = $mform->createElement('cancel');
         }
         $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
@@ -149,7 +149,7 @@ class workshop_assessment_form extends moodleform {
                             'whitelist' => workshop::clean_file_extensions($whitelist),
                             'wrongfiles' => implode(', ', $wrongfiles),
                         );
-                        $errors['feedbackauthorattachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmworkshop', $a);
+                        $errors['feedbackauthorattachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmudmworkshop', $a);
                     }
                 }
             }

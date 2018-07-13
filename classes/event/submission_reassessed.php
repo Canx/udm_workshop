@@ -80,7 +80,7 @@ class submission_reassessed extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventsubmissionreassessed', 'mod_udmworkshop');
+        return get_string('eventsubmissionreassessed', 'mod_udmudmworkshop');
     }
 
     /**

@@ -78,7 +78,7 @@ class phase_switched extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventphaseswitched', 'mod_udmworkshop');
+        return get_string('eventphaseswitched', 'mod_udmudmworkshop');
     }
 
     /**

@@ -54,23 +54,23 @@ class workshop_edit_accumulative_strategy_form extends workshop_edit_strategy_fo
         $mform->setConstants(array('norepeats' => $norepeats));
 
         for ($i = 0; $i < $norepeats; $i++) {
-            $mform->addElement('header', 'dimension'.$i, get_string('dimensionnumber', 'workshopform_accumulative', $i+1));
+            $mform->addElement('header', 'dimension'.$i, get_string('dimensionnumber', 'udmworkshopform_accumulative', $i+1));
             $mform->addElement('hidden', 'dimensionid__idx_'.$i);
             $mform->setType('dimensionid__idx_'.$i, PARAM_INT);
             $mform->addElement('editor', 'description__idx_'.$i.'_editor',
-                    get_string('dimensiondescription', 'workshopform_accumulative'), '', $descriptionopts);
+                    get_string('dimensiondescription', 'udmworkshopform_accumulative'), '', $descriptionopts);
             // todo replace modgrade with an advanced element (usability issue discussed with Olli)
             $mform->addElement('modgrade', 'grade__idx_'.$i,
-                    get_string('dimensionmaxgrade','workshopform_accumulative'), null, true);
+                    get_string('dimensionmaxgrade','udmworkshopform_accumulative'), null, true);
             $mform->setDefault('grade__idx_'.$i, 10);
             $mform->addElement('select', 'weight__idx_'.$i,
-                    get_string('dimensionweight', 'workshopform_accumulative'), workshop::available_dimension_weights_list());
+                    get_string('dimensionweight', 'workshopform_accumulative'), udmworkshop::available_dimension_weights_list());
             $mform->setDefault('weight__idx_'.$i, 1);
             $mform->addHelpButton('weight__idx_'.$i, 'dimensionweight', 'workshopform_accumulative');
         }
 
         $mform->registerNoSubmitButton('noadddims');
-        $mform->addElement('submit', 'noadddims', get_string('addmoredimensions', 'workshopform_accumulative',
+        $mform->addElement('submit', 'noadddims', get_string('addmoredimensions', 'udmworkshopform_accumulative',
                 workshop_accumulative_strategy::ADDDIMS));
         $mform->closeHeaderBefore('noadddims');
         $this->set_data($current);

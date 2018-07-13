@@ -69,7 +69,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $displayadvanced = optional_param('displayadvanced', null, PARAM_ALPHA);
 
         // Workshop name
-        $label = get_string('workshopname', 'workshop');
+        $label = get_string('workshopname', 'udmworkshop');
         $mform->addElement('text', 'name', $label, array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
@@ -83,10 +83,10 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $mform->addElement('hidden', 'advancedsettingdisplayed', $displayadvancedsettings ? 1 : 0);
         $mform->setType('advancedsettingdisplayed', PARAM_INT);
         // Introduction
-        $this->standard_intro_elements(get_string('introduction', 'workshop'));
+        $this->standard_intro_elements(get_string('introduction', 'udmworkshop'));
 
         // Grading settings -----------------------------------------------------------
-        $mform->addElement('header', 'gradingsettings', get_string('gradingsettings', 'workshop'));
+        $mform->addElement('header', 'gradingsettings', get_string('gradingsettings', 'udmworkshop'));
         $mform->setExpanded('gradingsettings');
 
         $options = array();
@@ -94,18 +94,18 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
             $options = array('disabled' => 'true');
         }
         $radio = array();
-        $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('peerassessment', 'workshop'),
+        $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('peerassessment', 'udmworkshop'),
                 \workshop::PEER_ASSESSMENT, $options);
-        $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfassessment', 'workshop'),
+        $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfassessment', 'udmworkshop'),
                 \workshop::SELF_ASSESSMENT, $options);
-        $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfandpeerassessment', 'workshop'),
+        $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfandpeerassessment', 'udmworkshop'),
                 \workshop::SELF_AND_PEER_ASSESSMENT, $options);
-        $mform->addGroup($radio, 'assessmenttype', get_string('assessmenttype', 'workshop'), array('<br />'), false);
+        $mform->addGroup($radio, 'assessmenttype', get_string('assessmenttype', 'udmworkshop'), array('<br />'), false);
         $mform->addHelpButton('assessmenttype', 'assessmenttype', 'workshop');
         $mform->setType('assessmenttype', PARAM_INT);
         $mform->setDefault('assessmenttype', \workshop::PEER_ASSESSMENT);
 
-        $label = get_string('strategy', 'workshop');
+        $label = get_string('strategy', 'udmworkshop');
         $mform->addElement('select', 'strategy', $label, workshop::available_strategies_list());
         $mform->setDefault('strategy', $workshopconfig->strategy);
         $mform->addHelpButton('strategy', 'strategy', 'workshop');
@@ -113,7 +113,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $grades = workshop::available_maxgrades_list();
         $gradecategories = grade_get_categories_menu($this->course->id);
 
-        $label = get_string('submissiongrade', 'workshop');
+        $label = get_string('submissiongrade', 'udmworkshop');
         $mform->addGroup(array(
             $mform->createElement('select', 'grade', '', $grades),
             $mform->createElement('select', 'gradecategory', '', $gradecategories),
@@ -121,12 +121,12 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $mform->setDefault('grade', $workshopconfig->grade);
         $mform->addHelpButton('submissiongradegroup', 'submissiongrade', 'workshop');
 
-        $mform->addElement('text', 'submissiongradepass', get_string('gradetopasssubmission', 'workshop'));
+        $mform->addElement('text', 'submissiongradepass', get_string('gradetopasssubmission', 'udmworkshop'));
         $mform->addHelpButton('submissiongradepass', 'gradepass', 'grades');
         $mform->setDefault('submissiongradepass', '');
         $mform->setType('submissiongradepass', PARAM_RAW);
 
-        $label = get_string('gradinggrade', 'workshop');
+        $label = get_string('gradinggrade', 'udmworkshop');
         $mform->addGroup(array(
             $mform->createElement('select', 'gradinggrade', '', $grades),
             $mform->createElement('select', 'gradinggradecategory', '', $gradecategories),
@@ -134,7 +134,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $mform->setDefault('gradinggrade', $workshopconfig->gradinggrade);
         $mform->addHelpButton('gradinggradegroup', 'gradinggrade', 'workshop');
 
-        $mform->addElement('text', 'gradinggradepass', get_string('gradetopassgrading', 'workshop'));
+        $mform->addElement('text', 'gradinggradepass', get_string('gradetopassgrading', 'udmworkshop'));
         $mform->addHelpButton('gradinggradepass', 'gradepass', 'grades');
         $mform->setDefault('gradinggradepass', '');
         $mform->setType('gradinggradepass', PARAM_RAW);
@@ -143,29 +143,29 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         for ($i = 5; $i >= 0; $i--) {
             $options[$i] = $i;
         }
-        $label = get_string('gradedecimals', 'workshop');
+        $label = get_string('gradedecimals', 'udmworkshop');
         $mform->addElement('select', 'gradedecimals', $label, $options);
         $mform->setDefault('gradedecimals', $workshopconfig->gradedecimals);
 
         // Submission settings --------------------------------------------------------
-        $mform->addElement('header', 'submissionsettings', get_string('submissionsettings', 'workshop'));
+        $mform->addElement('header', 'submissionsettings', get_string('submissionsettings', 'udmworkshop'));
 
         $options = array();
         if ($this->current->instance && workshop::is_allowsubmission_disabled($this->current)) {
             $options = array('disabled' => 'true');
         }
-        $label = get_string('allowsubmission', 'workshop');
+        $label = get_string('allowsubmission', 'udmworkshop');
         $mform->addElement('checkbox', 'allowsubmission', $label, ' ', $options);
         $mform->addHelpButton('allowsubmission', 'allowsubmission', 'workshop');
 
         $divsubmissioninfo = \html_writer::start_div('fitem submissioninfo');
-        $label = get_string('instructauthors', 'workshop');
+        $label = get_string('instructauthors', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('editor', 'instructauthorseditor', $label, null,
                             workshop::instruction_editors_options($this->context));
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('assessassoonsubmitted', 'workshop');
+        $label = get_string('assessassoonsubmitted', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('checkbox', 'assessassoonsubmitted', $label, ' ');
         $mform->addHelpButton('assessassoonsubmitted', 'assessassoonsubmitted', 'workshop');
@@ -175,13 +175,13 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         for ($i = 7; $i >= 0; $i--) {
             $options[$i] = $i;
         }
-        $label = get_string('nattachments', 'workshop');
+        $label = get_string('nattachments', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('select', 'nattachments', $label, $options);
         $mform->setDefault('nattachments', 1);
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('allowedfiletypesforsubmission', 'workshop');
+        $label = get_string('allowedfiletypesforsubmission', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('text', 'submissionfiletypes', $label, array('maxlength' => 255, 'size' => 64));
         $mform->addHelpButton('submissionfiletypes', 'allowedfiletypesforsubmission', 'workshop');
@@ -192,50 +192,50 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
 
         $options = get_max_upload_sizes($CFG->maxbytes, $this->course->maxbytes, 0, $workshopconfig->maxbytes);
         $mform->addElement('html', $divsubmissioninfo);
-        $mform->addElement('select', 'maxbytes', get_string('maxbytes', 'workshop'), $options);
+        $mform->addElement('select', 'maxbytes', get_string('maxbytes', 'udmworkshop'), $options);
         $mform->setDefault('maxbytes', $workshopconfig->maxbytes);
         $mform->disabledIf('maxbytes', 'nattachments', 'eq', 0);
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('latesubmissions', 'workshop');
+        $label = get_string('latesubmissions', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
-        $text = get_string('latesubmissions_desc', 'workshop');
+        $text = get_string('latesubmissions_desc', 'udmworkshop');
         $mform->addElement('checkbox', 'latesubmissions', $label, $text);
         $mform->addHelpButton('latesubmissions', 'latesubmissions', 'workshop');
         $mform->addElement('html', \html_writer::end_div());
 
         // Assessment settings --------------------------------------------------------
-        $mform->addElement('header', 'assessmentsettings', get_string('assessmentsettings', 'workshop'));
+        $mform->addElement('header', 'assessmentsettings', get_string('assessmentsettings', 'udmworkshop'));
         $anonymitysettings = new \mod_udmworkshop\anonymity_settings($this->context);
         // Display appraisees name.
-        $label = get_string('displayappraiseesname', 'workshop');
+        $label = get_string('displayappraiseesname', 'udmworkshop');
         $mform->addElement('checkbox', 'displayappraiseesname', $label);
         $mform->addHelpButton('displayappraiseesname', 'displayappraiseesname', 'workshop');
         $mform->setDefault('displayappraiseesname', $anonymitysettings->display_appraisees_name());
         // Display appraisers name.
-        $label = get_string('displayappraisersname', 'workshop');
+        $label = get_string('displayappraisersname', 'udmworkshop');
         $mform->addElement('checkbox', 'displayappraisersname', $label);
         $mform->addHelpButton('displayappraisersname', 'displayappraisersname', 'workshop');
         $mform->setDefault('displayappraisersname', $anonymitysettings->display_appraisers_name());
 
          // Do not display assess without submission if allow submission is false.
         $mform->addElement('html', $divsubmissioninfo);
-        $label = get_string('assesswithoutsubmission', 'workshop');
+        $label = get_string('assesswithoutsubmission', 'udmworkshop');
         $mform->addElement('checkbox', 'assesswithoutsubmission', $label);
         $mform->addHelpButton('assesswithoutsubmission', 'assesswithoutsubmission', 'workshop');
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('instructreviewers', 'workshop');
+        $label = get_string('instructreviewers', 'udmworkshop');
         $mform->addElement('editor', 'instructreviewerseditor', $label, null,
                             workshop::instruction_editors_options($this->context));
 
         // Feedback -------------------------------------------------------------------
-        $mform->addElement('header', 'feedbacksettings', get_string('feedbacksettings', 'workshop'));
+        $mform->addElement('header', 'feedbacksettings', get_string('feedbacksettings', 'udmworkshop'));
 
-        $mform->addElement('select', 'overallfeedbackmode', get_string('overallfeedbackmode', 'mod_udmworkshop'), array(
-            0 => get_string('overallfeedbackmode_0', 'mod_udmworkshop'),
-            1 => get_string('overallfeedbackmode_1', 'mod_udmworkshop'),
-            2 => get_string('overallfeedbackmode_2', 'mod_udmworkshop')));
+        $mform->addElement('select', 'overallfeedbackmode', get_string('overallfeedbackmode', 'mod_udmudmworkshop'), array(
+            0 => get_string('overallfeedbackmode_0', 'mod_udmudmworkshop'),
+            1 => get_string('overallfeedbackmode_1', 'mod_udmudmworkshop'),
+            2 => get_string('overallfeedbackmode_2', 'mod_udmudmworkshop')));
         $mform->addHelpButton('overallfeedbackmode', 'overallfeedbackmode', 'mod_udmworkshop');
         $mform->setDefault('overallfeedbackmode', 1);
 
@@ -243,11 +243,11 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         for ($i = 7; $i >= 0; $i--) {
             $options[$i] = $i;
         }
-        $mform->addElement('select', 'overallfeedbackfiles', get_string('overallfeedbackfiles', 'workshop'), $options);
+        $mform->addElement('select', 'overallfeedbackfiles', get_string('overallfeedbackfiles', 'udmworkshop'), $options);
         $mform->setDefault('overallfeedbackfiles', 0);
         $mform->disabledIf('overallfeedbackfiles', 'overallfeedbackmode', 'eq', 0);
 
-        $label = get_string('allowedfiletypesforoverallfeedback', 'workshop');
+        $label = get_string('allowedfiletypesforoverallfeedback', 'udmworkshop');
         $mform->addElement('text', 'overallfeedbackfiletypes', $label, array('maxlength' => 255, 'size' => 64));
         $mform->addHelpButton('overallfeedbackfiletypes', 'allowedfiletypesforoverallfeedback', 'workshop');
         $mform->setType('overallfeedbackfiletypes', PARAM_TEXT);
@@ -255,25 +255,25 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $mform->disabledIf('overallfeedbackfiletypes', 'overallfeedbackfiles', 'eq', 0);
 
         $options = get_max_upload_sizes($CFG->maxbytes, $this->course->maxbytes);
-        $mform->addElement('select', 'overallfeedbackmaxbytes', get_string('overallfeedbackmaxbytes', 'workshop'), $options);
+        $mform->addElement('select', 'overallfeedbackmaxbytes', get_string('overallfeedbackmaxbytes', 'udmworkshop'), $options);
         $mform->setDefault('overallfeedbackmaxbytes', $workshopconfig->maxbytes);
         $mform->disabledIf('overallfeedbackmaxbytes', 'overallfeedbackmode', 'eq', 0);
         $mform->disabledIf('overallfeedbackmaxbytes', 'overallfeedbackfiles', 'eq', 0);
 
-        $label = get_string('conclusion', 'workshop');
+        $label = get_string('conclusion', 'udmworkshop');
         $mform->addElement('editor', 'conclusioneditor', $label, null,
                             workshop::instruction_editors_options($this->context));
         $mform->addHelpButton('conclusioneditor', 'conclusion', 'workshop');
 
         // Example submissions --------------------------------------------------------
-        $mform->addElement('header', 'examplesubmissionssettings', get_string('examplesubmissions', 'workshop'));
+        $mform->addElement('header', 'examplesubmissionssettings', get_string('examplesubmissions', 'udmworkshop'));
 
-        $label = get_string('useexamples', 'workshop');
-        $text = get_string('useexamples_desc', 'workshop');
+        $label = get_string('useexamples', 'udmworkshop');
+        $text = get_string('useexamples_desc', 'udmworkshop');
         $mform->addElement('checkbox', 'useexamples', $label, $text);
         $mform->addHelpButton('useexamples', 'useexamples', 'workshop');
 
-        $label = get_string('examplesmode', 'workshop');
+        $label = get_string('examplesmode', 'udmworkshop');
         $options = workshop::available_example_modes_list();
         $mform->addElement('select', 'examplesmode', $label, $options);
         $mform->setDefault('examplesmode', $workshopconfig->examplesmode);
@@ -282,17 +282,17 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         // Availability ---------------------------------------------------------------
         $mform->addElement('header', 'accesscontrol', get_string('availability', 'core'));
 
-        $label = get_string('submissionstart', 'workshop');
+        $label = get_string('submissionstart', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('date_time_selector', 'submissionstart', $label, array('optional' => true));
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('submissionend', 'workshop');
+        $label = get_string('submissionend', 'udmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('date_time_selector', 'submissionend', $label, array('optional' => true));
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('submissionendswitch', 'mod_udmworkshop');
+        $label = get_string('submissionendswitch', 'mod_udmudmworkshop');
         $mform->addElement('html', $divsubmissioninfo);
         $mform->addElement('html',  \html_writer::start_div('phaseswitchassessmentinfo'));
         $mform->addElement('checkbox', 'phaseswitchassessment', $label);
@@ -301,10 +301,10 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
 
         $mform->addElement('html', \html_writer::end_div());
 
-        $label = get_string('assessmentstart', 'workshop');
+        $label = get_string('assessmentstart', 'udmworkshop');
         $mform->addElement('date_time_selector', 'assessmentstart', $label, array('optional' => true));
 
-        $label = get_string('assessmentend', 'workshop');
+        $label = get_string('assessmentend', 'udmworkshop');
         $mform->addElement('date_time_selector', 'assessmentend', $label, array('optional' => true));
 
         $coursecontext = context_course::instance($this->course->id);
@@ -456,7 +456,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
             if (isset($data[$fieldname])) {
                 $invalidextensions = workshop::invalid_file_extensions($data[$fieldname], array_keys(core_filetypes::get_types()));
                 if ($invalidextensions) {
-                    $errors[$fieldname] = get_string('err_unknownfileextension', 'mod_udmworkshop',
+                    $errors[$fieldname] = get_string('err_unknownfileextension', 'mod_udmudmworkshop',
                         workshop::clean_file_extensions($invalidextensions));
                 }
             }
@@ -464,10 +464,10 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
 
         // check the phases borders are valid
         if ($data['submissionstart'] > 0 and $data['submissionend'] > 0 and $data['submissionstart'] >= $data['submissionend']) {
-            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udmworkshop');
+            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udmudmworkshop');
         }
         if ($data['assessmentstart'] > 0 and $data['assessmentend'] > 0 and $data['assessmentstart'] >= $data['assessmentend']) {
-            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udmworkshop');
+            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udmudmworkshop');
         }
 
         // check the phases do not overlap
@@ -480,7 +480,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
             if ($phasesubmissionend > 0 and $phaseassessmentstart > 0 and $phaseassessmentstart < $phasesubmissionend) {
                 foreach (array('submissionend', 'submissionstart', 'assessmentstart', 'assessmentend') as $f) {
                     if ($data[$f] > 0) {
-                        $errors[$f] = get_string('phasesoverlap', 'mod_udmworkshop');
+                        $errors[$f] = get_string('phasesoverlap', 'mod_udmudmworkshop');
                         break;
                     }
                 }

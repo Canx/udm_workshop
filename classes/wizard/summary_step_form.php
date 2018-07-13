@@ -53,49 +53,49 @@ class summary_step_form extends step_form {
 
         // Assessment type.
         if ($record->assessmenttype == \workshop::PEER_ASSESSMENT) {
-            $assessmenttype = get_string('peerassessment', 'workshop');
+            $assessmenttype = get_string('peerassessment', 'udmworkshop');
         } else if ($record->assessmenttype == \workshop::SELF_ASSESSMENT) {
-            $assessmenttype = get_string('selfassessment', 'workshop');
+            $assessmenttype = get_string('selfassessment', 'udmworkshop');
         } else if ($record->assessmenttype == \workshop::SELF_AND_PEER_ASSESSMENT) {
-            $assessmenttype = get_string('selfandpeerassessment', 'workshop');
+            $assessmenttype = get_string('selfandpeerassessment', 'udmworkshop');
         }
-        $mform->addElement('static', 'summary_assessmenttype', get_string('assessmenttype', 'workshop'), $assessmenttype);
+        $mform->addElement('static', 'summary_assessmenttype', get_string('assessmenttype', 'udmworkshop'), $assessmenttype);
 
         // Grading method.
         $strategieslist = \workshop::available_strategies_list();
         $gradingmethod = $strategieslist[$record->strategy];
-        $mform->addElement('static', 'summary_strategy', get_string('strategy', 'workshop'), $gradingmethod);
+        $mform->addElement('static', 'summary_strategy', get_string('strategy', 'udmworkshop'), $gradingmethod);
 
         // Allow submission.
         if ($record->allowsubmission == 1) {
             $mform->addElement('static',
-                'summary_allowsubmission', get_string('allowsubmission', 'workshop'), get_string('yes'));
+                'summary_allowsubmission', get_string('allowsubmission', 'udmworkshop'), get_string('yes'));
         }
 
         // Submission start.
         if ($record->submissionstart != 0) {
             $strdatestring = get_string('strftimerecentfull', 'langconfig');
             $date = userdate($record->submissionstart, $strdatestring);
-            $mform->addElement('static', 'summary_submissionstart', get_string('submissionstart', 'workshop'), $date);
+            $mform->addElement('static', 'summary_submissionstart', get_string('submissionstart', 'udmworkshop'), $date);
         }
 
         // Submissions deadline.
         if ($record->submissionend != 0) {
             $strdatestring = get_string('strftimerecentfull', 'langconfig');
             $date = userdate($record->submissionend, $strdatestring);
-            $mform->addElement('static', 'summary_submissionend', get_string('submissionend', 'workshop'), $date);
+            $mform->addElement('static', 'summary_submissionend', get_string('submissionend', 'udmworkshop'), $date);
         }
 
         // Phase switch assessment.
         if ($record->submissionend != 0 && $record->phaseswitchassessment != 0) {
             $mform->addElement('static',
-                'summary_switchassessment', get_string('submissionendswitch', 'workshop'), get_string('yes'));
+                'summary_switchassessment', get_string('submissionendswitch', 'udmworkshop'), get_string('yes'));
         }
 
         // Allow assessment after submission.
         if ($record->assessassoonsubmitted != 0) {
             $mform->addElement('static',
-                'summary_assessassoonsubmitted', get_string('assessassoonsubmitted', 'workshop'), get_string('yes'));
+                'summary_assessassoonsubmitted', get_string('assessassoonsubmitted', 'udmworkshop'), get_string('yes'));
         }
 
         // Peer allocation.
@@ -108,7 +108,7 @@ class summary_step_form extends step_form {
             && isset($userplan->phases[$phase]->tasks)
             && isset($userplan->phases[$phase]->tasks['allocate'])) {
             $details = $userplan->phases[$phase]->tasks['allocate']->details;
-            $mform->addElement('static', 'summary_peerallocationdetails', get_string('allocate', 'workshop'), $details);
+            $mform->addElement('static', 'summary_peerallocationdetails', get_string('allocate', 'udmworkshop'), $details);
         }
 
         // Anonymity.
@@ -117,18 +117,18 @@ class summary_step_form extends step_form {
             // Display appraisees name.
             if (!empty($record->allowsubmission)) {
                 $yesno = ($anonymitysettings->display_appraisees_name()) ? get_string('yes') : get_string('no');
-                $label = get_string('displayappraiseesname', 'workshop');
+                $label = get_string('displayappraiseesname', 'udmworkshop');
                 $mform->addElement('static', 'summary_displayappraiseesname', $label, $yesno);
             }
             // Display appraisers name.
             $yesno = ($anonymitysettings->display_appraisers_name()) ? get_string('yes') : get_string('no');
-            $label = get_string('displayappraisersname', 'workshop');
+            $label = get_string('displayappraisersname', 'udmworkshop');
             $mform->addElement('static', 'summary_displayappraisersname', $label, $yesno);
             // Assess without submission.
             if ($record->allowsubmission) {
                 $yesno = $record->assesswithoutsubmission ? get_string('yes') : get_string('no');
                 $mform->addElement('static',
-                    'summary_assesswithoutsubmission', get_string('assesswithoutsubmission', 'workshop'), $yesno);
+                    'summary_assesswithoutsubmission', get_string('assesswithoutsubmission', 'udmworkshop'), $yesno);
             }
         }
 
@@ -136,14 +136,14 @@ class summary_step_form extends step_form {
         if ($record->assessmentstart != 0) {
             $strdatestring = get_string('strftimerecentfull', 'langconfig');
             $date = userdate($record->assessmentstart, $strdatestring);
-            $mform->addElement('static', 'summary_assessmentstart', get_string('assessmentstart', 'workshop'), $date);
+            $mform->addElement('static', 'summary_assessmentstart', get_string('assessmentstart', 'udmworkshop'), $date);
         }
 
         // Assessment end.
         if ($record->assessmentend != 0) {
             $strdatestring = get_string('strftimerecentfull', 'langconfig');
             $date = userdate($record->assessmentend, $strdatestring);
-            $mform->addElement('static', 'summary_assessmentend', get_string('assessmentend', 'workshop'), $date);
+            $mform->addElement('static', 'summary_assessmentend', get_string('assessmentend', 'udmworkshop'), $date);
         }
 
         $mform->addElement('html', \html_writer::end_div());

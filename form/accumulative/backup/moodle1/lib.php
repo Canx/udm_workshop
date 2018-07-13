@@ -119,49 +119,49 @@ class moodle1_workshopform_accumulative_handler extends moodle1_workshopform_han
 
         switch ($oldscaleid) {
         case 0:
-            $data['name']  = get_string('scalename0', 'workshopform_accumulative');
+            $data['name']  = get_string('scalename0', 'udmworkshopform_accumulative');
             $data['scale'] = implode(',', array(get_string('no'), get_string('yes')));
             break;
         case 1:
-            $data['name']  = get_string('scalename1', 'workshopform_accumulative');
-            $data['scale'] = implode(',', array(get_string('absent', 'workshopform_accumulative'),
-                                                get_string('present', 'workshopform_accumulative')));
+            $data['name']  = get_string('scalename1', 'udmworkshopform_accumulative');
+            $data['scale'] = implode(',', array(get_string('absent', 'udmworkshopform_accumulative'),
+                                                get_string('present', 'udmworkshopform_accumulative')));
             break;
         case 2:
-            $data['name']  = get_string('scalename2', 'workshopform_accumulative');
-            $data['scale'] = implode(',', array(get_string('incorrect', 'workshopform_accumulative'),
-                                                get_string('correct', 'workshopform_accumulative')));
+            $data['name']  = get_string('scalename2', 'udmworkshopform_accumulative');
+            $data['scale'] = implode(',', array(get_string('incorrect', 'udmworkshopform_accumulative'),
+                                                get_string('correct', 'udmworkshopform_accumulative')));
             break;
         case 3:
-            $data['name']  = get_string('scalename3', 'workshopform_accumulative');
-            $data['scale'] = implode(',', array('* ' . get_string('poor', 'workshopform_accumulative'),
+            $data['name']  = get_string('scalename3', 'udmworkshopform_accumulative');
+            $data['scale'] = implode(',', array('* ' . get_string('poor', 'udmworkshopform_accumulative'),
                                                 '**',
-                                                '*** ' . get_string('good', 'workshopform_accumulative')));
+                                                '*** ' . get_string('good', 'udmworkshopform_accumulative')));
             break;
         case 4:
-            $data['name']  = get_string('scalename4', 'workshopform_accumulative');
-            $data['scale'] = implode(',', array('* ' . get_string('verypoor', 'workshopform_accumulative'),
+            $data['name']  = get_string('scalename4', 'udmworkshopform_accumulative');
+            $data['scale'] = implode(',', array('* ' . get_string('verypoor', 'udmworkshopform_accumulative'),
                                                 '**',
                                                 '***',
-                                                '**** ' . get_string('excellent', 'workshopform_accumulative')));
+                                                '**** ' . get_string('excellent', 'udmworkshopform_accumulative')));
             break;
         case 5:
-            $data['name']  = get_string('scalename5', 'workshopform_accumulative');
-            $data['scale'] = implode(',', array('* ' . get_string('verypoor', 'workshopform_accumulative'),
+            $data['name']  = get_string('scalename5', 'udmworkshopform_accumulative');
+            $data['scale'] = implode(',', array('* ' . get_string('verypoor', 'udmworkshopform_accumulative'),
                                                 '**',
                                                 '***',
                                                 '****',
-                                                '***** ' . get_string('excellent', 'workshopform_accumulative')));
+                                                '***** ' . get_string('excellent', 'udmworkshopform_accumulative')));
             break;
         case 6:
-            $data['name']  = get_string('scalename6', 'workshopform_accumulative');
-            $data['scale'] = implode(',', array('* ' . get_string('verypoor', 'workshopform_accumulative'),
+            $data['name']  = get_string('scalename6', 'udmworkshopform_accumulative');
+            $data['scale'] = implode(',', array('* ' . get_string('verypoor', 'udmworkshopform_accumulative'),
                                                 '**',
                                                 '***',
                                                 '****',
                                                 '*****',
                                                 '******',
-                                                '******* ' . get_string('excellent', 'workshopform_accumulative')));
+                                                '******* ' . get_string('excellent', 'udmworkshopform_accumulative')));
             break;
         }
 

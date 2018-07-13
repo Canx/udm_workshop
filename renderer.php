@@ -118,8 +118,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $a                  = new stdclass();
             $a->name            = fullname($author);
             $a->url             = $userurl->out();
-            $byfullname = $submission->realsubmission ? get_string('byfullname', 'workshop', $a) :
-                get_string('fullname', 'workshop', $a);
+            $byfullname = $submission->realsubmission ? get_string('byfullname', 'udmworkshop', $a) :
+                get_string('fullname', 'udmworkshop', $a);
             $oo  = $this->output->container($userpic, 'picture');
             $oo .= $this->output->container($byfullname, 'fullname');
 
@@ -127,11 +127,11 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         }
 
         if ($submission->realsubmission) {
-            $created = get_string('userdatecreated', 'workshop', userdate($submission->timecreated));
+            $created = get_string('userdatecreated', 'udmworkshop', userdate($submission->timecreated));
             $o .= $this->output->container($created, 'userdate created');
 
             if ($submission->timemodified > $submission->timecreated) {
-                $modified = get_string('userdatemodified', 'workshop', userdate($submission->timemodified));
+                $modified = get_string('userdatemodified', 'udmworkshop', userdate($submission->timemodified));
                 $o .= $this->output->container($modified, 'userdate modified');
             }
         }
@@ -180,11 +180,11 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
         if ($summary->status == 'notgraded') {
             $classes    .= ' notgraded';
-            $gradestatus = $this->output->container(get_string('nogradeyet', 'workshop'), 'grade-status');
+            $gradestatus = $this->output->container(get_string('nogradeyet', 'udmworkshop'), 'grade-status');
 
         } else if ($summary->status == 'graded') {
             $classes    .= ' graded';
-            $gradestatus = $this->output->container(get_string('alreadygraded', 'workshop'), 'grade-status');
+            $gradestatus = $this->output->container(get_string('alreadygraded', 'udmworkshop'), 'grade-status');
         }
 
         $o .= $this->output->container_start($classes);  // main wrapper
@@ -200,8 +200,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $a                  = new stdClass();
             $a->name            = fullname($author);
             $a->url             = $userurl->out();
-            $byfullname = $summary->realsubmission ? get_string('byfullname', 'workshop', $a) :
-                get_string('fullname', 'workshop', $a);
+            $byfullname = $summary->realsubmission ? get_string('byfullname', 'udmworkshop', $a) :
+                get_string('fullname', 'udmworkshop', $a);
 
             $oo  = $this->output->container($userpic, 'picture');
             $oo .= $this->output->container($byfullname, 'fullname');
@@ -209,11 +209,11 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         }
 
         if ($summary->realsubmission) {
-            $created = get_string('userdatecreated', 'workshop', userdate($summary->timecreated));
+            $created = get_string('userdatecreated', 'udmworkshop', userdate($summary->timecreated));
             $o .= $this->output->container($created, 'userdate created');
 
             if ($summary->timemodified > $summary->timecreated) {
-                $modified = get_string('userdatemodified', 'workshop', userdate($summary->timemodified));
+                $modified = get_string('userdatemodified', 'udmworkshop', userdate($summary->timemodified));
                 $o .= $this->output->container($modified, 'userdate modified');
             }
         }
@@ -274,9 +274,9 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
         // additional info
         if ($summary->status == 'notgraded') {
-            $o .= $this->output->container(get_string('nogradeyet', 'workshop'), 'example-info nograde');
+            $o .= $this->output->container(get_string('nogradeyet', 'udmworkshop'), 'example-info nograde');
         } else {
-            $o .= $this->output->container(get_string('gradeinfo', 'workshop' , $summary->gradeinfo), 'example-info grade');
+            $o .= $this->output->container(get_string('gradeinfo', 'udmworkshop' , $summary->gradeinfo), 'example-info grade');
         }
 
         // button to assess
@@ -306,9 +306,9 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                 'aria-labelledby' => 'mod_udmworkshop-userplanheading',
                 'aria-describedby' => 'mod_udmworkshop-userplanaccessibilitytitle',
             ));
-            $o .= html_writer::span(get_string('userplanaccessibilitytitle', 'workshop', $numberofphases),
+            $o .= html_writer::span(get_string('userplanaccessibilitytitle', 'udmworkshop', $numberofphases),
                 'accesshide', array('id' => 'mod_udmworkshop-userplanaccessibilitytitle'));
-            $o .= html_writer::link('#mod_udmworkshop-userplancurrenttasks', get_string('userplanaccessibilityskip', 'workshop'),
+            $o .= html_writer::link('#mod_udmworkshop-userplancurrenttasks', get_string('userplanaccessibilityskip', 'udmworkshop'),
                 array('class' => 'accesshide'));
             foreach ($plan->phases as $phasecode => $phase) {
                 $classes = 'phase' . $phasecode;
@@ -329,7 +329,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                                 $icon = 'i/scheduled';
                             }
                             $actions .= $this->output->action_icon($action->url,
-                                new pix_icon($icon, get_string('switchphase', 'workshop')));
+                                new pix_icon($icon, get_string('switchphase', 'udmworkshop')));
                             break;
                     }
                 }
@@ -338,7 +338,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                 }
                 $title = html_writer::span($phase->title, '', array('id' => 'mod_udmworkshop-userplancurrenttasks'));
                 if ($phase->active) {
-                    $title .= ' ' . html_writer::span(get_string('userplancurrentphase', 'workshop'), 'accesshide');
+                    $title .= ' ' . html_writer::span(get_string('userplancurrentphase', 'udmworkshop'), 'accesshide');
                 }
                 $o .= html_writer::start_tag('dt', array('class' => $classes));
                 $o .= $this->output->container($title . $actions);
@@ -346,7 +346,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                 $o .= $this->helper_user_plan_tasks($phase->tasks);
                 // Switch to next phase button.
                 if (isset($phase->tasks['switchtonextphase'])) {
-                    $accessibilitytext = get_string('tasktodo', 'workshop') . ' ';
+                    $accessibilitytext = get_string('tasktodo', 'udmworkshop') . ' ';
                     $o .= html_writer::start_tag('div', array('class' => 'switchtonextphase'));
                     $o .= html_writer::tag('span', $accessibilitytext, array('class' => 'accesshide'));
                     $o .= html_writer::link($phase->tasks['switchtonextphase']->link,
@@ -400,20 +400,20 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
                 if ($task->completed === true) {
                     $classes .= ' completed';
-                    $accessibilitytext .= get_string('taskdone', 'workshop') . ' ';
+                    $accessibilitytext .= get_string('taskdone', 'udmworkshop') . ' ';
                     $messagestatus = notification::NOTIFY_SUCCESS;
                 } else if ($task->completed === false) {
                     $classes .= ' fail';
-                    $accessibilitytext .= get_string('taskfail', 'workshop') . ' ';
+                    $accessibilitytext .= get_string('taskfail', 'udmworkshop') . ' ';
                     $messagestatus = notification::NOTIFY_ERROR;
                 } else if ($task->completed === 'warning') {
                     $classes .= ' info';
                     $messagestatus = notification::NOTIFY_WARNING;
                 } else if ($task->completed === 'info') {
                     $classes .= ' info';
-                    $accessibilitytext .= get_string('taskinfo', 'workshop') . ' ';
+                    $accessibilitytext .= get_string('taskinfo', 'udmworkshop') . ' ';
                 } else {
-                    $accessibilitytext .= get_string('tasktodo', 'workshop') . ' ';
+                    $accessibilitytext .= get_string('tasktodo', 'udmworkshop') . ' ';
                 }
                 if (is_null($task->link)) {
                     $title = html_writer::tag('span', $accessibilitytext, array('class' => 'accesshide'));
@@ -453,7 +453,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $collaps = $taskfail ? false : true;
             $html .= html_writer::start_tag('div', array('class' => 'otherphases'));
             $html .= print_collapsible_region_start('', 'workshop-viewlet-allexamples',
-                    get_string('otherphases', 'workshop'), '', $collaps, true);
+                    get_string('otherphases', 'udmworkshop'), '', $collaps, true);
             $html .= $this->box_start('generalbox');
             $html .= $boxcontainer;
             $html .= $this->box_end();
@@ -486,7 +486,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($message = $result->get_message()) {
                 $message = new workshop_message($message, workshop_message::TYPE_ERROR);
             } else {
-                $message = new workshop_message(get_string('allocationerror', 'workshop'), workshop_message::TYPE_ERROR);
+                $message = new workshop_message(get_string('allocationerror', 'workshop'), udmworkshop_message::TYPE_ERROR);
             }
             break;
 
@@ -494,7 +494,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($message = $result->get_message()) {
                 $message = new workshop_message($message, workshop_message::TYPE_INFO);
             } else {
-                $message = new workshop_message(get_string('allocationconfigured', 'workshop'), workshop_message::TYPE_INFO);
+                $message = new workshop_message(get_string('allocationconfigured', 'workshop'), udmworkshop_message::TYPE_INFO);
             }
             break;
 
@@ -502,9 +502,9 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($message = $result->get_message()) {
                 $message = new workshop_message($message, workshop_message::TYPE_OK);
             } else {
-                    $link = html_writer::link('#', get_string('seeresults', 'workshop'),
+                    $link = html_writer::link('#', get_string('seeresults', 'udmworkshop'),
                         array('class' => 'allocation-see-results'));
-                $text = get_string('allocationdonedetail', 'workshop', $link);
+                $text = get_string('allocationdonedetail', 'udmworkshop', $link);
                 $message = new workshop_message($text, workshop_message::TYPE_OK);
             }
             break;
@@ -569,7 +569,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                 'value' => $view
             );
             $option = html_writer::empty_tag('input', $attributes);
-            $option .= html_writer::label(get_string($view, 'workshop'), $id);
+            $option .= html_writer::label(get_string($view, 'udmworkshop'), $id);
             $option = html_writer::span($option);
             $html .= $option;
         }
@@ -607,9 +607,9 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $sortbyname = $sortbyfirstname . ' / ' . $sortbylastname;
         }
 
-        $sortbysubmisstiontitle = $this->helper_sortable_heading(get_string('submission', 'workshop'), 'submissiontitle',
+        $sortbysubmisstiontitle = $this->helper_sortable_heading(get_string('submission', 'udmworkshop'), 'submissiontitle',
                 $options->sortby, $options->sorthow);
-        $sortbysubmisstionlastmodified = $this->helper_sortable_heading(get_string('submissionlastmodified', 'workshop'),
+        $sortbysubmisstionlastmodified = $this->helper_sortable_heading(get_string('submissionlastmodified', 'udmworkshop'),
                 'submissionmodified', $options->sortby, $options->sorthow);
         $sortbysubmisstion = $sortbysubmisstiontitle . ' / ' . $sortbysubmisstionlastmodified;
 
@@ -635,18 +635,18 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $gradeviewswitcher = $this->helper_workshop_grading_report_view_switcher();
             $PAGE->requires->js_call_amd('mod_udmworkshop/gradingreport', 'init');
 
-            $table->head[] = $this->helper_sortable_heading(get_string('receivedgrades', 'workshop'));
+            $table->head[] = $this->helper_sortable_heading(get_string('receivedgrades', 'udmworkshop'));
             $table->colclasses[] = $receivedgrades;
             if ($options->showsubmissiongrade) {
                 $string = $data->realsubmission ? 'submissiongradeof' : 'assessmentgradeof';
-                $table->head[] = $this->helper_sortable_heading(get_string($string, 'workshop', $data->maxgrade),
+                $table->head[] = $this->helper_sortable_heading(get_string($string, 'udmworkshop', $data->maxgrade),
                         'submissiongrade', $options->sortby, $options->sorthow);
                 $table->colclasses[] = $receivedgrades;
             }
-            $table->head[] = $this->helper_sortable_heading(get_string('givengrades', 'workshop'));
+            $table->head[] = $this->helper_sortable_heading(get_string('givengrades', 'udmworkshop'));
             $table->colclasses[] = $givengrades;
             if ($options->showgradinggrade) {
-                $table->head[] = $this->helper_sortable_heading(get_string('gradinggradeof', 'workshop', $data->maxgradinggrade),
+                $table->head[] = $this->helper_sortable_heading(get_string('gradinggradeof', 'udmworkshop', $data->maxgradinggrade),
                         'gradinggrade', $options->sortby, $options->sorthow);
                 $table->colclasses[] = $receivedgrades;
             }
@@ -716,7 +716,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                     $assessment = self::array_nth($participant->reviewedby, $idx);
                     $cell = new html_table_cell();
                     $cell->text = $this->helper_grading_report_assessment($assessment, $options->showreviewernames, $userinfo,
-                            get_string('gradereceivedfrom', 'workshop'));
+                            get_string('gradereceivedfrom', 'udmworkshop'));
                     $cell->rowspan = $spanreceived;
                     $cell->attributes['class'] = 'receivedgrade';
                     if (is_null($assessment) or is_null($assessment->grade)) {
@@ -740,7 +740,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                     $assessment = self::array_nth($participant->reviewerof, $idx);
                     $cell = new html_table_cell();
                     $cell->text = $this->helper_grading_report_assessment($assessment, $options->showauthornames, $userinfo,
-                            get_string('gradegivento', 'workshop'));
+                            get_string('gradegivento', 'udmworkshop'));
                     $cell->rowspan = $spangiven;
                     $cell->attributes['class'] = 'givengrade';
                     if (is_null($assessment) or is_null($assessment->grade)) {
@@ -799,7 +799,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         $o  = '';    // output HTML code
         $o .= $this->output->container_start('feedback feedbackforauthor');
         $o .= $this->output->container_start('header');
-        $o .= $this->output->heading(get_string('feedbackby', 'workshop', s(fullname($feedback->get_provider()))), 3, 'title');
+        $o .= $this->output->heading(get_string('feedbackby', 'udmworkshop', s(fullname($feedback->get_provider()))), 3, 'title');
 
         $userpic = $this->output->user_picture($feedback->get_provider(), array('courseid' => $this->page->course->id, 'size' => 32));
         $o .= $this->output->container($userpic, 'picture');
@@ -834,7 +834,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         if (!empty($assessment->title)) {
             $title = s($assessment->title);
         } else {
-            $title = get_string('assessment', 'workshop');
+            $title = get_string('assessment', 'udmworkshop');
         }
         if (($assessment->url instanceof moodle_url) and ($this->page->url != $assessment->url)) {
             $o .= $this->output->container(html_writer::link($assessment->url, $title), 'title');
@@ -851,8 +851,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $a          = new stdClass();
             $a->name    = fullname($reviewer);
             $a->url     = $userurl->out();
-            $byfullname = $assessment->realsubmission ? get_string('assessmentby', 'workshop', $a) :
-                get_string('fullname', 'workshop', $a);;
+            $byfullname = $assessment->realsubmission ? get_string('assessmentby', 'udmworkshop', $a) :
+                get_string('fullname', 'udmworkshop', $a);;
             $oo         = $this->output->container($userpic, 'picture');
             $oo        .= $this->output->container($byfullname, 'fullname');
 
@@ -861,7 +861,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
         if (is_null($assessment->realgrade)) {
             $o .= $this->output->container(
-                get_string('notassessed', 'workshop'),
+                get_string('notassessed', 'udmworkshop'),
                 'grade nograde'
             );
         } else {
@@ -869,13 +869,13 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $a->max         = $assessment->maxgrade;
             $a->received    = $assessment->realgrade;
             $o .= $this->output->container(
-                get_string('gradeinfo', 'workshop', $a),
+                get_string('gradeinfo', 'udmworkshop', $a),
                 'grade'
             );
 
             if (!is_null($assessment->weight) and $assessment->weight != 1) {
                 $o .= $this->output->container(
-                    get_string('weightinfo', 'workshop', $assessment->weight),
+                    get_string('weightinfo', 'udmworkshop', $assessment->weight),
                     'weight'
                 );
             }
@@ -891,7 +891,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
         if (!is_null($assessment->form)) {
             $o .= print_collapsible_region_start('assessment-form-wrapper', uniqid('workshop-assessment'),
-                    get_string('assessmentform', 'workshop'), '', false, true);
+                    get_string('assessmentform', 'udmworkshop'), '', false, true);
             $o .= $this->output->container(self::moodleform($assessment->form), 'assessment-form');
             $o .= print_collapsible_region_end(true);
 
@@ -981,7 +981,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
         $o = $this->output->box($o, 'overallfeedback');
         $o = print_collapsible_region($o, 'overall-feedback-wrapper', uniqid('workshop-overall-feedback'),
-            get_string('overallfeedback', 'workshop'), '', false, true);
+            get_string('overallfeedback', 'udmworkshop'), '', false, true);
 
         return $o;
     }
@@ -1003,8 +1003,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                 $options[$option] = $option;
             }
         }
-        $select = new single_select($this->page->url, 'perpage', $options, '', array('' => get_string('showingperpagechange', 'mod_udmworkshop')));
-        $select->label = get_string('showingperpage', 'mod_udmworkshop', $current);
+        $select = new single_select($this->page->url, 'perpage', $options, '', array('' => get_string('showingperpagechange', 'mod_udmudmworkshop')));
+        $select->label = get_string('showingperpage', 'mod_udmudmworkshop', $current);
         $select->method = 'post';
 
         return $this->output->container($this->output->render($select), 'perpagewidget');
@@ -1025,8 +1025,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($grades->submissiongrade->hidden) {
                 $cssclass .= ' hiddengrade';
             }
-            $gradetext = $grades->realsubmission ? get_string('submissiongrade', 'mod_udmworkshop') :
-                get_string('assessmentgrade', 'mod_udmworkshop');
+            $gradetext = $grades->realsubmission ? get_string('submissiongrade', 'mod_udmudmworkshop') :
+                get_string('assessmentgrade', 'mod_udmudmworkshop');
             $out .= html_writer::tag(
                 'div',
                 html_writer::tag('div', $gradetext, array('class' => 'gradetype')) .
@@ -1042,7 +1042,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             }
             $out .= html_writer::tag(
                 'div',
-                html_writer::tag('div', get_string('gradinggrade', 'mod_udmworkshop'), array('class' => 'gradetype')) .
+                html_writer::tag('div', get_string('gradinggrade', 'mod_udmudmworkshop'), array('class' => 'gradetype')) .
                 html_writer::tag('div', $grades->assessmentgrade->str_long_grade, array('class' => 'gradevalue')),
                 array('class' => $cssclass)
             );
@@ -1060,7 +1060,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
      * @return string HTML
      */
     public function render_workshop_wizard_button(moodle_url $url) {
-        $text = get_string('opensetupwizard', 'workshop');
+        $text = get_string('opensetupwizard', 'udmworkshop');
         $attributes = array('class' => 'wizard-button btn btn-primary group');
         return html_writer::div(html_writer::link($url, $text, $attributes), 'clearfix');
     }
@@ -1175,15 +1175,15 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             $icon = null;
             if ($task->completed === true) {
                 $classes .= ' completed';
-                $accessibilitytext .= get_string('taskdone', 'workshop') . ' ';
+                $accessibilitytext .= get_string('taskdone', 'udmworkshop') . ' ';
             } else if ($task->completed === false) {
                 $classes .= ' fail';
-                $accessibilitytext .= get_string('taskfail', 'workshop') . ' ';
+                $accessibilitytext .= get_string('taskfail', 'udmworkshop') . ' ';
             } else if ($task->completed === 'info') {
                 $classes .= ' info';
-                $accessibilitytext .= get_string('taskinfo', 'workshop') . ' ';
+                $accessibilitytext .= get_string('taskinfo', 'udmworkshop') . ' ';
             } else {
-                $accessibilitytext .= get_string('tasktodo', 'workshop') . ' ';
+                $accessibilitytext .= get_string('tasktodo', 'udmworkshop') . ' ';
             }
             if (is_null($task->link)) {
                 $title = html_writer::tag('span', $accessibilitytext, array('class' => 'accesshide'));
@@ -1223,13 +1223,13 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($sortby !== $sortid or $sorthow !== 'ASC') {
                 $url = new moodle_url($PAGE->url);
                 $url->params(array('sortby' => $sortid, 'sorthow' => 'ASC'));
-                $out .= $this->output->action_icon($url, new pix_icon('t/sort_asc', get_string('sortasc', 'workshop')),
+                $out .= $this->output->action_icon($url, new pix_icon('t/sort_asc', get_string('sortasc', 'udmworkshop')),
                     null, array('class' => 'iconsort sort asc'));
             }
             if ($sortby !== $sortid or $sorthow !== 'DESC') {
                 $url = new moodle_url($PAGE->url);
                 $url->params(array('sortby' => $sortid, 'sorthow' => 'DESC'));
-                $out .= $this->output->action_icon($url, new pix_icon('t/sort_desc', get_string('sortdesc', 'workshop')),
+                $out .= $this->output->action_icon($url, new pix_icon('t/sort_desc', get_string('sortdesc', 'udmworkshop')),
                     null, array('class' => 'iconsort sort desc'));
             }
         }
@@ -1257,13 +1257,13 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         global $CFG;
 
         if (is_null($participant->submissionid)) {
-            $out = $this->output->container(get_string('nosubmissionfound', 'workshop'), 'info');
+            $out = $this->output->container(get_string('nosubmissionfound', 'udmworkshop'), 'info');
         } else {
             $url = new moodle_url('/mod/workshop/submission.php',
                                   array('cmid' => $this->page->context->instanceid, 'id' => $participant->submissionid));
             $out = html_writer::link($url, format_string($participant->submissiontitle), array('class'=>'title'));
 
-            $lastmodified = get_string('userdatemodified', 'workshop', userdate($participant->submissionmodified));
+            $lastmodified = get_string('userdatemodified', 'udmworkshop', userdate($participant->submissionmodified));
             $out .= html_writer::tag('div', $lastmodified, array('class' => 'lastmodified'));
         }
 
@@ -1280,7 +1280,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         $url = new moodle_url('/mod/workshop/submission.php',
                               array('cmid' => $this->page->context->instanceid, 'id' => $participant->submissionid));
 
-        $out = html_writer::tag('div', $this->output->single_button($url, get_string('assess', 'workshop'), 'get'),
+        $out = html_writer::tag('div', $this->output->single_button($url, get_string('assess', 'udmworkshop'), 'get'),
                 array('class' => 'assessbutton'));
 
         return $out;
@@ -1297,25 +1297,25 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         global $CFG;
 
         if (is_null($assessment)) {
-            return get_string('nullgrade', 'workshop');
+            return get_string('nullgrade', 'udmworkshop');
         }
         $a = new stdclass();
-        $a->grade = is_null($assessment->grade) ? get_string('nullgrade', 'workshop') : $assessment->grade;
-        $a->gradinggrade = is_null($assessment->gradinggrade) ? get_string('nullgrade', 'workshop') : $assessment->gradinggrade;
+        $a->grade = is_null($assessment->grade) ? get_string('nullgrade', 'udmworkshop') : $assessment->grade;
+        $a->gradinggrade = is_null($assessment->gradinggrade) ? get_string('nullgrade', 'udmworkshop') : $assessment->gradinggrade;
         $a->weight = $assessment->weight;
         // grrr the following logic should really be handled by a future language pack feature
         if (is_null($assessment->gradinggradeover)) {
             if ($a->weight == 1) {
-                $grade = get_string('formatpeergrade', 'workshop', $a);
+                $grade = get_string('formatpeergrade', 'udmworkshop', $a);
             } else {
-                $grade = get_string('formatpeergradeweighted', 'workshop', $a);
+                $grade = get_string('formatpeergradeweighted', 'udmworkshop', $a);
             }
         } else {
             $a->gradinggradeover = $assessment->gradinggradeover;
             if ($a->weight == 1) {
-                $grade = get_string('formatpeergradeover', 'workshop', $a);
+                $grade = get_string('formatpeergradeover', 'udmworkshop', $a);
             } else {
-                $grade = get_string('formatpeergradeoverweighted', 'workshop', $a);
+                $grade = get_string('formatpeergradeoverweighted', 'udmworkshop', $a);
             }
         }
         $url = new moodle_url('/mod/workshop/assessment.php',
@@ -1339,12 +1339,12 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
      */
     protected function helper_grading_report_grade($grade, $over=null) {
         $a = new stdclass();
-        $a->grade = is_null($grade) ? get_string('nullgrade', 'workshop') : $grade;
+        $a->grade = is_null($grade) ? get_string('nullgrade', 'udmworkshop') : $grade;
         if (is_null($over)) {
-            $text = get_string('formataggregatedgrade', 'workshop', $a);
+            $text = get_string('formataggregatedgrade', 'udmworkshop', $a);
         } else {
-            $a->over = is_null($over) ? get_string('nullgrade', 'workshop') : $over;
-            $text = get_string('formataggregatedgradeover', 'workshop', $a);
+            $a->over = is_null($over) ? get_string('nullgrade', 'udmworkshop') : $over;
+            $text = get_string('formataggregatedgradeover', 'udmworkshop', $a);
         }
         return $text;
     }

@@ -51,7 +51,7 @@ class workshop_comments_assessment_form extends workshop_assessment_form {
 
         for ($i = 0; $i < $nodims; $i++) {
             // dimension header
-            $dimtitle = get_string('dimensionnumber', 'workshopform_comments', $i+1);
+            $dimtitle = get_string('dimensionnumber', 'udmworkshopform_comments', $i+1);
             $mform->addElement('header', 'dimensionhdr__idx_'.$i, $dimtitle);
 
             // dimension id
@@ -69,7 +69,7 @@ class workshop_comments_assessment_form extends workshop_assessment_form {
             $mform->addElement('html', $desc);
 
             // comment
-            $label = get_string('dimensioncommentfor', 'workshopform_comments', $dimtitle);
+            $label = get_string('dimensioncommentfor', 'udmworkshopform_comments', $dimtitle);
             //$mform->addElement('editor', 'peercomment__idx_' . $i, $label, null, array('maxfiles' => 0));
             $mform->addElement('textarea', 'peercomment__idx_' . $i, $label, array('cols' => 60, 'rows' => 10));
             $mform->addRule('peercomment__idx_' . $i, null, 'required', null, 'client');

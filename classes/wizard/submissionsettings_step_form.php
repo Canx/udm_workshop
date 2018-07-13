@@ -53,26 +53,26 @@ class submissionsettings_step_form extends step_form {
         if (\workshop::is_allowsubmission_disabled($this->workshop)) {
             $options = array('disabled' => 'true');
         }
-        $label = get_string('allowsubmission', 'workshop');
+        $label = get_string('allowsubmission', 'udmworkshop');
         $mform->addElement('checkbox', 'allowsubmission', $label, ' ', $options);
         $mform->addHelpButton('allowsubmission', 'allowsubmission', 'workshop');
 
         $mform->addElement('html',  \html_writer::start_div('fitem submissioninfo'));
-        $label = get_string('instructauthors', 'workshop');
+        $label = get_string('instructauthors', 'udmworkshop');
         $mform->addElement('editor', 'instructauthorseditor', $label, null,
                             \workshop::instruction_editors_options($this->workshop->context));
 
-        $label = get_string('assessassoonsubmitted', 'workshop');
+        $label = get_string('assessassoonsubmitted', 'udmworkshop');
         $mform->addElement('checkbox', 'assessassoonsubmitted', $label, ' ');
         $mform->addHelpButton('assessassoonsubmitted', 'assessassoonsubmitted', 'workshop');
 
-        $label = get_string('submissionstart', 'workshop');
+        $label = get_string('submissionstart', 'udmworkshop');
         $mform->addElement('date_time_selector', 'submissionstart', $label, array('optional' => true));
 
-        $label = get_string('submissionend', 'workshop');
+        $label = get_string('submissionend', 'udmworkshop');
         $mform->addElement('date_time_selector', 'submissionend', $label, array('optional' => true));
 
-        $label = get_string('submissionendswitch', 'mod_udmworkshop');
+        $label = get_string('submissionendswitch', 'mod_udmudmworkshop');
         $mform->addElement('html',  \html_writer::start_div('phaseswitchassessmentinfo'));
         $mform->addElement('checkbox', 'phaseswitchassessment', $label);
         $mform->addHelpButton('phaseswitchassessment', 'submissionendswitch', 'mod_udmworkshop');
@@ -118,7 +118,7 @@ class submissionsettings_step_form extends step_form {
 
         // Check the phases borders are valid.
         if ($data['submissionstart'] > 0 and $data['submissionend'] > 0 and $data['submissionstart'] >= $data['submissionend']) {
-            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udmworkshop');
+            $errors['submissionend'] = get_string('submissionendbeforestart', 'mod_udmudmworkshop');
             return $errors;
         }
 
@@ -133,7 +133,7 @@ class submissionsettings_step_form extends step_form {
             if ($phasesubmissionend > 0 && $phaseassessmentstart > 0 && $phaseassessmentstart < $phasesubmissionend) {
                 foreach (array('submissionend', 'submissionstart') as $f) {
                     if ($data[$f] > 0) {
-                        $errors[$f] = get_string('phasesoverlap', 'mod_udmworkshop');
+                        $errors[$f] = get_string('phasesoverlap', 'mod_udmudmworkshop');
                         break;
                     }
                 }

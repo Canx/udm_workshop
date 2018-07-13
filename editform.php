@@ -48,7 +48,7 @@ if ($wizardstep) {
 $PAGE->set_url($workshop->editform_url());
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('editingassessmentform', 'workshop'));
+$PAGE->navbar->add(get_string('editingassessmentform', 'udmworkshop'));
 
 // load the grading strategy logic
 $strategy = $workshop->grading_strategy_instance();
@@ -89,7 +89,7 @@ if ($mform->is_cancelled()) {
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(format_string($workshop->name));
-echo $OUTPUT->heading(get_string('pluginname', 'workshopform_' . $workshop->strategy), 3);
+echo $OUTPUT->heading(get_string('pluginname', 'workshopform_' . $udmworkshop->strategy), 3);
 
 $mform->display();
 

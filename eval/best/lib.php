@@ -432,9 +432,9 @@ class workshop_best_evaluation_settings_form extends workshop_evaluation_setting
 
         $options = array();
         for ($i = 9; $i >= 1; $i = $i-2) {
-            $options[$i] = get_string('comparisonlevel' . $i, 'workshopeval_best');
+            $options[$i] = get_string('comparisonlevel' . $i, 'udmworkshopeval_best');
         }
-        $mform->addElement('select', 'comparison', get_string('comparison', 'workshopeval_best'), $options);
+        $mform->addElement('select', 'comparison', get_string('comparison', 'udmworkshopeval_best'), $options);
         $mform->addHelpButton('comparison', 'comparison', 'workshopeval_best');
         $mform->setDefault('comparison', $plugindefaults->comparison);
 

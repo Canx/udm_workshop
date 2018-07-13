@@ -67,13 +67,13 @@ if ($canmanage) {
 
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('examplecomparing', 'workshop'));
+$PAGE->navbar->add(get_string('examplecomparing', 'udmworkshop'));
 
 // Output starts here
 $output = $PAGE->get_renderer('mod_udmworkshop');
 echo $output->header();
 echo $output->heading(format_string($workshop->name));
-echo $output->heading(get_string('assessedexample', 'workshop'), 3);
+echo $output->heading(get_string('assessedexample', 'udmworkshop'), 3);
 
 echo $output->render($workshop->prepare_example_submission($example));
 
@@ -85,7 +85,7 @@ if (!empty($mformreference)) {
         'showform'      => true,
     );
     $reference = $workshop->prepare_example_reference_assessment($reference, $mformreference, $options);
-    $reference->title = get_string('assessmentreference', 'workshop');
+    $reference->title = get_string('assessmentreference', 'udmworkshop');
     if ($canmanage) {
         $reference->url = $workshop->exassess_url($reference->id);
     }
@@ -99,11 +99,11 @@ if ($isreviewer) {
         'showform'      => true,
     );
     $assessment = $workshop->prepare_example_assessment($assessment, $mformassessment, $options);
-    $assessment->title = get_string('assessmentbyyourself', 'workshop');
+    $assessment->title = get_string('assessmentbyyourself', 'udmworkshop');
     if ($workshop->assessing_examples_allowed()) {
         $assessment->add_action(
             new moodle_url($workshop->exsubmission_url($example->id), array('assess' => 'on', 'sesskey' => sesskey())),
-            get_string('reassess', 'workshop')
+            get_string('reassess', 'udmworkshop')
         );
     }
     echo $output->render($assessment);

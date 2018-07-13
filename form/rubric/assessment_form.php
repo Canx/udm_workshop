@@ -40,8 +40,8 @@ abstract class workshop_rubric_assessment_form extends workshop_assessment_form 
         $errors = parent::validation($data, $files);
         for ($i = 0; isset($data['dimensionid__idx_'.$i]); $i++) {
             if (empty($data['chosenlevelid__idx_'.$i])) {
-                $errors['chosenlevelid__idx_'.$i] = get_string('mustchooseone', 'workshopform_rubric'); // used in grid
-                $errors['levelgrp__idx_'.$i] = get_string('mustchooseone', 'workshopform_rubric');      // used in list
+                $errors['chosenlevelid__idx_'.$i] = get_string('mustchooseone', 'udmworkshopform_rubric'); // used in grid
+                $errors['levelgrp__idx_'.$i] = get_string('mustchooseone', 'udmworkshopform_rubric');      // used in list
             }
         }
         return $errors;
@@ -68,7 +68,7 @@ class workshop_rubric_list_assessment_form extends workshop_rubric_assessment_fo
 
         for ($i = 0; $i < $nodims; $i++) {
             // dimension header
-            $dimtitle = get_string('dimensionnumber', 'workshopform_rubric', $i+1);
+            $dimtitle = get_string('dimensionnumber', 'udmworkshopform_rubric', $i+1);
             $mform->addElement('header', 'dimensionhdr__idx_'.$i, $dimtitle);
 
             // dimension id
@@ -127,11 +127,11 @@ class workshop_rubric_grid_assessment_form extends workshop_rubric_assessment_fo
         }
         $numofcolumns = array_reduce($levelcounts, 'workshop::lcm', 1);
 
-        $mform->addElement('header', 'rubric-grid-wrapper', get_string('layoutgrid', 'workshopform_rubric'));
+        $mform->addElement('header', 'rubric-grid-wrapper', get_string('layoutgrid', 'udmworkshopform_rubric'));
 
         $mform->addElement('html', '<table class="rubric-grid">' . "\n");
-        $mform->addElement('html', '<th class="header">' . get_string('criteria', 'workshopform_rubric') . '</th>');
-        $mform->addElement('html', '<th class="header" colspan="'.$numofcolumns.'">'.get_string('levels', 'workshopform_rubric').'</th>');
+        $mform->addElement('html', '<th class="header">' . get_string('criteria', 'udmworkshopform_rubric') . '</th>');
+        $mform->addElement('html', '<th class="header" colspan="'.$numofcolumns.'">'.get_string('levels', 'udmworkshopform_rubric').'</th>');
 
         for ($i = 0; $i < $nodims; $i++) {
 

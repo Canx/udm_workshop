@@ -50,7 +50,7 @@ class mod_udmworkshop_lib_testcase extends advanced_testcase {
         $actionevent = mod_udmworkshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
-        $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
+        $this->assertEquals(get_string('viewworkshopsummary', 'udmworkshop'), $actionevent->get_name());
         $this->assertInstanceOf('moodle_url', $actionevent->get_url());
         $this->assertEquals(1, $actionevent->get_item_count());
         $this->assertTrue($actionevent->is_actionable());
@@ -72,7 +72,7 @@ class mod_udmworkshop_lib_testcase extends advanced_testcase {
         $actionevent = mod_udmworkshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
-        $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
+        $this->assertEquals(get_string('viewworkshopsummary', 'udmworkshop'), $actionevent->get_name());
         $this->assertInstanceOf('moodle_url', $actionevent->get_url());
         $this->assertEquals(1, $actionevent->get_item_count());
         $this->assertTrue($actionevent->is_actionable());
@@ -96,7 +96,7 @@ class mod_udmworkshop_lib_testcase extends advanced_testcase {
         $actionevent = mod_udmworkshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
-        $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
+        $this->assertEquals(get_string('viewworkshopsummary', 'udmworkshop'), $actionevent->get_name());
         $this->assertInstanceOf('moodle_url', $actionevent->get_url());
         $this->assertEquals(1, $actionevent->get_item_count());
         $this->assertTrue($actionevent->is_actionable());
@@ -119,7 +119,7 @@ class mod_udmworkshop_lib_testcase extends advanced_testcase {
         $actionevent = mod_udmworkshop_core_calendar_provide_event_action($event, $factory);
 
         $this->assertInstanceOf('\core_calendar\local\event\value_objects\action', $actionevent);
-        $this->assertEquals(get_string('viewworkshopsummary', 'workshop'), $actionevent->get_name());
+        $this->assertEquals(get_string('viewworkshopsummary', 'udmworkshop'), $actionevent->get_name());
         $this->assertInstanceOf('moodle_url', $actionevent->get_url());
         $this->assertEquals(1, $actionevent->get_item_count());
         $this->assertTrue($actionevent->is_actionable());

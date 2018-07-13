@@ -46,7 +46,7 @@ $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
 $PAGE->add_body_class('path-mod-workshop-wizard');
 
-$wizardtitle = get_string('setupwizard', 'workshop');
+$wizardtitle = get_string('setupwizard', 'udmworkshop');
 $PAGE->navbar->add($wizardtitle);
 
 // Load the correct wizard step instance.

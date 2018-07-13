@@ -51,13 +51,13 @@ class assessmentsettings_step_form extends step_form {
             $anonymitysettings = new \mod_udmworkshop\anonymity_settings($this->workshop->context);
             // Display appraisees name.
             if (!empty($record->allowsubmission)) {
-                $label = get_string('displayappraiseesname', 'workshop');
+                $label = get_string('displayappraiseesname', 'udmworkshop');
                 $mform->addElement('checkbox', 'displayappraiseesname', $label);
                 $mform->addHelpButton('displayappraiseesname', 'displayappraiseesname', 'workshop');
                 $mform->setDefault('displayappraiseesname', $anonymitysettings->display_appraisees_name());
             }
             // Display appraisers name.
-            $label = get_string('displayappraisersname', 'workshop');
+            $label = get_string('displayappraisersname', 'udmworkshop');
             $mform->addElement('checkbox', 'displayappraisersname', $label);
             $mform->addHelpButton('displayappraisersname', 'displayappraisersname', 'workshop');
             $mform->setDefault('displayappraisersname', $anonymitysettings->display_appraisers_name());
@@ -65,22 +65,22 @@ class assessmentsettings_step_form extends step_form {
         // Do not display assess without submission if allow submission is false.
         if ($record->allowsubmission != 0 && !$this->workshop->is_self_assessment_type()) {
             // Assess without submission.
-            $label = get_string('assesswithoutsubmission', 'workshop');
+            $label = get_string('assesswithoutsubmission', 'udmworkshop');
             $mform->addElement('checkbox', 'assesswithoutsubmission', $label);
             $mform->addHelpButton('assesswithoutsubmission', 'assesswithoutsubmission', 'workshop');
         }
 
         // Instructions for reviewers.
-        $label = get_string('instructreviewers', 'workshop');
+        $label = get_string('instructreviewers', 'udmworkshop');
         $mform->addElement('editor', 'instructreviewerseditor', $label, null,
                             \workshop::instruction_editors_options($this->workshop->context));
         // Assessment start date.
         if ($record->assessassoonsubmitted == 0) {
-            $label = get_string('assessmentstart', 'workshop');
+            $label = get_string('assessmentstart', 'udmworkshop');
             $mform->addElement('date_time_selector', 'assessmentstart', $label, array('optional' => true));
         }
         // Assessment end date.
-        $label = get_string('assessmentend', 'workshop');
+        $label = get_string('assessmentend', 'udmworkshop');
         $mform->addElement('date_time_selector', 'assessmentend', $label, array('optional' => true));
     }
 
@@ -104,7 +104,7 @@ class assessmentsettings_step_form extends step_form {
 
         // Check the phases borders are valid.
         if ($data['assessmentstart'] > 0 and $data['assessmentend'] > 0 and $data['assessmentstart'] >= $data['assessmentend']) {
-            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udmworkshop');
+            $errors['assessmentend'] = get_string('assessmentendbeforestart', 'mod_udmudmworkshop');
             return $errors;
         }
 
@@ -119,7 +119,7 @@ class assessmentsettings_step_form extends step_form {
             if ($phasesubmissionend > 0 && $phaseassessmentstart > 0 && $phaseassessmentstart < $phasesubmissionend) {
                 foreach (array('assessmentend', 'assessmentstart') as $f) {
                     if ($data[$f] > 0) {
-                        $errors[$f] = get_string('phasesoverlap', 'mod_udmworkshop');
+                        $errors[$f] = get_string('phasesoverlap', 'mod_udmudmworkshop');
                         break;
                     }
                 }

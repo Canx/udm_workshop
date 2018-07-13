@@ -61,11 +61,11 @@ class workshop_edit_rubric_strategy_form extends workshop_edit_strategy_form {
         }
 
         for ($i = 0; $i < $norepeats; $i++) {
-            $mform->addElement('header', 'dimension'.$i, get_string('dimensionnumber', 'workshopform_rubric', $i+1));
+            $mform->addElement('header', 'dimension'.$i, get_string('dimensionnumber', 'udmworkshopform_rubric', $i+1));
             $mform->addElement('hidden', 'dimensionid__idx_'.$i);
             $mform->setType('dimensionid__idx_'.$i, PARAM_INT);
             $mform->addElement('editor', 'description__idx_'.$i.'_editor',
-                                get_string('dimensiondescription', 'workshopform_rubric'), '', $descriptionopts);
+                                get_string('dimensiondescription', 'udmworkshopform_rubric'), '', $descriptionopts);
             if (isset($current->{'numoflevels__idx_' . $i})) {
                 $numoflevels = max($current->{'numoflevels__idx_' . $i} + self::ADDLEVELS, self::MINLEVELS);
             } else {
@@ -78,7 +78,7 @@ class workshop_edit_rubric_strategy_form extends workshop_edit_strategy_form {
                 $levelgrp = array();
                 $levelgrp[] = $mform->createElement('select', 'grade__idx_'.$i.'__idy_'.$j,'', $levelgrades);
                 $levelgrp[] = $mform->createElement('textarea', 'definition__idx_'.$i.'__idy_'.$j, '',  array('cols' => 60, 'rows' => 3));
-                $mform->addGroup($levelgrp, 'level__idx_'.$i.'__idy_'.$j, get_string('levelgroup', 'workshopform_rubric'), array(' '), false);
+                $mform->addGroup($levelgrp, 'level__idx_'.$i.'__idy_'.$j, get_string('levelgroup', 'udmworkshopform_rubric'), array(' '), false);
                 $mform->setDefault('grade__idx_'.$i.'__idy_'.$j, $prevlevel + 1);
                 if (isset($current->{'grade__idx_'.$i.'__idy_'.$j})) {
                     $prevlevel = $current->{'grade__idx_'.$i.'__idy_'.$j};
@@ -89,17 +89,17 @@ class workshop_edit_rubric_strategy_form extends workshop_edit_strategy_form {
         }
 
         $mform->registerNoSubmitButton('adddims');
-        $mform->addElement('submit', 'adddims', get_string('addmoredimensions', 'workshopform_rubric',
+        $mform->addElement('submit', 'adddims', get_string('addmoredimensions', 'udmworkshopform_rubric',
                 workshop_rubric_strategy::ADDDIMS));
         $mform->closeHeaderBefore('adddims');
 
-        $mform->addElement('header', 'configheader', get_string('configuration', 'workshopform_rubric'));
+        $mform->addElement('header', 'configheader', get_string('configuration', 'udmworkshopform_rubric'));
         $layoutgrp = array();
         $layoutgrp[] = $mform->createElement('radio', 'config_layout', '',
-                get_string('layoutlist', 'workshopform_rubric'), 'list');
+                get_string('layoutlist', 'udmworkshopform_rubric'), 'list');
         $layoutgrp[] = $mform->createElement('radio', 'config_layout', '',
-                get_string('layoutgrid', 'workshopform_rubric'), 'grid');
-        $mform->addGroup($layoutgrp, 'layoutgrp', get_string('layout', 'workshopform_rubric'), array('<br />'), false);
+                get_string('layoutgrid', 'udmworkshopform_rubric'), 'grid');
+        $mform->addGroup($layoutgrp, 'layoutgrp', get_string('layout', 'udmworkshopform_rubric'), array('<br />'), false);
         $mform->setDefault('config_layout', 'list');
         $this->set_data($current);
     }
@@ -146,7 +146,7 @@ class workshop_edit_rubric_strategy_form extends workshop_edit_strategy_form {
                 }
             }
             if (!$atleastonelevel) {
-                $errors['level__idx_'.$i.'__idy_0'] = get_string('mustdefinelevel', 'workshopform_rubric');
+                $errors['level__idx_'.$i.'__idy_0'] = get_string('mustdefinelevel', 'udmworkshopform_rubric');
             }
         }
 

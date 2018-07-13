@@ -79,7 +79,7 @@ class assessment_reevaluated extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventassessmentreevaluated', 'mod_udmworkshop');
+        return get_string('eventassessmentreevaluated', 'mod_udmudmworkshop');
     }
 
     /**

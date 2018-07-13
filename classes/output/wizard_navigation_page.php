@@ -69,7 +69,7 @@ class wizard_navigation_page implements renderable, templatable {
 
             $wizardstep = $this->workshop->wizard_step_instance($name);
             $infos = new \stdClass();
-            $infos->title = get_string($name, 'workshop');
+            $infos->title = get_string($name, 'udmworkshop');
             $infos->url = $this->workshop->wizard_url($name)->out(false);
             $infos->name = $name;
             $infos->currentstep = $this->workshop->wizardstep == $name;

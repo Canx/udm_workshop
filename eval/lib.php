@@ -83,11 +83,11 @@ class workshop_evaluation_settings_form extends moodleform {
 
         $workshop = $this->_customdata['workshop'];
 
-        $mform->addElement('header', 'general', get_string('evaluationsettings', 'mod_udmworkshop'));
+        $mform->addElement('header', 'general', get_string('evaluationsettings', 'mod_udmudmworkshop'));
 
         $this->definition_sub();
 
-        $mform->addElement('submit', 'submit', get_string('aggregategrades', 'workshop'));
+        $mform->addElement('submit', 'submit', get_string('aggregategrades', 'udmworkshop'));
     }
 
     /**

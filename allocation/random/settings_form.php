@@ -49,8 +49,8 @@ class workshop_random_allocator_form extends moodleform {
         $gmode = groups_get_activity_groupmode($workshop->cm, $workshop->course);
 
         $options_numper = array(
-            workshop_random_allocator_setting::NUMPER_SUBMISSION => get_string('byreviewee', 'workshopallocation_random'),
-            workshop_random_allocator_setting::NUMPER_REVIEWER   => get_string('byreviewer', 'workshopallocation_random')
+            workshop_random_allocator_setting::NUMPER_SUBMISSION => get_string('byreviewee', 'udmworkshopallocation_random'),
+            workshop_random_allocator_setting::NUMPER_REVIEWER   => get_string('byreviewer', 'udmworkshopallocation_random')
         );
         $grpnumofreviews = array();
         $grpnumofreviews[] = $mform->createElement('select', 'numofreviews', '',
@@ -58,18 +58,18 @@ class workshop_random_allocator_form extends moodleform {
         $mform->setDefault('numofreviews', $plugindefaults->numofreviews);
         $grpnumofreviews[] = $mform->createElement('select', 'numper', '', $options_numper);
         $mform->setDefault('numper', workshop_random_allocator_setting::NUMPER_SUBMISSION);
-        $mform->addGroup($grpnumofreviews, 'grpnumofreviews', get_string('assessmentnumber', 'workshopallocation_random'),
+        $mform->addGroup($grpnumofreviews, 'grpnumofreviews', get_string('assessmentnumber', 'udmworkshopallocation_random'),
                 array(' '), false);
 
         if (VISIBLEGROUPS == $gmode) {
-            $mform->addElement('checkbox', 'excludesamegroup', get_string('excludesamegroup', 'workshopallocation_random'));
+            $mform->addElement('checkbox', 'excludesamegroup', get_string('excludesamegroup', 'udmworkshopallocation_random'));
             $mform->setDefault('excludesamegroup', 0);
         } else {
             $mform->addElement('hidden', 'excludesamegroup', 0);
             $mform->setType('excludesamegroup', PARAM_BOOL);
         }
 
-        $mform->addElement('checkbox', 'removecurrent', get_string('removecurrentallocations', 'workshopallocation_random'));
+        $mform->addElement('checkbox', 'removecurrent', get_string('removecurrentallocations', 'udmworkshopallocation_random'));
         $mform->setDefault('removecurrent', 0);
 
         $mform->addElement('hidden', 'addselfassessment');
@@ -84,10 +84,10 @@ class workshop_random_allocator_form extends moodleform {
             $mform->setDefault('addselfassessment', 1);
             $mform->addElement('static',
                 'selfassessmenthelp',
-                get_string('selfassessment', 'workshop'),
-                get_string('selfassessmenthelp', 'workshopallocation_random'));
+                get_string('selfassessment', 'udmworkshop'),
+                get_string('selfassessmenthelp', 'udmworkshopallocation_random'));
         }
 
-        $this->add_action_buttons(true, get_string('apply', 'workshopallocation_random'));
+        $this->add_action_buttons(true, get_string('apply', 'udmworkshopallocation_random'));
     }
 }

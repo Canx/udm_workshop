@@ -68,7 +68,7 @@ abstract class step_form extends \moodleform {
         $mform->setDisableShortforms();
 
         $step = $this->step;
-        $mform->addElement('header', 'stepname', get_string($step::NAME, 'workshop'));
+        $mform->addElement('header', 'stepname', get_string($step::NAME, 'udmworkshop'));
         $this->step_definition();
         $this->add_action_buttons();
 
@@ -91,7 +91,7 @@ abstract class step_form extends \moodleform {
 
         $params = array('class' => 'form-submit proceedbutton');
         if (empty($this->step->get_next())) {
-            $buttonarray[] = $mform->createElement('submit', 'close', get_string('closeanddisplay', 'workshop'), $params);
+            $buttonarray[] = $mform->createElement('submit', 'close', get_string('closeanddisplay', 'udmworkshop'), $params);
         } else {
             $buttonarray[] = $mform->createElement('submit', 'next', get_string('next'), $params);
         }
