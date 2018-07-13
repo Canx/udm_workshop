@@ -28,7 +28,7 @@ $capabilities = array(
 
     // Ability to see that the workshop exists, and the basic information
     // about it, for example the intro field
-    'mod/workshop:view' => array(
+    'mod/udmworkshop:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -41,7 +41,7 @@ $capabilities = array(
     ),
 
     // Ability to add a new workshop to the course.
-    'mod/workshop:addinstance' => array(
+    'mod/udmworkshop:addinstance' => array(
         'riskbitmask' => RISK_XSS,
 
         'captype' => 'write',
@@ -55,7 +55,7 @@ $capabilities = array(
 
     // Ability to change the current phase (stage) of the workshop, for example
     // allow submitting, start assessment period, close workshop etc.
-    'mod/workshop:switchphase' => array(
+    'mod/udmworkshop:switchphase' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -66,7 +66,7 @@ $capabilities = array(
     ),
 
     // Ability to modify the assessment forms, gives access to editform.php
-    'mod/workshop:editdimensions' => array(
+    'mod/udmworkshop:editdimensions' => array(
         'riskbitmask' => RISK_XSS,              // can embed flash and javascript into wysiwyg
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
@@ -78,7 +78,7 @@ $capabilities = array(
 
     // Ability to submit own work. All users having this capability are expected to participate
     // in the workshop as the authors
-    'mod/workshop:submit' => array(
+    'mod/udmworkshop:submit' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -89,7 +89,7 @@ $capabilities = array(
     // Ability to be a reviewer of a submission. All users with this capability are considered
     // as potential reviewers for the allocation purposes and can train assessment process on the
     // example submissions.
-    'mod/workshop:peerassess' => array(
+    'mod/udmworkshop:peerassess' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -100,7 +100,7 @@ $capabilities = array(
 
     // Ability to submit and referentially assess the examples and to see all other
     // assessments of these examples
-    'mod/workshop:manageexamples' => array(
+    'mod/udmworkshop:manageexamples' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -111,7 +111,7 @@ $capabilities = array(
     ),
 
     // Ability to allocate (assign) a submission for a review
-    'mod/workshop:allocate' => array(
+    'mod/udmworkshop:allocate' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -122,7 +122,7 @@ $capabilities = array(
     ),
 
     // Ability to publish submissions, i.e. make them available when workshop is closed
-    'mod/workshop:publishsubmissions' => array(
+    'mod/udmworkshop:publishsubmissions' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -134,7 +134,7 @@ $capabilities = array(
 
     // Ability to identify the author of the work that has been allocated to them for a review
     // Reviewers without this capability will see the author as Anonymous
-    'mod/workshop:viewauthornames' => array(
+    'mod/udmworkshop:viewauthornames' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -146,7 +146,7 @@ $capabilities = array(
     ),
 
     // Ability to identify the reviewer of the given submission (i.e. the owner of the assessment)
-    'mod/workshop:viewreviewernames' => array(
+    'mod/udmworkshop:viewreviewernames' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -159,7 +159,7 @@ $capabilities = array(
     // Ability to view the work submitted by an other user. In separate groups mode,
     // the user has to be allowed to access all groups or be the member of the
     // submission author's group.
-    'mod/workshop:viewallsubmissions' => array(
+    'mod/udmworkshop:viewallsubmissions' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -172,7 +172,7 @@ $capabilities = array(
     // Ability to view published submission when the workshop is closed. Group mode
     // restrictions do not apply here, published submissions are available in all
     // groups even in the separate groups mode.
-    'mod/workshop:viewpublishedsubmissions' => array(
+    'mod/udmworkshop:viewpublishedsubmissions' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -184,7 +184,7 @@ $capabilities = array(
     ),
 
     // Ability to view the authors of published submissions.
-    'mod/workshop:viewauthorpublished' => array(
+    'mod/udmworkshop:viewauthorpublished' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -200,7 +200,7 @@ $capabilities = array(
     // author only, not against the reviewer. In other words, if the user has this capability
     // and is allowed to see some submission, then they are implicitly allowed to see all
     // assessments of that submissions even if they do not share a group with the reviewer.
-    'mod/workshop:viewallassessments' => array(
+    'mod/udmworkshop:viewallassessments' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -212,7 +212,7 @@ $capabilities = array(
 
     // Ability to override grade for submission or the calculated grades for assessment
     // and to run aggregation tasks that computes the total grade
-    'mod/workshop:overridegrades' => array(
+    'mod/udmworkshop:overridegrades' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -224,7 +224,7 @@ $capabilities = array(
 
     // Ability to ignore time restrictions (submission start/end time and assessment
     // start/end time) if they are defined
-    'mod/workshop:ignoredeadlines' => array(
+    'mod/udmworkshop:ignoredeadlines' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -235,7 +235,7 @@ $capabilities = array(
     ),
 
     // Ability to delete other users' submissions.
-    'mod/workshop:deletesubmissions' => array(
+    'mod/udmworkshop:deletesubmissions' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -247,7 +247,7 @@ $capabilities = array(
 
     // Ability to export submissions to a portfolio. Applies to all submissions
     // the user has access to.
-    'mod/workshop:exportsubmissions' => array(
+    'mod/udmworkshop:exportsubmissions' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
