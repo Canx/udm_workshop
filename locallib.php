@@ -292,7 +292,7 @@ class udmworkshop {
         $forms = array();
         foreach ($installed as $allocation => $allocationpath) {
             if (file_exists($allocationpath . '/lib.php')) {
-                $forms[$allocation] = get_string('pluginname', 'udmworkshopallocation_' . $allocation);
+                $forms[$allocation] = get_string('pluginname', 'workshopallocation_' . $allocation);
             }
         }
         // usability - make sure that manual allocation appears the first
@@ -363,11 +363,11 @@ class udmworkshop {
      * @return array ['string' => 'string']
      */
     public static function available_strategies_list() {
-        $installed = core_component::get_plugin_list('udmworkshopform');
+        $installed = core_component::get_plugin_list('workshopform');
         $forms = array();
         foreach ($installed as $strategy => $strategypath) {
             if (file_exists($strategypath . '/lib.php')) {
-                $forms[$strategy] = get_string('pluginname', 'udmworkshopform_' . $strategy);
+                $forms[$strategy] = get_string('pluginname', 'workshopform_' . $strategy);
             }
         }
         return $forms;
@@ -380,8 +380,8 @@ class udmworkshop {
      */
     public static function available_evaluators_list() {
         $evals = array();
-        foreach (core_component::get_plugin_list_with_file('udmworkshopeval', 'lib.php', false) as $eval => $evalpath) {
-            $evals[$eval] = get_string('pluginname', 'udmworkshopeval_' . $eval);
+        foreach (core_component::get_plugin_list_with_file('workshopeval', 'lib.php', false) as $eval => $evalpath) {
+            $evals[$eval] = get_string('pluginname', 'workshopeval_' . $eval);
         }
         return $evals;
     }

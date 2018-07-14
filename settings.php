@@ -32,31 +32,31 @@ if ($ADMIN->fulltree) {
 
     $grades = udmworkshop::available_maxgrades_list();
 
-    $settings->add(new admin_setting_configselect('workshop/grade', get_string('submissiongrade', 'udmworkshop'),
+    $settings->add(new admin_setting_configselect('udmworkshop/grade', get_string('submissiongrade', 'udmworkshop'),
                         get_string('configgrade', 'udmworkshop'), 80, $grades));
 
-    $settings->add(new admin_setting_configselect('workshop/gradinggrade', get_string('gradinggrade', 'udmworkshop'),
+    $settings->add(new admin_setting_configselect('udmworkshop/gradinggrade', get_string('gradinggrade', 'udmworkshop'),
                         get_string('configgradinggrade', 'udmworkshop'), 20, $grades));
 
     $options = array();
     for ($i = 5; $i >= 0; $i--) {
         $options[$i] = $i;
     }
-    $settings->add(new admin_setting_configselect('workshop/gradedecimals', get_string('gradedecimals', 'udmworkshop'),
+    $settings->add(new admin_setting_configselect('udmworkshop/gradedecimals', get_string('gradedecimals', 'udmworkshop'),
                         get_string('configgradedecimals', 'udmworkshop'), 0, $options));
 
     if (isset($CFG->maxbytes)) {
-        $maxbytes = get_config('workshop', 'maxbytes');
+        $maxbytes = get_config('udmworkshop', 'maxbytes');
         $options = get_max_upload_sizes($CFG->maxbytes, 0, 0, $maxbytes);
-        $settings->add(new admin_setting_configselect('workshop/maxbytes', get_string('maxbytes', 'udmworkshop'),
+        $settings->add(new admin_setting_configselect('udmworkshop/maxbytes', get_string('maxbytes', 'udmworkshop'),
                             get_string('configmaxbytes', 'udmworkshop'), 0, $options));
     }
 
-    $settings->add(new admin_setting_configselect('workshop/strategy', get_string('strategy', 'udmworkshop'),
+    $settings->add(new admin_setting_configselect('udmworkshop/strategy', get_string('strategy', 'udmworkshop'),
                         get_string('configstrategy', 'udmworkshop'), 'accumulative', udmworkshop::available_strategies_list()));
 
     $options = udmworkshop::available_example_modes_list();
-    $settings->add(new admin_setting_configselect('workshop/examplesmode', get_string('examplesmode', 'udmworkshop'),
+    $settings->add(new admin_setting_configselect('udmworkshop/examplesmode', get_string('examplesmode', 'udmworkshop'),
                         get_string('configexamplesmode', 'udmworkshop'), udmworkshop::EXAMPLES_VOLUNTARY, $options));
 
     // include the settings of allocation subplugins
@@ -64,7 +64,7 @@ if ($ADMIN->fulltree) {
     foreach ($allocators as $allocator => $path) {
         if (file_exists($settingsfile = $path . '/settings.php')) {
             $settings->add(new admin_setting_heading('workshopallocationsetting'.$allocator,
-                    get_string('allocation', 'workshop') . ' - ' . get_string('pluginname', 'udmworkshopallocation_' . $allocator), ''));
+                    get_string('allocation', 'udmworkshop') . ' - ' . get_string('pluginname', 'workshopallocation_' . $allocator), ''));
             include($settingsfile);
         }
     }
@@ -74,7 +74,7 @@ if ($ADMIN->fulltree) {
     foreach ($strategies as $strategy => $path) {
         if (file_exists($settingsfile = $path . '/settings.php')) {
             $settings->add(new admin_setting_heading('workshopformsetting'.$strategy,
-                    get_string('strategy', 'workshop') . ' - ' . get_string('pluginname', 'udmworkshopform_' . $strategy), ''));
+                    get_string('strategy', 'udmworkshop') . ' - ' . get_string('pluginname', 'workshopform_' . $strategy), ''));
             include($settingsfile);
         }
     }
@@ -84,7 +84,7 @@ if ($ADMIN->fulltree) {
     foreach ($evaluations as $evaluation => $path) {
         if (file_exists($settingsfile = $path . '/settings.php')) {
             $settings->add(new admin_setting_heading('workshopevalsetting'.$evaluation,
-                    get_string('evaluation', 'workshop') . ' - ' . get_string('pluginname', 'udmworkshopeval_' . $evaluation), ''));
+                    get_string('evaluation', 'udmworkshop') . ' - ' . get_string('pluginname', 'workshopeval_' . $evaluation), ''));
             include($settingsfile);
         }
     }

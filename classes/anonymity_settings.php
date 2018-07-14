@@ -25,7 +25,7 @@
 namespace mod_udmworkshop;
 defined('MOODLE_INTERNAL') || die();
 
-require_once("$CFG->dirroot/mod/workshop/locallib.php");
+require_once("$CFG->dirroot/mod/udmworkshop/locallib.php");
 
 /**
  * Class for anonymity settings.

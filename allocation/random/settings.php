@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/lib.php');
 
-$settings->add(new admin_setting_configselect('workshopallocation_random/numofreviews',
+$settings->add(new admin_setting_configselect('udmworkshopallocation_random/numofreviews',
         get_string('numofreviews', 'udmworkshopallocation_random'),
         get_string('confignumofreviews', 'udmworkshopallocation_random'), 5,
                 workshop_random_allocator::available_numofreviews_list()));
