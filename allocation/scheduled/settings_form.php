@@ -43,7 +43,7 @@ class workshop_scheduled_allocator_form extends workshop_random_allocator_form {
         global $OUTPUT;
 
         $mform = $this->_form;
-        $workshop = $this->_customdata['workshop'];
+        $workshop = $this->_customdata['udmworkshop'];
         $current = $this->_customdata['current'];
 
         if (!empty($workshop->submissionend)) {

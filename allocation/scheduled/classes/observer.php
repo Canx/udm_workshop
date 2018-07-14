@@ -49,7 +49,7 @@ class observer {
 
         require_once($CFG->dirroot . '/mod/workshop/locallib.php');
 
-        $workshop = $event->get_record_snapshot('workshop', $event->objectid);
+        $workshop = $event->get_record_snapshot('udmworkshop', $event->objectid);
         $course   = $event->get_record_snapshot('course', $event->courseid);
         $cm       = $event->get_record_snapshot('course_modules', $event->contextinstanceid);
 

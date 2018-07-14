@@ -29,7 +29,7 @@ $cmid   = required_param('cmid', PARAM_INT);    // course module id
 $sid    = required_param('sid', PARAM_INT);     // example submission id
 $aid    = required_param('aid', PARAM_INT);     // the user's assessment id
 
-$cm     = get_coursemodule_from_id('workshop', $cmid, 0, false, MUST_EXIST);
+$cm     = get_coursemodule_from_id('udmworkshop', $cmid, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, false, $cm);
@@ -37,7 +37,7 @@ if (isguestuser()) {
     print_error('guestsarenotallowed');
 }
 
-$workshop = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $workshop = new workshop($workshop, $cm, $course);
 $strategy = $workshop->grading_strategy_instance();
 
@@ -49,12 +49,12 @@ if ($assessment->submissionid != $example->id) {
    print_error('invalidarguments');
 }
 $mformassessment = $strategy->get_assessment_form($PAGE->url, 'assessment', $assessment, false);
-if ($refasid = $DB->get_field('workshop_assessments', 'id', array('submissionid' => $example->id, 'weight' => 1))) {
+if ($refasid = $DB->get_field('udmworkshop_assessments', 'id', array('submissionid' => $example->id, 'weight' => 1))) {
     $reference = $workshop->get_assessment_by_id($refasid);
     $mformreference = $strategy->get_assessment_form($PAGE->url, 'assessment', $reference, false);
 }
 
-$canmanage  = has_capability('mod/workshop:manageexamples', $workshop->context);
+$canmanage  = has_capability('mod/udmworkshop:manageexamples', $workshop->context);
 $isreviewer = ($USER->id == $assessment->reviewerid);
 
 if ($canmanage) {

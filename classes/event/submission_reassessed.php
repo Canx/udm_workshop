@@ -70,7 +70,7 @@ class submission_reassessed extends \core\event\base {
      * @return array|null
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'workshop', 'update assessment', 'assessment.php?asid=' . $this->objectid,
+        return array($this->courseid, 'udmworkshop', 'update assessment', 'assessment.php?asid=' . $this->objectid,
             $this->other['submissionid'], $this->contextinstanceid);
     }
 
@@ -117,7 +117,7 @@ class submission_reassessed extends \core\event\base {
     public static function get_other_mapping() {
         $othermapped = array();
         $othermapped['submissionid'] = array('db' => 'workshop_submissions', 'restore' => 'workshop_submission');
-        $othermapped['workshopid'] = array('db' => 'workshop', 'restore' => 'workshop');
+        $othermapped['workshopid'] = array('db' => 'udmworkshop', 'restore' => 'udmworkshop');
 
         return $othermapped;
     }

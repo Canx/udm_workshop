@@ -50,7 +50,7 @@ abstract class workshop_evaluation {
      */
     public function get_settings_form(moodle_url $actionurl=null) {
 
-        $customdata = array('workshop' => $this->workshop);
+        $customdata = array('udmworkshop' => $this->workshop);
         $attributes = array('class' => 'evalsettingsform');
 
         return new workshop_evaluation_settings_form($actionurl, $customdata, 'post', '', $attributes);
@@ -81,7 +81,7 @@ class workshop_evaluation_settings_form extends moodleform {
     public function definition() {
         $mform = $this->_form;
 
-        $workshop = $this->_customdata['workshop'];
+        $workshop = $this->_customdata['udmworkshop'];
 
         $mform->addElement('header', 'general', get_string('evaluationsettings', 'mod_udmudmworkshop'));
 

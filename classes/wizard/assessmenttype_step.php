@@ -58,7 +58,7 @@ class assessmenttype_step extends step {
             $this->workshop->assesswithoutsubmission = 0;
         }
         $this->workshop->timemodified = time();
-        $DB->update_record('workshop', $this->workshop->get_record());
+        $DB->update_record('udmworkshop', $this->workshop->get_record());
 
     }
 

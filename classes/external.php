@@ -91,9 +91,9 @@ class external extends external_api {
             'assessmenttype' => $assessmenttype
         ));
 
-        $cm = get_coursemodule_from_id('workshop', $params['id'], 0, false, MUST_EXIST);
+        $cm = get_coursemodule_from_id('udmworkshop', $params['id'], 0, false, MUST_EXIST);
         $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-        $workshop = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+        $workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
         $workshop = new \workshop($workshop, $cm, $course);
         $workshop->wizardstep = $params['currentstep'];
 

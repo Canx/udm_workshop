@@ -84,7 +84,7 @@ class submission_viewed extends \core\event\base {
      * @return array of parameters to be passed to legacy add_to_log() function.
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'workshop', 'view submission',
+        return array($this->courseid, 'udmworkshop', 'view submission',
             'submission.php?cmid=' . $this->contextinstanceid . '&id=' . $this->objectid,
             $this->objectid, $this->contextinstanceid);
     }
@@ -109,7 +109,7 @@ class submission_viewed extends \core\event\base {
 
     public static function get_other_mapping() {
         $othermapped = array();
-        $othermapped['workshopid'] = array('db' => 'workshop', 'restore' => 'workshop');
+        $othermapped['workshopid'] = array('db' => 'udmworkshop', 'restore' => 'udmworkshop');
 
         return $othermapped;
     }

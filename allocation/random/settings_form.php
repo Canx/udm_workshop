@@ -43,7 +43,7 @@ class workshop_random_allocator_form extends moodleform {
      */
     public function definition() {
         $mform          = $this->_form;
-        $workshop       = $this->_customdata['workshop'];
+        $workshop       = $this->_customdata['udmworkshop'];
         $plugindefaults = get_config('workshopallocation_random');
 
         $gmode = groups_get_activity_groupmode($workshop->cm, $workshop->course);

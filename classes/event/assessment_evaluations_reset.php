@@ -68,7 +68,7 @@ class assessment_evaluations_reset extends \core\event\base {
      * @return array|null
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'workshop', 'update clear aggregated grade', 'view.php?id=' . $this->contextinstanceid,
+        return array($this->courseid, 'udmworkshop', 'update clear aggregated grade', 'view.php?id=' . $this->contextinstanceid,
                 $this->other['workshopid'], $this->contextinstanceid);
     }
 
@@ -106,7 +106,7 @@ class assessment_evaluations_reset extends \core\event\base {
 
     public static function get_other_mapping() {
         $othermapped = array();
-        $othermapped['workshopid'] = array('db' => 'workshop', 'restore' => 'workshop');
+        $othermapped['workshopid'] = array('db' => 'udmworkshop', 'restore' => 'udmworkshop');
 
         return $othermapped;
     }

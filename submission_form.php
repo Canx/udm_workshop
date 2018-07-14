@@ -33,7 +33,7 @@ class workshop_submission_form extends moodleform {
         $mform = $this->_form;
 
         $current        = $this->_customdata['current'];
-        $workshop       = $this->_customdata['workshop'];
+        $workshop       = $this->_customdata['udmworkshop'];
         $contentopts    = $this->_customdata['contentopts'];
         $attachmentopts = $this->_customdata['attachmentopts'];
 
@@ -98,8 +98,8 @@ class workshop_submission_form extends moodleform {
             $errors['attachment_filemanager'] = get_string('submissionrequiredfile', 'mod_udmudmworkshop');
         }
 
-        if (isset($data['attachment_filemanager']) and isset($this->_customdata['workshop']->submissionfiletypes)) {
-            $whitelist = workshop::normalize_file_extensions($this->_customdata['workshop']->submissionfiletypes);
+        if (isset($data['attachment_filemanager']) and isset($this->_customdata['udmworkshop']->submissionfiletypes)) {
+            $whitelist = workshop::normalize_file_extensions($this->_customdata['udmworkshop']->submissionfiletypes);
             if ($whitelist) {
                 $draftfiles = file_get_drafarea_files($data['attachment_filemanager']);
                 if ($draftfiles) {

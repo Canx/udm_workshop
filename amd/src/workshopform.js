@@ -47,7 +47,7 @@ define(['jquery', 'core/str', 'core/notification'], function($, str, notificatio
         str.get_strings([
             {key: 'showadvancedsettings', component: 'moodle'},
             {key: 'hideadvancedsettings', component: 'moodle'},
-            {key: 'wizardsubmitbutton', component: 'workshop'}
+            {key: 'wizardsubmitbutton', component: 'udmworkshop'}
         ]).done(function(strings) {
             self.showadvancedsettingsstring = strings[0];
             self.hideadvancedsettingsstring = strings[1];

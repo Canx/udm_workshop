@@ -51,7 +51,7 @@ class gradingmethod_step extends step {
         if (isset($data->strategy)) {
             $record = $this->workshop->get_record();
             $record->strategy = $data->strategy;
-            $DB->update_record('workshop', $record);
+            $DB->update_record('udmworkshop', $record);
         }
     }
 

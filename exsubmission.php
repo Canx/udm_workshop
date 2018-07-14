@@ -33,7 +33,7 @@ $delete     = optional_param('delete', false, PARAM_BOOL);  // example removal r
 $confirm    = optional_param('confirm', false, PARAM_BOOL); // example removal request confirmed
 $assess     = optional_param('assess', false, PARAM_BOOL);  // assessment required
 
-$cm         = get_coursemodule_from_id('workshop', $cmid, 0, false, MUST_EXIST);
+$cm         = get_coursemodule_from_id('udmworkshop', $cmid, 0, false, MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, false, $cm);
@@ -41,7 +41,7 @@ if (isguestuser()) {
     print_error('guestsarenotallowed');
 }
 
-$workshop = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $workshop = new workshop($workshop, $cm, $course);
 
 $PAGE->set_url($workshop->exsubmission_url($id), array('edit' => $edit));
@@ -121,7 +121,7 @@ if ($edit and $canmanage) {
     $example = file_prepare_standard_filemanager($example, 'attachment', $workshop->submission_attachment_options(),
         $workshop->context, 'mod_udmworkshop', 'submission_attachment', $example->id);
 
-    $mform = new workshop_submission_form($PAGE->url, array('current' => $example, 'workshop' => $workshop,
+    $mform = new workshop_submission_form($PAGE->url, array('current' => $example, 'udmworkshop' => $workshop,
         'contentopts' => $workshop->submission_content_options(), 'attachmentopts' => $workshop->submission_attachment_options()));
 
     if ($mform->is_cancelled()) {
@@ -151,7 +151,7 @@ if ($edit and $canmanage) {
             $example->id = $formdata->id = $DB->insert_record('workshop_submissions', $formdata);
         } else {
             if (empty($formdata->id) or empty($example->id) or ($formdata->id != $example->id)) {
-                throw new moodle_exception('err_examplesubmissionid', 'workshop');
+                throw new moodle_exception('err_examplesubmissionid', 'udmworkshop');
             }
         }
 

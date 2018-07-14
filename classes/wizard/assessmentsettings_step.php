@@ -77,7 +77,7 @@ class assessmentsettings_step extends step {
         $anonymitysettings->save_changes($record);
         // Update time modified.
         $record->timemodified = time();
-        $DB->update_record('workshop', $record);
+        $DB->update_record('udmworkshop', $record);
     }
 
     /**

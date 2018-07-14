@@ -61,7 +61,7 @@ class workshop_rubric_list_assessment_form extends workshop_rubric_assessment_fo
      * @return void
      */
     protected function definition_inner(&$mform) {
-        $workshop   = $this->_customdata['workshop'];
+        $workshop   = $this->_customdata['udmworkshop'];
         $fields     = $this->_customdata['fields'];
         $current    = $this->_customdata['current'];
         $nodims     = $this->_customdata['nodims'];     // number of assessment dimensions
@@ -113,7 +113,7 @@ class workshop_rubric_grid_assessment_form extends workshop_rubric_assessment_fo
      * @return void
      */
     protected function definition_inner(&$mform) {
-        $workshop   = $this->_customdata['workshop'];
+        $workshop   = $this->_customdata['udmworkshop'];
         $fields     = $this->_customdata['fields'];
         $current    = $this->_customdata['current'];
         $nodims     = $this->_customdata['nodims'];     // number of assessment dimensions

@@ -486,7 +486,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($message = $result->get_message()) {
                 $message = new workshop_message($message, workshop_message::TYPE_ERROR);
             } else {
-                $message = new workshop_message(get_string('allocationerror', 'workshop'), udmworkshop_message::TYPE_ERROR);
+                $message = new workshop_message(get_string('allocationerror', 'udmworkshop'), udmworkshop_message::TYPE_ERROR);
             }
             break;
 
@@ -494,7 +494,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
             if ($message = $result->get_message()) {
                 $message = new workshop_message($message, workshop_message::TYPE_INFO);
             } else {
-                $message = new workshop_message(get_string('allocationconfigured', 'workshop'), udmworkshop_message::TYPE_INFO);
+                $message = new workshop_message(get_string('allocationconfigured', 'udmworkshop'), udmworkshop_message::TYPE_INFO);
             }
             break;
 

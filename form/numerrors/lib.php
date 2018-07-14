@@ -55,7 +55,7 @@ function workshopform_numerrors_pluginfile($course, $cm, $context, $filearea, ar
     }
 
     $itemid = (int)array_shift($args); // the id of the assessment form dimension
-    if (!$workshop = $DB->get_record('workshop', array('id' => $cm->instance))) {
+    if (!$workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance))) {
         send_file_not_found();
     }
 
@@ -143,7 +143,7 @@ class workshop_numerrors_strategy implements workshop_strategy {
         }
 
         $customdata = array();
-        $customdata['workshop'] = $this->workshop;
+        $customdata['udmworkshop'] = $this->workshop;
         $customdata['strategy'] = $this;
         $customdata['norepeats'] = $norepeats;
         $customdata['nodimensions'] = $nodimensions;
@@ -271,7 +271,7 @@ class workshop_numerrors_strategy implements workshop_strategy {
         }
 
         // set up the required custom data common for all strategies
-        $customdata['workshop'] = $this->workshop;
+        $customdata['udmworkshop'] = $this->workshop;
         $customdata['strategy'] = $this;
         $customdata['mode']     = $mode;
         $customdata['options']  = $options;

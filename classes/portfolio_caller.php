@@ -61,7 +61,7 @@ class mod_udmworkshop_portfolio_caller extends portfolio_module_caller_base {
         // Let the parent class set the $this->id property.
         parent::__construct($callbackargs);
         // Populate the $this->cm property.
-        $this->cm = get_coursemodule_from_id('workshop', $this->id, 0, false, MUST_EXIST);
+        $this->cm = get_coursemodule_from_id('udmworkshop', $this->id, 0, false, MUST_EXIST);
     }
 
     /**
@@ -95,7 +95,7 @@ class mod_udmworkshop_portfolio_caller extends portfolio_module_caller_base {
             throw new portfolio_caller_exception('guestsarenotallowed', 'core_error');
         }
 
-        $workshoprecord = $DB->get_record('workshop', ['id' => $this->cm->instance], '*', MUST_EXIST);
+        $workshoprecord = $DB->get_record('udmworkshop', ['id' => $this->cm->instance], '*', MUST_EXIST);
         $this->workshop = new workshop($workshoprecord, $this->cm, $this->get('course'));
 
         $this->submission = $this->workshop->get_submission_by_id($this->submissionid);
@@ -196,7 +196,7 @@ class mod_udmworkshop_portfolio_caller extends portfolio_module_caller_base {
 
         if ($writingleap) {
             // Add an extra LEAP2A selection entry. In Mahara, this maps to a journal.
-            $selection = new portfolio_format_leap2a_entry('workshop'.$this->workshop->id,
+            $selection = new portfolio_format_leap2a_entry('udmworkshop'.$this->workshop->id,
                 get_string('pluginname', 'mod_udmworkshop').': '.s($this->udmworkshop->name), 'selection');
             $leapwriter->add_entry($selection);
             $leapwriter->make_selection($selection, $leapids, 'Grouping');
@@ -240,11 +240,11 @@ class mod_udmworkshop_portfolio_caller extends portfolio_module_caller_base {
         $output .= html_writer::tag('h2', get_string('pluginname', 'mod_udmworkshop').': '.s($this->udmworkshop->name));
         $output .= html_writer::tag('h3', s($workshopsubmission->title));
 
-        $created = get_string('userdatecreated', 'workshop', userdate($udmworkshopsubmission->timecreated));
+        $created = get_string('userdatecreated', 'udmworkshop', userdate($udmworkshopsubmission->timecreated));
         $created = html_writer::tag('span', $created);
 
         if ($workshopsubmission->timemodified > $workshopsubmission->timecreated) {
-            $modified = get_string('userdatemodified', 'workshop', userdate($udmworkshopsubmission->timemodified));
+            $modified = get_string('userdatemodified', 'udmworkshop', userdate($udmworkshopsubmission->timemodified));
             $modified = ' | ' . html_writer::tag('span', $modified);
         } else {
             $modified = '';

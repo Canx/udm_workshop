@@ -91,7 +91,7 @@ class submissionsettings_step extends step {
         }
 
         $record->timemodified = time();
-        $DB->update_record('workshop', $record);
+        $DB->update_record('udmworkshop', $record);
     }
 
     /**

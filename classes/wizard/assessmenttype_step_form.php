@@ -60,7 +60,7 @@ class assessmenttype_step_form extends step_form {
         $radio[] = $mform->createElement('radio', 'assessmenttype', null, get_string('selfandpeerassessment', 'udmworkshop'),
                 \workshop::SELF_AND_PEER_ASSESSMENT, $options);
         $mform->addGroup($radio, 'assessmenttype', get_string('assessmenttype', 'udmworkshop'), array('<br />'), false);
-        $mform->addHelpButton('assessmenttype', 'assessmenttype', 'workshop');
+        $mform->addHelpButton('assessmenttype', 'assessmenttype', 'udmworkshop');
         $mform->setType('assessmenttype', PARAM_INT);
 
         $PAGE->requires->js_call_amd('mod_udmworkshop/wizardform', 'init',

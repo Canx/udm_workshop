@@ -32,7 +32,7 @@ $assess = optional_param('assess', false, PARAM_BOOL); // Instant assessment req
 $delete = optional_param('delete', false, PARAM_BOOL); // Submission removal requested.
 $confirm = optional_param('confirm', false, PARAM_BOOL); // Submission removal request confirmed.
 
-$cm = get_coursemodule_from_id('workshop', $cmid, 0, false, MUST_EXIST);
+$cm = get_coursemodule_from_id('udmworkshop', $cmid, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, false, $cm);
@@ -40,7 +40,7 @@ if (isguestuser()) {
     print_error('guestsarenotallowed');
 }
 
-$workshoprecord = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshoprecord = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $workshop = new workshop($workshoprecord, $cm, $course);
 
 $PAGE->set_url($workshop->submission_url(), array('cmid' => $cmid, 'id' => $id));
@@ -141,7 +141,7 @@ if ($submission->id and $delete and $confirm and $deletable) {
     );
     $params['objectid'] = $submission->id;
     $event = \mod_udmworkshop\event\submission_deleted::create($params);
-    $event->add_record_snapshot('workshop', $workshoprecord);
+    $event->add_record_snapshot('udmworkshop', $workshoprecord);
     $event->trigger();
 
     redirect($workshop->view_url());
@@ -184,7 +184,7 @@ if ($edit) {
     // Get fake submission it none given.
    
 
-    $mform = new workshop_submission_form($PAGE->url, array('current' => $submission, 'workshop' => $workshop,
+    $mform = new workshop_submission_form($PAGE->url, array('current' => $submission, 'udmworkshop' => $workshop,
         'contentopts' => $workshop->submission_content_options(), 'attachmentopts' => $workshop->submission_attachment_options()));
 
     if ($mform->is_cancelled()) {
@@ -238,7 +238,7 @@ if ($edit) {
             $event->trigger();
         } else {
             if (empty($formdata->id) or empty($submission->id) or ($formdata->id != $submission->id)) {
-                throw new moodle_exception('err_submissionid', 'workshop');
+                throw new moodle_exception('err_submissionid', 'udmworkshop');
             }
         }
         $params['objectid'] = $submission->id;
@@ -257,7 +257,7 @@ if ($edit) {
         // store the updated values or re-save the new submission (re-saving needed because URLs are now rewritten)
         $DB->update_record('workshop_submissions', $formdata);
         $event = \mod_udmworkshop\event\submission_updated::create($params);
-        $event->add_record_snapshot('workshop', $workshoprecord);
+        $event->add_record_snapshot('udmworkshop', $workshoprecord);
         $event->trigger();
 
         // send submitted content for plagiarism detection
@@ -303,15 +303,15 @@ if (!$edit and ($canoverride or $canpublish)) {
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
 if ($edit) {
-    $text = $workshop->allowsubmission ? get_string('mysubmission', 'workshop') : get_string('receivedassessments', 'udmworkshop');
+    $text = $workshop->allowsubmission ? get_string('mysubmission', 'udmworkshop') : get_string('receivedassessments', 'udmworkshop');
     $PAGE->navbar->add($text, $workshop->submission_url(), navigation_node::TYPE_CUSTOM);
-    $text = $workshop->allowsubmission ? get_string('editingsubmission', 'workshop') : get_string('editingassessment', 'udmworkshop');
-    $PAGE->navbar->add($text, 'workshop');
+    $text = $workshop->allowsubmission ? get_string('editingsubmission', 'udmworkshop') : get_string('editingassessment', 'udmworkshop');
+    $PAGE->navbar->add($text, 'udmworkshop');
 } elseif ($ownsubmission) {
-    $text = $workshop->allowsubmission ? get_string('mysubmission', 'workshop') : get_string('receivedassessments', 'udmworkshop');
+    $text = $workshop->allowsubmission ? get_string('mysubmission', 'udmworkshop') : get_string('receivedassessments', 'udmworkshop');
     $PAGE->navbar->add($text);
 } else {
-    $text = $workshop->allowsubmission ? get_string('submission', 'workshop') : get_string('assessment', 'udmworkshop');
+    $text = $workshop->allowsubmission ? get_string('submission', 'udmworkshop') : get_string('assessment', 'udmworkshop');
     $PAGE->navbar->add($text);
 }
 

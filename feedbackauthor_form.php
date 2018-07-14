@@ -33,7 +33,7 @@ class workshop_feedbackauthor_form extends moodleform {
         $mform = $this->_form;
 
         $current    = $this->_customdata['current'];
-        $workshop   = $this->_customdata['workshop'];
+        $workshop   = $this->_customdata['udmworkshop'];
         $editoropts = $this->_customdata['editoropts'];
         $options    = $this->_customdata['options'];
 
@@ -42,7 +42,7 @@ class workshop_feedbackauthor_form extends moodleform {
         if (!empty($options['editablepublished'])) {
             $text = $workshop->allowsubmission ? 'publishsubmission' : 'publishassessment';
             $mform->addElement('checkbox', 'published', get_string($text, 'udmworkshop'));
-            $mform->addHelpButton('published', $text, 'workshop');
+            $mform->addHelpButton('published', $text, 'udmworkshop');
             $mform->setDefault('published', false);
         }
 

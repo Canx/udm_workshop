@@ -69,7 +69,7 @@ class workshop_random_allocator implements workshop_allocator {
 
         $result = new workshop_allocation_result($this);
         $customdata = array();
-        $customdata['workshop'] = $this->workshop;
+        $customdata['udmworkshop'] = $this->workshop;
         $this->mform = new workshop_random_allocator_form($PAGE->url, $customdata);
         if ($this->mform->is_cancelled()) {
             redirect($this->workshop->view_url());
@@ -332,7 +332,7 @@ class workshop_random_allocator implements workshop_allocator {
         foreach ($newallocations as $newallocation) {
             list($reviewerid, $authorid) = each($newallocation);
             if (!isset($submissions[$authorid])) {
-                throw new moodle_exception('unabletoallocateauthorwithoutsubmission', 'workshop');
+                throw new moodle_exception('unabletoallocateauthorwithoutsubmission', 'udmworkshop');
             }
             $submission = $submissions[$authorid];
             $status = $this->workshop->add_allocation($submission, $reviewerid, 1, true);   // todo configurable weight?
@@ -356,7 +356,7 @@ class workshop_random_allocator implements workshop_allocator {
         if (is_array($submissions)) {
             foreach ($submissions as $submissionid => $submission) {
                 if (isset($byauthor[$submission->authorid])) {
-                    throw new moodle_exception('moresubmissionsbyauthor', 'workshop');
+                    throw new moodle_exception('moresubmissionsbyauthor', 'udmworkshop');
                 }
                 $byauthor[$submission->authorid] = $submission;
             }
@@ -469,7 +469,7 @@ class workshop_random_allocator implements workshop_allocator {
             // get current workload
             list($squarelinks, $circlelinks) = $this->convert_assessments_to_links($assessments);
         } else {
-            throw new moodle_exception('unknownusertypepassed', 'workshop');
+            throw new moodle_exception('unknownusertypepassed', 'udmworkshop');
         }
         // get the users that are not in any group. in visible groups mode, these users are exluded
         // from allocation by this method

@@ -58,7 +58,7 @@ class workshop_scheduled_allocator implements workshop_allocator {
         $result = new workshop_allocation_result($this);
 
         $customdata = array();
-        $customdata['workshop'] = $this->workshop;
+        $customdata['udmworkshop'] = $this->workshop;
 
         $current = $DB->get_record('workshopallocation_scheduled',
             array('workshopid' => $this->workshop->id), '*', IGNORE_MISSING);
@@ -276,7 +276,7 @@ function workshopallocation_scheduled_cron() {
     require_once($CFG->dirroot.'/mod/workshop/locallib.php');
 
     foreach ($workshops as $workshop) {
-        $cm = get_coursemodule_from_instance('workshop', $workshop->id, $workshop->course, false, MUST_EXIST);
+        $cm = get_coursemodule_from_instance('udmworkshop', $workshop->id, $workshop->course, false, MUST_EXIST);
         $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
         $workshop = new workshop($workshop, $cm, $course);
         $allocator = $workshop->allocator_instance('scheduled');

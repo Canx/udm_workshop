@@ -53,7 +53,7 @@ class workshop_assessment_form extends moodleform {
         $mform          = $this->_form;
         $this->mode     = $this->_customdata['mode'];       // influences the save buttons
         $this->strategy = $this->_customdata['strategy'];   // instance of the strategy api class
-        $this->workshop = $this->_customdata['workshop'];   // instance of the workshop api class
+        $this->workshop = $this->_customdata['udmworkshop'];   // instance of the workshop api class
         $this->options  = $this->_customdata['options'];    // array with addiotional options
 
         // Disable shortforms
@@ -83,9 +83,9 @@ class workshop_assessment_form extends moodleform {
         if (!empty($this->options['editableweight']) and $this->is_editable()) {
             $mform->addElement('header', 'assessmentsettings', get_string('assessmentweight', 'udmworkshop'));
             $mform->addElement('select', 'weight',
-                    get_string('assessmentweight', 'workshop'), udmworkshop::available_assessment_weights_list());
+                    get_string('assessmentweight', 'udmworkshop'), udmworkshop::available_assessment_weights_list());
             $mform->setDefault('weight', 1);
-            $mform->addHelpButton('weight', 'assessmentweight', 'workshop');
+            $mform->addHelpButton('weight', 'assessmentweight', 'udmworkshop');
         }
 
         $buttonarray = array();

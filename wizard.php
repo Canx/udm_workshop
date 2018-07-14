@@ -28,14 +28,14 @@ require_once(__DIR__ . '/locallib.php');
 $id = required_param('id', PARAM_INT);
 $step = optional_param('step', 'assessmenttype', PARAM_PLUGIN);
 
-$cm = get_coursemodule_from_id('workshop', $id, 0, false, MUST_EXIST);
+$cm = get_coursemodule_from_id('udmworkshop', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, false, $cm);
 $modcontext = context_module::instance($cm->id);
 require_capability('moodle/course:manageactivities', $modcontext);
 
-$workshop = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $workshop = new workshop($workshop, $cm, $course);
 
 // Set the current step.
@@ -80,7 +80,7 @@ if ($mform->is_cancelled()) {
 $output = $PAGE->get_renderer('mod_udmworkshop');
 
 $header = $output->header();
-$heading = $output->heading_with_help($wizardtitle, 'setupwizard', 'workshop');
+$heading = $output->heading_with_help($wizardtitle, 'setupwizard', 'udmworkshop');
 
 $page = new mod_udmworkshop\output\wizard_navigation_page($workshop);
 

@@ -45,7 +45,7 @@ class gradingmethod_step_form extends step_form {
      */
     public function step_definition() {
         global $PAGE, $OUTPUT;
-        $workshopconfig = get_config('workshop');
+        $workshopconfig = get_config('udmworkshop');
         $mform = $this->_form;
 
         // Set to 1 if strategy changed.
@@ -55,7 +55,7 @@ class gradingmethod_step_form extends step_form {
         $label = get_string('strategy', 'udmworkshop');
         $mform->addElement('select', 'strategy', $label, \workshop::available_strategies_list());
         $mform->setDefault('strategy', $workshopconfig->strategy);
-        $mform->addHelpButton('strategy', 'strategy', 'workshop');
+        $mform->addHelpButton('strategy', 'strategy', 'udmworkshop');
 
         $url = $this->workshop->editform_url();
         // New or edit grading form.

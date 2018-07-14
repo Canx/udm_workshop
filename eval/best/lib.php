@@ -115,7 +115,7 @@ class workshop_best_evaluation extends workshop_evaluation {
      */
     public function get_settings_form(moodle_url $actionurl=null) {
 
-        $customdata['workshop'] = $this->workshop;
+        $customdata['udmworkshop'] = $this->workshop;
         $customdata['current'] = $this->settings;
         $attributes = array('class' => 'evalsettingsform best');
 

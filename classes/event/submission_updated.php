@@ -84,7 +84,7 @@ class submission_updated extends \core\event\base {
      * @return array of parameters to be passed to legacy add_to_log() function.
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'workshop', 'update submission',
+        return array($this->courseid, 'udmworkshop', 'update submission',
             'submission.php?cmid=' . $this->contextinstanceid . '&id=' . $this->objectid,
             $this->objectid, $this->contextinstanceid);
     }

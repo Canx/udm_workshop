@@ -45,7 +45,7 @@ class course_module_viewed extends \core\event\course_module_viewed {
     protected function init() {
         $this->data['crud'] = 'r';
         $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
-        $this->data['objecttable'] = 'workshop';
+        $this->data['objecttable'] = 'udmworkshop';
     }
 
     /**
@@ -65,14 +65,14 @@ class course_module_viewed extends \core\event\course_module_viewed {
     protected function get_legacy_eventdata() {
         global $USER;
 
-        $workshop = $this->get_record_snapshot('workshop', $this->objectid);
+        $workshop = $this->get_record_snapshot('udmworkshop', $this->objectid);
         $course   = $this->get_record_snapshot('course', $this->courseid);
         $cm       = $this->get_record_snapshot('course_modules', $this->contextinstanceid);
         $workshop = new \workshop($workshop, $cm, $course);
-        return (object)array('workshop' => $workshop, 'user' => $USER);
+        return (object)array('udmworkshop' => $workshop, 'user' => $USER);
     }
 
     public static function get_objectid_mapping() {
-        return array('db' => 'workshop', 'restore' => 'workshop');
+        return array('db' => 'udmworkshop', 'restore' => 'udmworkshop');
     }
 }

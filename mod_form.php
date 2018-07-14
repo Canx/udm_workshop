@@ -404,7 +404,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
 
             $gradeitems = grade_item::fetch_all(array(
                 'itemtype'      => 'mod',
-                'itemmodule'    => 'workshop',
+                'itemmodule'    => 'udmworkshop',
                 'iteminstance'  => $instance,
                 'courseid'      => $this->course->id));
 

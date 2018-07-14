@@ -69,7 +69,7 @@ class assessment_reevaluated extends \core\event\base {
      * @return array|null
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'workshop', 'update aggregate grade', 'view.php?id=' . $this->contextinstanceid,
+        return array($this->courseid, 'udmworkshop', 'update aggregate grade', 'view.php?id=' . $this->contextinstanceid,
                 $this->objectid, $this->contextinstanceid);
     }
 

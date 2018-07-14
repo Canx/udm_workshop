@@ -33,7 +33,7 @@ class workshop_feedbackreviewer_form extends moodleform {
         $mform = $this->_form;
 
         $current    = $this->_customdata['current'];
-        $workshop   = $this->_customdata['workshop'];
+        $workshop   = $this->_customdata['udmworkshop'];
         $editoropts = $this->_customdata['editoropts'];
         $options    = $this->_customdata['options'];
 
@@ -41,9 +41,9 @@ class workshop_feedbackreviewer_form extends moodleform {
 
         if (!empty($options['editableweight'])) {
             $mform->addElement('select', 'weight',
-                    get_string('assessmentweight', 'workshop'), udmworkshop::available_assessment_weights_list());
+                    get_string('assessmentweight', 'udmworkshop'), udmworkshop::available_assessment_weights_list());
             $mform->setDefault('weight', 1);
-            $mform->addHelpButton('weight', 'assessmentweight', 'workshop');
+            $mform->addHelpButton('weight', 'assessmentweight', 'udmworkshop');
         }
 
         $mform->addElement('static', 'gradinggrade', get_string('gradinggradecalculated', 'udmworkshop'));

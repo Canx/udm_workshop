@@ -29,9 +29,9 @@ require_once(__DIR__.'/locallib.php');
 $id         = required_param('id', PARAM_INT); // course_module ID
 $tool       = required_param('tool', PARAM_ALPHA);
 
-$cm         = get_coursemodule_from_id('workshop', $id, 0, false, MUST_EXIST);
+$cm         = get_coursemodule_from_id('udmworkshop', $id, 0, false, MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-$workshop   = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop   = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 
 require_login($course, false, $cm);
 $workshop = new workshop($workshop, $cm, $course);
@@ -45,7 +45,7 @@ $params = array(
 
 switch ($tool) {
 case 'clearaggregatedgrades':
-    require_capability('mod/workshop:overridegrades', $workshop->context);
+    require_capability('mod/udmworkshop:overridegrades', $workshop->context);
     $workshop->clear_submission_grades();
     $workshop->clear_grading_grades();
     $event = \mod_udmworkshop\event\assessment_evaluations_reset::create($params);
@@ -53,7 +53,7 @@ case 'clearaggregatedgrades':
     break;
 
 case 'clearassessments':
-    require_capability('mod/workshop:overridegrades', $workshop->context);
+    require_capability('mod/udmworkshop:overridegrades', $workshop->context);
     $workshop->clear_assessments();
     $event = \mod_udmworkshop\event\assessments_reset::create($params);
     $event->trigger();

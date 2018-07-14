@@ -49,7 +49,7 @@ class phase_switched extends \core\event\base {
     protected function init() {
         $this->data['crud'] = 'u';
         $this->data['edulevel'] = self::LEVEL_TEACHING;
-        $this->data['objecttable'] = 'workshop';
+        $this->data['objecttable'] = 'udmworkshop';
     }
 
     /**
@@ -68,7 +68,7 @@ class phase_switched extends \core\event\base {
      * @return array|null
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'workshop', 'update switch phase', 'view.php?id=' . $this->contextinstanceid,
+        return array($this->courseid, 'udmworkshop', 'update switch phase', 'view.php?id=' . $this->contextinstanceid,
                 $this->other['workshopphase'], $this->contextinstanceid);
     }
 
@@ -105,7 +105,7 @@ class phase_switched extends \core\event\base {
     }
 
     public static function get_objectid_mapping() {
-        return array('db' => 'workshop', 'restore' => 'workshop');
+        return array('db' => 'udmworkshop', 'restore' => 'udmworkshop');
     }
 
     public static function get_other_mapping() {
