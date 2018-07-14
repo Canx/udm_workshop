@@ -90,7 +90,7 @@ if (!is_null($editmode) && $PAGE->user_allowed_editing()) {
     $USER->editing = $editmode;
 }
 
-$userplan = new workshop_user_plan($workshop, $USER->id);
+$userplan = new udmworkshop_user_plan($workshop, $USER->id);
 
 foreach ($userplan->phases as $phase) {
     if ($phase->active) {

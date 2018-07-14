@@ -3367,7 +3367,7 @@ class udmworkshop_user_plan implements renderable {
      * @param workshop $workshop instance
      * @param int $userid whom the plan is prepared for
      */
-    public function __construct(workshop $workshop, $userid) {
+    public function __construct(udmworkshop $workshop, $userid) {
         global $DB;
 
         $this->workshop = $workshop;
