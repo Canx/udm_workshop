@@ -38,11 +38,11 @@ require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/locallib.php');
 
 $asid       = required_param('asid', PARAM_INT);  // assessment id
-$assessment = $DB->get_record('workshop_assessments', array('id' => $asid), '*', MUST_EXIST);
-$submission = $DB->get_record('workshop_submissions', array('id' => $assessment->submissionid, 'example' => 0), '*', MUST_EXIST);
-$workshop   = $DB->get_record('workshop', array('id' => $submission->workshopid), '*', MUST_EXIST);
+$assessment = $DB->get_record('udmworkshop_assessments', array('id' => $asid), '*', MUST_EXIST);
+$submission = $DB->get_record('udmworkshop_submissions', array('id' => $assessment->submissionid, 'example' => 0), '*', MUST_EXIST);
+$workshop   = $DB->get_record('udmworkshop', array('id' => $submission->workshopid), '*', MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $workshop->course), '*', MUST_EXIST);
-$cm         = get_coursemodule_from_instance('workshop', $workshop->id, $course->id, false, MUST_EXIST);
+$cm         = get_coursemodule_from_instance('udmworkshop', $workshop->id, $course->id, false, MUST_EXIST);
 
 require_login($course, false, $cm);
 if (isguestuser()) {
@@ -53,13 +53,13 @@ $workshop = new workshop($workshop, $cm, $course, null, array(\workshop::SKIP_AL
 $PAGE->set_url($workshop->assess_url($assessment->id));
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$text = $workshop->allowsubmission ? get_string('assessingsubmission', 'workshop') : get_string('assessingpeer', 'udmworkshop');
+$text = $workshop->allowsubmission ? get_string('assessingsubmission', 'udmworkshop') : get_string('assessingpeer', 'udmworkshop');
 $PAGE->navbar->add($text);
 
-$canviewallassessments  = has_capability('mod/workshop:viewallassessments', $workshop->context);
-$canviewallsubmissions  = has_capability('mod/workshop:viewallsubmissions', $workshop->context);
-$cansetassessmentweight = has_capability('mod/workshop:allocate', $workshop->context);
-$canoverridegrades      = has_capability('mod/workshop:overridegrades', $workshop->context);
+$canviewallassessments  = has_capability('mod/udmworkshop:viewallassessments', $workshop->context);
+$canviewallsubmissions  = has_capability('mod/udmworkshop:viewallsubmissions', $workshop->context);
+$cansetassessmentweight = has_capability('mod/udmworkshop:allocate', $workshop->context);
+$canoverridegrades      = has_capability('mod/udmworkshop:overridegrades', $workshop->context);
 $isreviewer             = ($USER->id == $assessment->reviewerid);
 $isauthor               = ($USER->id == $submission->authorid);
 
@@ -85,7 +85,7 @@ if ($isreviewer and $workshop->assessing_allowed($USER->id)) {
 
 // check that all required examples have been assessed by the user
 if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode == workshop::EXAMPLES_BEFORE_ASSESSMENT
-        and !has_capability('mod/workshop:manageexamples', $workshop->context)) {
+        and !has_capability('mod/udmworkshop:manageexamples', $workshop->context)) {
     // the reviewer must have submitted their own submission
     $reviewersubmission = $workshop->get_submission_by_author($assessment->reviewerid);
     $output = $PAGE->get_renderer('mod_udmworkshop');
@@ -94,7 +94,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
         $assessmenteditable = false;
         echo $output->header();
         echo $output->heading(format_string($workshop->name));
-        notice(get_string('exampleneedsubmission', 'workshop'), new moodle_url('/mod/udmudmworkshop/view.php', array('id' => $cm->id)));
+        notice(get_string('exampleneedsubmission', 'udmworkshop'), new moodle_url('/mod/udmworkshop/view.php', array('id' => $cm->id)));
         echo $output->footer();
         exit;
     } else {
@@ -104,7 +104,7 @@ if ($assessmenteditable and $workshop->useexamples and $workshop->examplesmode =
                 $assessmenteditable = false;
                 echo $output->header();
                 echo $output->heading(format_string($workshop->name));
-                notice(get_string('exampleneedassessed', 'workshop'), new moodle_url('/mod/udmudmworkshop/view.php', array('id' => $cm->id)));
+                notice(get_string('exampleneedassessed', 'udmworkshop'), new moodle_url('/mod/udmworkshop/view.php', array('id' => $cm->id)));
                 echo $output->footer();
                 exit;
             }
@@ -175,7 +175,7 @@ if (is_null($assessment->grade) and !$assessmenteditable) {
         }
         // Update the assessment data if there is something other than just the 'id'.
         if (count((array)$coredata) > 1 ) {
-            $DB->update_record('workshop_assessments', $coredata);
+            $DB->update_record('udmworkshop_assessments', $coredata);
             $params = array(
                 'relateduserid' => $submission->authorid,
                 'objectid' => $assessment->id,
@@ -235,7 +235,7 @@ if ($canoverridegrades or $cansetassessmentweight) {
             $record->feedbackreviewer = $data->feedbackreviewer;
             $record->feedbackreviewerformat = $data->feedbackreviewerformat;
         }
-        $DB->update_record('workshop_assessments', $record);
+        $DB->update_record('udmworkshop_assessments', $record);
         redirect($workshop->view_url());
     }
 }
@@ -244,7 +244,7 @@ if ($canoverridegrades or $cansetassessmentweight) {
 $output = $PAGE->get_renderer('mod_udmworkshop');      // workshop renderer
 echo $output->header();
 echo $output->heading(format_string($workshop->name));
-$head = $workshop->allowsubmission ? get_string('assessedsubmission', 'workshop') : get_string('assessedpeer', 'udmworkshop');
+$head = $workshop->allowsubmission ? get_string('assessedsubmission', 'udmworkshop') : get_string('assessedpeer', 'udmworkshop');
 echo $output->heading($head, 3);
 
 $submission = $workshop->get_submission_by_id($submission->id);     // reload so can be passed to the renderer
@@ -278,7 +278,7 @@ if ($isreviewer) {
 
 } else {
     $options    = array(
-        'showreviewer'  => has_capability('mod/workshop:viewreviewernames', $workshop->context),
+        'showreviewer'  => has_capability('mod/udmworkshop:viewreviewernames', $workshop->context),
         'showauthor'    => $canviewauthornames,
         'showform'      => $assessmenteditable or !is_null($assessment->grade),
         'showweight'    => true,

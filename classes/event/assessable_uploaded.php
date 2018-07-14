@@ -60,7 +60,7 @@ class assessable_uploaded extends \core\event\assessable_uploaded {
      */
     protected function get_legacy_eventdata() {
         $eventdata = new \stdClass();
-        $eventdata->modulename   = 'workshop';
+        $eventdata->modulename   = 'udmworkshop';
         $eventdata->cmid         = $this->contextinstanceid;
         $eventdata->itemid       = $this->objectid;
         $eventdata->courseid     = $this->courseid;
@@ -96,7 +96,7 @@ class assessable_uploaded extends \core\event\assessable_uploaded {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventassessableuploaded', 'mod_udmudmworkshop');
+        return get_string('eventassessableuploaded', 'udmworkshop');
     }
 
     /**
@@ -105,7 +105,7 @@ class assessable_uploaded extends \core\event\assessable_uploaded {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/workshop/submission.php',
+        return new \moodle_url('/mod/udmworkshop/submission.php',
             array('cmid' => $this->contextinstanceid, 'id' => $this->objectid));
     }
 
@@ -116,7 +116,7 @@ class assessable_uploaded extends \core\event\assessable_uploaded {
      */
     protected function init() {
         parent::init();
-        $this->data['objecttable'] = 'workshop_submissions';
+        $this->data['objecttable'] = 'udmworkshop_submissions';
     }
 
     /**
@@ -130,6 +130,6 @@ class assessable_uploaded extends \core\event\assessable_uploaded {
     }
 
     public static function get_objectid_mapping() {
-        return array('db' => 'workshop_submissions', 'restore' => 'workshop_submission');
+        return array('db' => 'udmworkshop_submissions', 'restore' => 'udmworkshop_submission');
     }
 }

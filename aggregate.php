@@ -34,15 +34,15 @@ $page       = optional_param('page', 0, PARAM_INT);
 $sortby     = optional_param('sortby', 'lastname', PARAM_ALPHA);
 $sorthow    = optional_param('sorthow', 'ASC', PARAM_ALPHA);
 
-$cm         = get_coursemodule_from_id('workshop', $cmid, 0, false, MUST_EXIST);
+$cm         = get_coursemodule_from_id('udmworkshop', $cmid, 0, false, MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-$workshop   = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop   = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $workshop   = new workshop($workshop, $cm, $course);
 
 $PAGE->set_url($workshop->aggregate_url(), compact('confirm', 'page', 'sortby', 'sorthow'));
 
 require_login($course, false, $cm);
-require_capability('mod/workshop:overridegrades', $PAGE->context);
+require_capability('mod/udmworkshop:overridegrades', $PAGE->context);
 
 // load and init the grading evaluator
 $evaluator = $workshop->grading_evaluation_instance();
