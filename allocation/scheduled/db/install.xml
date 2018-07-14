@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="workshopallocation_scheduled" COMMENT="Stores the allocation settings for the scheduled allocator">
+    <TABLE NAME="udmworkshopallocation_scheduled" COMMENT="Stores the allocation settings for the scheduled allocator">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="workshop id we are part of"/>
@@ -18,7 +18,7 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="fkuq_workshopid" TYPE="foreign-unique" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id" COMMENT="Max one record for each workshop"/>
+        <KEY NAME="fkuq_workshopid" TYPE="foreign-unique" FIELDS="workshopid" REFTABLE="udmworkshop" REFFIELDS="id" COMMENT="Max one record for each workshop"/>
       </KEYS>
     </TABLE>
   </TABLES>

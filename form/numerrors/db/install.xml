@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="workshopform_numerrors" COMMENT="The assessment dimensions definitions of Number of errors grading strategy forms">
+    <TABLE NAME="udmworkshopform_numerrors" COMMENT="The assessment dimensions definitions of Number of errors grading strategy forms">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Workshop ID"/>
@@ -18,10 +18,10 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="workshop_fk" TYPE="foreign" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id"/>
+        <KEY NAME="workshop_fk" TYPE="foreign" FIELDS="workshopid" REFTABLE="udmworkshop" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshopform_numerrors_map" COMMENT="This maps the number of errors to a percentual grade for submission">
+    <TABLE NAME="udmworkshopform_numerrors_map" COMMENT="This maps the number of errors to a percentual grade for submission">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The id of the workshop"/>
@@ -30,7 +30,7 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="workshop_fk" TYPE="foreign" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id"/>
+        <KEY NAME="workshop_fk" TYPE="foreign" FIELDS="workshopid" REFTABLE="udmworkshop" REFFIELDS="id"/>
         <KEY NAME="nonegative_uq" TYPE="unique" FIELDS="workshopid, nonegative" COMMENT="Number of negative must be unique within the given workshop"/>
       </KEYS>
     </TABLE>

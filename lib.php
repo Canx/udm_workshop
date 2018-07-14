@@ -1787,7 +1787,7 @@ function udmworkshop_extend_settings_navigation(settings_navigation $settingsnav
  * @param stdClass $currentcontext Current context of block
  */
 function udmworkshop_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    $module_pagetype = array('mod-workshop-*'=>get_string('page-mod-workshop-x', 'udmworkshop'));
+    $module_pagetype = array('mod-udmworkshop-*'=>get_string('page-mod-udmworkshop-x', 'udmworkshop'));
     return $module_pagetype;
 }
 

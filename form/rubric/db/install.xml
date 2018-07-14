@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="workshopform_rubric" COMMENT="The assessment dimensions definitions of Rubric grading strategy forms">
+    <TABLE NAME="udmworkshopform_rubric" COMMENT="The assessment dimensions definitions of Rubric grading strategy forms">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Workshop ID"/>
@@ -14,10 +14,10 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="workshop_fk" TYPE="foreign" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id"/>
+        <KEY NAME="workshop_fk" TYPE="foreign" FIELDS="workshopid" REFTABLE="udmworkshop" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshopform_rubric_levels" COMMENT="The definition of rubric rating scales">
+    <TABLE NAME="udmworkshopform_rubric_levels" COMMENT="The definition of rubric rating scales">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="dimensionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Which criterion this level is part of"/>
@@ -27,10 +27,10 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="dimension_fk" TYPE="foreign" FIELDS="dimensionid" REFTABLE="workshopform_rubric" REFFIELDS="id"/>
+        <KEY NAME="dimension_fk" TYPE="foreign" FIELDS="dimensionid" REFTABLE="udmworkshopform_rubric" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshopform_rubric_config" COMMENT="Configuration table for the Rubric grading strategy">
+    <TABLE NAME="udmworkshopform_rubric_config" COMMENT="Configuration table for the Rubric grading strategy">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The id of workshop this configuartion applies for"/>
