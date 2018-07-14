@@ -602,7 +602,7 @@ class udmworkshop {
 
         $params = array('workshopid' => $workshop->id);
         $sql = "SELECT COUNT(s.id)
-                  FROM {workshop_submissions} s
+                  FROM {udmworkshop_submissions} s
                  WHERE s.example = 0 AND s.workshopid = :workshopid
                    AND s.realsubmission = 1";
 
@@ -624,13 +624,13 @@ class udmworkshop {
 
         $params = array('workshopid' => $id);
         $submissionsql = "SELECT COUNT(s.id)
-                            FROM {workshop_submissions} s
+                            FROM {udmworkshop_submissions} s
                            WHERE s.example = 0 AND s.workshopid = :workshopid
                              AND s.realsubmission = 1";
 
         $assessmentsql = "SELECT COUNT(a.id)
-                            FROM {workshop_assessments} a
-                            JOIN {workshop_submissions} s ON (a.submissionid = s.id)
+                            FROM {udmworkshop_assessments} a
+                            JOIN {udmworkshop_submissions} s ON (a.submissionid = s.id)
                            WHERE s.example = 0 AND s.workshopid = :workshopid
                              AND a.grade IS NOT NULL";
 
@@ -684,14 +684,14 @@ class udmworkshop {
     public function count_potential_authors($musthavesubmission=true, $groupid=0) {
         global $DB;
 
-        list($sql, $params) = $this->get_users_with_capability_sql('mod/workshop:submit', $musthavesubmission, $groupid);
+        list($sql, $params) = $this->get_users_with_capability_sql('mod/udmworkshop:submit', $musthavesubmission, $groupid);
 
         if (empty($sql)) {
             return 0;
         }
 
         if ($musthavesubmission && $this->assesswithoutsubmission) {
-            $sql .= " JOIN {workshop_assessments} wa ON (wa.submissionid = ws.id) ";
+            $sql .= " JOIN {udmworkshop_assessments} wa ON (wa.submissionid = ws.id) ";
         }
 
         $sql = "SELECT COUNT(*)
@@ -715,7 +715,7 @@ class udmworkshop {
     public function get_potential_reviewers($musthavesubmission=false, $groupid=0, $limitfrom=0, $limitnum=0) {
         global $DB;
 
-        list($sql, $params) = $this->get_users_with_capability_sql('mod/workshop:peerassess', $musthavesubmission, $groupid);
+        list($sql, $params) = $this->get_users_with_capability_sql('mod/udmworkshop:peerassess', $musthavesubmission, $groupid);
 
         if (empty($sql)) {
             return array();
@@ -739,14 +739,14 @@ class udmworkshop {
     public function count_potential_reviewers($musthavesubmission=false, $groupid=0) {
         global $DB;
 
-        list($sql, $params) = $this->get_users_with_capability_sql('mod/workshop:peerassess', $musthavesubmission, $groupid);
+        list($sql, $params) = $this->get_users_with_capability_sql('mod/udmworkshop:peerassess', $musthavesubmission, $groupid);
 
         if (empty($sql)) {
             return 0;
         }
 
         if ($musthavesubmission && $this->assesswithoutsubmission) {
-            $sql .= " JOIN {workshop_assessments} wa ON (wa.submissionid = ws.id) ";
+            $sql .= " JOIN {udmworkshop_assessments} wa ON (wa.submissionid = ws.id) ";
         }
         
         $sql = "SELECT COUNT(*)
