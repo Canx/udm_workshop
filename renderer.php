@@ -323,8 +323,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                     switch ($action->type) {
                         case 'switchphase':
                             $icon = 'i/marker';
-                            if ($phasecode == workshop::PHASE_ASSESSMENT
-                                and $plan->workshop->phase == workshop::PHASE_SUBMISSION
+                            if ($phasecode == udmworkshop::PHASE_ASSESSMENT
+                                and $plan->workshop->phase == udmworkshop::PHASE_SUBMISSION
                                 and $plan->workshop->phaseswitchassessment) {
                                 $icon = 'i/scheduled';
                             }
@@ -626,8 +626,8 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
         $gradeviewswitcher = '';
 
         // If we are in submission phase ignore the following headers (columns).
-        if ($options->workshopphase != workshop::PHASE_SUBMISSION ||
-                ($options->workshopphase == workshop::PHASE_SUBMISSION && $data->assessassoonsubmitted)) {
+        if ($options->workshopphase != udmworkshop::PHASE_SUBMISSION ||
+                ($options->workshopphase == udmworkshop::PHASE_SUBMISSION && $data->assessassoonsubmitted)) {
 
             $receivedgrades = 'receivedgrades';
             $givengrades = 'givengrades';
@@ -662,7 +662,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
 
             // compute the number of <tr> table rows needed to display this participant
             if ($numofreceived > 0 and $numofgiven > 0) {
-                $numoftrs       = workshop::lcm($numofreceived, $numofgiven);
+                $numoftrs       = udmworkshop::lcm($numofreceived, $numofgiven);
                 $spanreceived   = $numoftrs / $numofreceived;
                 $spangiven      = $numoftrs / $numofgiven;
             } elseif ($numofreceived == 0 and $numofgiven > 0) {
@@ -705,7 +705,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
                 }
 
                 // If we are in submission phase ignore the following columns.
-                if ($options->workshopphase == workshop::PHASE_SUBMISSION && !$data->assessassoonsubmitted) {
+                if ($options->workshopphase == udmworkshop::PHASE_SUBMISSION && !$data->assessassoonsubmitted) {
                     $table->data[] = $row;
                     continue;
                 }

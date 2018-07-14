@@ -113,7 +113,7 @@ class anonymity_settings {
      * @param object $workshop The workshop database object
      */
     public function save_changes($workshop) {
-        if ($workshop->assessmenttype != \workshop::SELF_ASSESSMENT) {
+        if ($workshop->assessmenttype != \udmworkshop::SELF_ASSESSMENT) {
 
             if (isset($workshop->displayappraiseesname) && !empty($workshop->allowsubmission)) {
                 $this->assign_display_appraisees_name();

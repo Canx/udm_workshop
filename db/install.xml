@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="workshop" COMMENT="This table keeps information about the module instances and their settings">
+    <TABLE NAME="udmworkshop" COMMENT="This table keeps information about the module instances and their settings">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="ID of the parent course"/>
@@ -51,7 +51,7 @@
         <KEY NAME="course_fk" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_submissions" COMMENT="Info about the submission and the aggregation of the grade for submission, grade for assessment and final grade. Both grade for submission and grade for assessment can be overridden by teacher. Final grade is always the sum of them. All grades are stored as of 0-100.">
+    <TABLE NAME="udmworkshop_submissions" COMMENT="Info about the submission and the aggregation of the grade for submission, grade for assessment and final grade. Both grade for submission and grade for assessment can be overridden by teacher. Final grade is always the sum of them. All grades are stored as of 0-100.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="the id of the workshop instance"/>
@@ -81,7 +81,7 @@
         <KEY NAME="author_fk" TYPE="foreign" FIELDS="authorid" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_assessments" COMMENT="Info about the made assessment and automatically calculated grade for it. The proposed grade can be overridden by teacher.">
+    <TABLE NAME="udmworkshop_assessments" COMMENT="Info about the made assessment and automatically calculated grade for it. The proposed grade can be overridden by teacher.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="submissionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The id of the assessed submission"/>
@@ -106,7 +106,7 @@
         <KEY NAME="reviewer_fk" TYPE="foreign" FIELDS="reviewerid" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_grades" COMMENT="How the reviewers filled-up the grading forms, given grades and comments">
+    <TABLE NAME="udmworkshop_grades" COMMENT="How the reviewers filled-up the grading forms, given grades and comments">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="assessmentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Part of which assessment this grade is of"/>
@@ -122,7 +122,7 @@
         <KEY NAME="formfield_uk" TYPE="unique" FIELDS="assessmentid, strategy, dimensionid" COMMENT="The combination of assessmentid, strategy and dimensionid must be unique"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_aggregations" COMMENT="Aggregated grades for assessment are stored here. The aggregated grade for submission is stored in workshop_submissions">
+    <TABLE NAME="udmworkshop_aggregations" COMMENT="Aggregated grades for assessment are stored here. The aggregated grade for submission is stored in workshop_submissions">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="the id of the workshop instance"/>
@@ -137,7 +137,7 @@
         <KEY NAME="workshopuser" TYPE="unique" FIELDS="workshopid, userid" COMMENT="The combination of workshopid with userid must be unique in this table"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_old" COMMENT="Legacy workshop table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_old" COMMENT="Legacy workshop table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -181,7 +181,7 @@
         <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="workshop_elements_old" COMMENT="Legacy workshop_elements table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_elements_old" COMMENT="Legacy workshop_elements table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -200,7 +200,7 @@
         <KEY NAME="workshopid" TYPE="foreign" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_rubrics_old" COMMENT="Legacy workshop_rubrics table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_rubrics_old" COMMENT="Legacy workshop_rubrics table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -215,7 +215,7 @@
         <KEY NAME="workshopid" TYPE="foreign" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_submissions_old" COMMENT="Legacy workshop_submissions table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_submissions_old" COMMENT="Legacy workshop_submissions table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -240,7 +240,7 @@
         <INDEX NAME="mailed" UNIQUE="false" FIELDS="mailed"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="workshop_assessments_old" COMMENT="Legacy workshop_assessments table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_assessments_old" COMMENT="Legacy workshop_assessments table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -270,7 +270,7 @@
         <INDEX NAME="mailed" UNIQUE="false" FIELDS="mailed"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="workshop_grades_old" COMMENT="Legacy workshop_grades table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_grades_old" COMMENT="Legacy workshop_grades table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -287,7 +287,7 @@
         <KEY NAME="assessmentid" TYPE="foreign" FIELDS="assessmentid" REFTABLE="workshop_assessments" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_stockcomments_old" COMMENT="Legacy workshop_stockcomments table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_stockcomments_old" COMMENT="Legacy workshop_stockcomments table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -301,7 +301,7 @@
         <KEY NAME="workshopid" TYPE="foreign" FIELDS="workshopid" REFTABLE="workshop" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="workshop_comments_old" COMMENT="Legacy workshop_comments table to be dropped later in Moodle 2.x">
+    <TABLE NAME="udmworkshop_comments_old" COMMENT="Legacy workshop_comments table to be dropped later in Moodle 2.x">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="workshopid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>

@@ -77,7 +77,7 @@ function udmworkshop_add_instance(stdclass $workshop) {
     global $CFG, $DB;
     require_once(__DIR__ . '/locallib.php');
 
-    $workshop->phase                 = workshop::PHASE_SETUP;
+    $workshop->phase                 = udmworkshop::PHASE_SETUP;
     $workshop->timecreated           = time();
     $workshop->timemodified          = $workshop->timecreated;
     $workshop->useexamples           = (int)!empty($workshop->useexamples);
@@ -108,16 +108,16 @@ function udmworkshop_add_instance(stdclass $workshop) {
     }
 
     if (!isset($workshop->assessmenttype)) {
-        $workshop->assessmenttype = \workshop::PEER_ASSESSMENT;
+        $workshop->assessmenttype = \udmworkshop::PEER_ASSESSMENT;
     }
     
-    if ($workshop->assessmenttype == \workshop::PEER_ASSESSMENT) {
+    if ($workshop->assessmenttype == \udmworkshop::PEER_ASSESSMENT) {
         $workshop->useselfassessment = false;
     } else {
         $workshop->useselfassessment = true;
     }
 
-    if ($workshop->assessmenttype == \workshop::SELF_ASSESSMENT) {
+    if ($workshop->assessmenttype == \udmworkshop::SELF_ASSESSMENT) {
         $workshop->assesswithoutsubmission = 0;
     }
 
@@ -130,11 +130,11 @@ function udmworkshop_add_instance(stdclass $workshop) {
     }
 
     if (isset($workshop->submissionfiletypes)) {
-        $workshop->submissionfiletypes = workshop::clean_file_extensions($workshop->submissionfiletypes);
+        $workshop->submissionfiletypes = udmworkshop::clean_file_extensions($workshop->submissionfiletypes);
     }
 
     if (isset($workshop->overallfeedbackfiletypes)) {
-        $workshop->overallfeedbackfiletypes = workshop::clean_file_extensions($workshop->overallfeedbackfiletypes);
+        $workshop->overallfeedbackfiletypes = udmworkshop::clean_file_extensions($workshop->overallfeedbackfiletypes);
     }
 
     // insert the new record so we get the id
@@ -148,19 +148,19 @@ function udmworkshop_add_instance(stdclass $workshop) {
     // process the custom wysiwyg editors
     if ($draftitemid = $workshop->instructauthorseditor['itemid']) {
         $workshop->instructauthors = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructauthors',
-                0, workshop::instruction_editors_options($context), $workshop->instructauthorseditor['text']);
+                0, udmworkshop::instruction_editors_options($context), $workshop->instructauthorseditor['text']);
         $workshop->instructauthorsformat = $workshop->instructauthorseditor['format'];
     }
 
     if ($draftitemid = $workshop->instructreviewerseditor['itemid']) {
         $workshop->instructreviewers = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructreviewers',
-                0, workshop::instruction_editors_options($context), $workshop->instructreviewerseditor['text']);
+                0, udmworkshop::instruction_editors_options($context), $workshop->instructreviewerseditor['text']);
         $workshop->instructreviewersformat = $workshop->instructreviewerseditor['format'];
     }
 
     if ($draftitemid = $workshop->conclusioneditor['itemid']) {
         $workshop->conclusion = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'conclusion',
-                0, workshop::instruction_editors_options($context), $workshop->conclusioneditor['text']);
+                0, udmworkshop::instruction_editors_options($context), $workshop->conclusioneditor['text']);
         $workshop->conclusionformat = $workshop->conclusioneditor['format'];
     }
 
@@ -168,11 +168,11 @@ function udmworkshop_add_instance(stdclass $workshop) {
     $DB->update_record('workshop', $workshop);
 
     // create gradebook items
-    workshop_grade_item_update($workshop);
-    workshop_grade_item_category_update($workshop);
+    udmworkshop_grade_item_update($workshop);
+    udmworkshop_grade_item_category_update($workshop);
 
     // create calendar events
-    workshop_calendar_update($workshop, $workshop->coursemodule);
+    udmworkshop_calendar_update($workshop, $workshop->coursemodule);
     if (!empty($workshop->completionexpected)) {
         \core_completion\api::update_completion_date_event($cmid, 'workshop', $workshop->id, $workshop->completionexpected);
     }
@@ -207,7 +207,7 @@ function udmworkshop_update_instance(stdclass $workshop) {
     $workshop->assesswithoutsubmission = (int)!empty($workshop->assesswithoutsubmission);
 
     $originalworkshop = $DB->get_record('workshop', array('id' => $workshop->id));
-    if (\workshop::is_allowsubmission_disabled($originalworkshop)) {
+    if (\udmworkshop::is_allowsubmission_disabled($originalworkshop)) {
         $workshop->allowsubmission = $originalworkshop->allowsubmission;
     } else {
         $workshop->allowsubmission = (int)!empty($workshop->allowsubmission);
@@ -231,16 +231,16 @@ function udmworkshop_update_instance(stdclass $workshop) {
     }
 
     if (!isset($workshop->assessmenttype)) {
-        $workshop->assessmenttype = \workshop::PEER_ASSESSMENT;
+        $workshop->assessmenttype = \udmworkshop::PEER_ASSESSMENT;
     }
 
-    if ($workshop->assessmenttype == \workshop::PEER_ASSESSMENT) {
+    if ($workshop->assessmenttype == \udmworkshop::PEER_ASSESSMENT) {
         $workshop->useselfassessment = false;
     } else {
         $workshop->useselfassessment = true;
     }
 
-    if ($workshop->assessmenttype == \workshop::SELF_ASSESSMENT) {
+    if ($workshop->assessmenttype == \udmworkshop::SELF_ASSESSMENT) {
         $workshop->assesswithoutsubmission = 0;
     }
 
@@ -253,11 +253,11 @@ function udmworkshop_update_instance(stdclass $workshop) {
     }
 
     if (isset($workshop->submissionfiletypes)) {
-        $workshop->submissionfiletypes = workshop::clean_file_extensions($workshop->submissionfiletypes);
+        $workshop->submissionfiletypes = udmworkshop::clean_file_extensions($workshop->submissionfiletypes);
     }
 
     if (isset($workshop->overallfeedbackfiletypes)) {
-        $workshop->overallfeedbackfiletypes = workshop::clean_file_extensions($workshop->overallfeedbackfiletypes);
+        $workshop->overallfeedbackfiletypes = udmworkshop::clean_file_extensions($workshop->overallfeedbackfiletypes);
     }
 
     // todo - if the grading strategy is being changed, we may want to replace all aggregated peer grades with nulls
@@ -268,19 +268,19 @@ function udmworkshop_update_instance(stdclass $workshop) {
     // process the custom wysiwyg editors
     if ($draftitemid = $workshop->instructauthorseditor['itemid']) {
         $workshop->instructauthors = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructauthors',
-                0, workshop::instruction_editors_options($context), $workshop->instructauthorseditor['text']);
+                0, udmworkshop::instruction_editors_options($context), $workshop->instructauthorseditor['text']);
         $workshop->instructauthorsformat = $workshop->instructauthorseditor['format'];
     }
 
     if ($draftitemid = $workshop->instructreviewerseditor['itemid']) {
         $workshop->instructreviewers = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'instructreviewers',
-                0, workshop::instruction_editors_options($context), $workshop->instructreviewerseditor['text']);
+                0, udmworkshop::instruction_editors_options($context), $workshop->instructreviewerseditor['text']);
         $workshop->instructreviewersformat = $workshop->instructreviewerseditor['format'];
     }
 
     if ($draftitemid = $workshop->conclusioneditor['itemid']) {
         $workshop->conclusion = file_save_draft_area_files($draftitemid, $context->id, 'mod_udmworkshop', 'conclusion',
-                0, workshop::instruction_editors_options($context), $workshop->conclusioneditor['text']);
+                0, udmworkshop::instruction_editors_options($context), $workshop->conclusioneditor['text']);
         $workshop->conclusionformat = $workshop->conclusioneditor['format'];
     }
 
@@ -1137,8 +1137,8 @@ function udmworkshop_cron() {
         foreach ($workshops as $workshop) {
             $cm = get_coursemodule_from_instance('workshop', $workshop->id, $workshop->course, false, MUST_EXIST);
             $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-            $workshop = new workshop($workshop, $cm, $course);
-            $workshop->switch_phase(workshop::PHASE_ASSESSMENT);
+            $workshop = new udmworkshop($workshop, $cm, $course);
+            $workshop->switch_phase(udmworkshop::PHASE_ASSESSMENT);
 
             $params = array(
                 'objectid' => $workshop->id,

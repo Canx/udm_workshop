@@ -90,7 +90,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $mform->setExpanded('gradingsettings');
 
         $options = array();
-        if ($this->current->instance && workshop::is_assessmenttype_disabled($this->current->id)) {
+        if ($this->current->instance && udmworkshop::is_assessmenttype_disabled($this->current->id)) {
             $options = array('disabled' => 'true');
         }
         $radio = array();
@@ -151,7 +151,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         $mform->addElement('header', 'submissionsettings', get_string('submissionsettings', 'udmworkshop'));
 
         $options = array();
-        if ($this->current->instance && workshop::is_allowsubmission_disabled($this->current)) {
+        if ($this->current->instance && udmworkshop::is_allowsubmission_disabled($this->current)) {
             $options = array('disabled' => 'true');
         }
         $label = get_string('allowsubmission', 'udmworkshop');
@@ -355,7 +355,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
             $draftitemid = file_get_submitted_draft_itemid('instructauthors');
             $data['instructauthorseditor']['text'] = file_prepare_draft_area($draftitemid, $this->context->id,
                                 'mod_udmworkshop', 'instructauthors', 0,
-                                workshop::instruction_editors_options($this->context),
+                                udmworkshop::instruction_editors_options($this->context),
                                 $data['instructauthors']);
             $data['instructauthorseditor']['format'] = $data['instructauthorsformat'];
             $data['instructauthorseditor']['itemid'] = $draftitemid;
@@ -363,7 +363,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
             $draftitemid = file_get_submitted_draft_itemid('instructreviewers');
             $data['instructreviewerseditor']['text'] = file_prepare_draft_area($draftitemid, $this->context->id,
                                 'mod_udmworkshop', 'instructreviewers', 0,
-                                workshop::instruction_editors_options($this->context),
+                                udmworkshop::instruction_editors_options($this->context),
                                 $data['instructreviewers']);
             $data['instructreviewerseditor']['format'] = $data['instructreviewersformat'];
             $data['instructreviewerseditor']['itemid'] = $draftitemid;
@@ -371,7 +371,7 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
             $draftitemid = file_get_submitted_draft_itemid('conclusion');
             $data['conclusioneditor']['text'] = file_prepare_draft_area($draftitemid, $this->context->id,
                                 'mod_udmworkshop', 'conclusion', 0,
-                                workshop::instruction_editors_options($this->context),
+                                udmworkshop::instruction_editors_options($this->context),
                                 $data['conclusion']);
             $data['conclusioneditor']['format'] = $data['conclusionformat'];
             $data['conclusioneditor']['itemid'] = $draftitemid;
@@ -454,10 +454,10 @@ class mod_udmworkshop_mod_form extends moodleform_mod {
         // Validate lists of allowed extensions.
         foreach (array('submissionfiletypes', 'overallfeedbackfiletypes') as $fieldname) {
             if (isset($data[$fieldname])) {
-                $invalidextensions = workshop::invalid_file_extensions($data[$fieldname], array_keys(core_filetypes::get_types()));
+                $invalidextensions = udmworkshop::invalid_file_extensions($data[$fieldname], array_keys(core_filetypes::get_types()));
                 if ($invalidextensions) {
                     $errors[$fieldname] = get_string('err_unknownfileextension', 'udmworkshop',
-                        workshop::clean_file_extensions($invalidextensions));
+                        udmworkshop::clean_file_extensions($invalidextensions));
                 }
             }
         }

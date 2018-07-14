@@ -105,7 +105,7 @@ class udmworkshop {
     /** @var int timestamp of when the module was modified */
     public $timemodified;
 
-    /** @var int current phase of workshop, for example {@link workshop::PHASE_SETUP} */
+    /** @var int current phase of workshop, for example {@link udmworkshop::PHASE_SETUP} */
     public $phase;
 
     /** @var bool optional feature: students practise evaluating on example submissions from teacher */
@@ -144,7 +144,7 @@ class udmworkshop {
     /** @var int maximum size of the one attached file in bytes */
     public $maxbytes;
 
-    /** @var int mode of example submissions support, for example {@link workshop::EXAMPLES_VOLUNTARY} */
+    /** @var int mode of example submissions support, for example {@link udmworkshop::EXAMPLES_VOLUNTARY} */
     public $examplesmode;
 
     /** @var int if greater than 0 then the submission is not allowed before this timestamp */
@@ -206,13 +206,13 @@ class udmworkshop {
 
     /**
      * @var workshop_strategy grading strategy instance
-     * Do not use directly, get the instance using {@link workshop::grading_strategy_instance()}
+     * Do not use directly, get the instance using {@link udmworkshop::grading_strategy_instance()}
      */
     protected $strategyinstance = null;
 
     /**
      * @var workshop_evaluation grading evaluation instance
-     * Do not use directly, get the instance using {@link workshop::grading_evaluation_instance()}
+     * Do not use directly, get the instance using {@link udmworkshop::grading_evaluation_instance()}
      */
     protected $evaluationinstance = null;
 
@@ -1083,7 +1083,7 @@ class udmworkshop {
      * Returns the list of example submissions in this workshop with reference assessments attached
      *
      * @return array of objects or an empty array
-     * @see workshop::prepare_example_summary()
+     * @see udmworkshop::prepare_example_summary()
      */
     public function get_examples_for_manager() {
         global $DB;
@@ -1102,7 +1102,7 @@ class udmworkshop {
      *
      * @param int $reviewerid user id
      * @return array of objects, indexed by example submission id
-     * @see workshop::prepare_example_summary()
+     * @see udmworkshop::prepare_example_summary()
      */
     public function get_examples_for_reviewer($reviewerid) {
         global $DB;
@@ -1167,7 +1167,7 @@ class udmworkshop {
      *
      * If the example is editable, the caller must set the 'editable' flag explicitly.
      *
-     * @param stdClass $example as returned by {@link workshop::get_examples_for_manager()} or {@link workshop::get_examples_for_reviewer()}
+     * @param stdClass $example as returned by {@link udmworkshop::get_examples_for_manager()} or {@linkudmworkshop::get_examples_for_reviewer()}
      * @return workshop_example_submission_summary to be rendered
      */
     public function prepare_example_summary(stdClass $example) {
@@ -1947,7 +1947,7 @@ class udmworkshop {
      * @deprecated since 2.7 Please use the provided event classes for logging actions.
      *
      * @param string $action to be logged
-     * @param moodle_url $url absolute url as returned by {@see workshop::submission_url()} and friends
+     * @param moodle_url $url absolute url as returned by {@see udmworkshop::submission_url()} and friends
      * @param mixed $info additional info, usually id in a table
      * @param bool $return true to return the arguments for add_to_log.
      * @return void|array array of arguments for add_to_log if $return is true
@@ -2911,7 +2911,7 @@ class udmworkshop {
         }
 
         if (!empty($data->reset_workshop_phase)) {
-            // Do not use the {@link workshop::switch_phase()} here, we do not
+            // Do not use the {@link udmworkshop::switch_phase()} here, we do not
             // want to trigger events.
             $this->reset_phase();
             $status[] = array(
@@ -3401,7 +3401,7 @@ class udmworkshop_user_plan implements renderable {
             $task->link = $workshop->editform_url();
             if ($workshop->grading_strategy_instance()->form_ready()) {
                 $task->completed = true;
-            } elseif ($workshop->phase > workshop::PHASE_SETUP) {
+            } elseif ($workshop->phase > udmworkshop::PHASE_SETUP) {
                 $task->completed = false;
             }
             $phase->tasks['editform'] = $task;
@@ -3416,12 +3416,12 @@ class udmworkshop_user_plan implements renderable {
             if ($DB->count_records('workshop_submissions',
                     array('example' => 1, 'workshopid' => $workshop->id, 'realsubmission' => 1)) > 0) {
                 $task->completed = true;
-            } elseif ($workshop->phase > workshop::PHASE_SETUP) {
+            } elseif ($workshop->phase > udmworkshop::PHASE_SETUP) {
                 $task->completed = false;
             }
             $phase->tasks['prepareexamples'] = $task;
         }
-        if (empty($phase->tasks) and $workshop->phase == workshop::PHASE_SETUP) {
+        if (empty($phase->tasks) and $workshop->phase == udmworkshop::PHASE_SETUP) {
             // if we are in the setup phase and there is no task (typical for students), let us
             // display some explanation what is going on
             $task = new stdclass();
@@ -3429,7 +3429,7 @@ class udmworkshop_user_plan implements renderable {
             $task->completed = 'info';
             $phase->tasks['setupinfo'] = $task;
         }
-        $this->phases[workshop::PHASE_SETUP] = $phase;
+        $this->phases[ udmworkshop::PHASE_SETUP] = $phase;
 
         //---------------------------------------------------------
         // setup | * SUBMISSION | assessment | evaluation | closed
@@ -3446,7 +3446,7 @@ class udmworkshop_user_plan implements renderable {
             }
             $phase->tasks = array();
             $phase->tasks = array_merge($phase->tasks, $this->add_tasks_instructreviewers($userid));
-            if ($workshop->useexamples and $workshop->examplesmode == workshop::EXAMPLES_BEFORE_SUBMISSION
+            if ($workshop->useexamples and $workshop->examplesmode == udmworkshop::EXAMPLES_BEFORE_SUBMISSION
                     and has_capability('mod/workshop:submit', $workshop->context, $userid, false)
                     and !has_capability('mod/workshop:manageexamples', $workshop->context, $userid)) {
                 $task = new stdclass();
@@ -3463,7 +3463,7 @@ class udmworkshop_user_plan implements renderable {
                 $task->details = get_string('exampleassesstaskdetails', 'udmworkshop', $a);
                 if ($a->assessed == $a->expected) {
                     $task->completed = true;
-                } else if ($workshop->phase >= workshop::PHASE_ASSESSMENT) {
+                } else if ($workshop->phase >= udmworkshop::PHASE_ASSESSMENT) {
                     $task->completed = false;
                 }
                 $phase->tasks['examples'] = $task;
@@ -3474,7 +3474,7 @@ class udmworkshop_user_plan implements renderable {
                 if ($submitted) {
                     $task->completed = true;
                     $task->title = get_string('worksubmitted', 'udmworkshop');
-                } else if ($workshop->phase >= workshop::PHASE_ASSESSMENT) {
+                } else if ($workshop->phase >=udmworkshop::PHASE_ASSESSMENT) {
                     $task->completed = false;
                 } else {
                     // Still has a chance to submit.
@@ -3483,7 +3483,7 @@ class udmworkshop_user_plan implements renderable {
                 $phase->tasks['submit'] = $task;
             }
 
-            if ($workshop->assessassoonsubmitted and $workshop->phase == workshop::PHASE_SUBMISSION) {
+            if ($workshop->assessassoonsubmitted and $workshop->phase == udmworkshop::PHASE_SUBMISSION) {
                 $phase->assessments = $workshop->get_assessments_by_reviewer($userid, false);
                 // Number of allocated peer-assessments.
                 $numofpeers      = 0;
@@ -3565,14 +3565,14 @@ class udmworkshop_user_plan implements renderable {
             if ($workshop->submissionstart) {
                 $task = new stdclass();
                 $task->title = get_string('submissionstartdatetime', 'udmworkshop',
-                        workshop::timestamp_formats($workshop->submissionstart));
+                       udmworkshop::timestamp_formats($workshop->submissionstart));
                 $task->completed = 'info';
                 $phase->tasks['submissionstartdatetime'] = $task;
             }
             if ($workshop->submissionend) {
                 $task = new stdclass();
                 $task->title = get_string('submissionenddatetime', 'udmworkshop',
-                        workshop::timestamp_formats($workshop->submissionend));
+                       udmworkshop::timestamp_formats($workshop->submissionend));
                 $task->completed = 'info';
                 $phase->tasks['submissionenddatetime'] = $task;
             }
@@ -3590,7 +3590,7 @@ class udmworkshop_user_plan implements renderable {
                     $phase->tasks['deadlinesignored'] = $task;
                 }
             }
-            $this->phases[workshop::PHASE_SUBMISSION] = $phase;
+            $this->phases[udmworkshop::PHASE_SUBMISSION] = $phase;
         }
 
         //---------------------------------------------------------
@@ -3600,14 +3600,14 @@ class udmworkshop_user_plan implements renderable {
         $phase->title = get_string('phaseassessment', 'udmworkshop');
         $phase->tasks = array();
         $phase->isreviewer = has_capability('mod/workshop:peerassess', $workshop->context, $userid);
-        if ($workshop->phase == workshop::PHASE_SUBMISSION and $workshop->phaseswitchassessment
+        if ($workshop->phase == udmworkshop::PHASE_SUBMISSION and $workshop->phaseswitchassessment
                 and has_capability('mod/workshop:switchphase', $workshop->context, $userid)) {
             $task = new stdClass();
-            $task->title = get_string('switchphase30auto', 'mod_udmworkshop', workshop::timestamp_formats($udmworkshop->submissionend));
+            $task->title = get_string('switchphase30auto', 'mod_udmworkshop', udmworkshop::timestamp_formats($udmworkshop->submissionend));
             $task->completed = 'info';
             $phase->tasks['autoswitchinfo'] = $task;
         }
-        if ($workshop->useexamples and $workshop->examplesmode == workshop::EXAMPLES_BEFORE_ASSESSMENT
+        if ($workshop->useexamples and $workshop->examplesmode == udmworkshop::EXAMPLES_BEFORE_ASSESSMENT
                 and $phase->isreviewer and !has_capability('mod/workshop:manageexamples', $workshop->context, $userid)) {
             $task = new stdclass();
             $task->title = get_string('exampleassesstask', 'udmworkshop');
@@ -3623,7 +3623,7 @@ class udmworkshop_user_plan implements renderable {
             $task->details = get_string('exampleassesstaskdetails', 'udmworkshop', $a);
             if ($a->assessed == $a->expected) {
                 $task->completed = true;
-            } elseif ($workshop->phase > workshop::PHASE_ASSESSMENT) {
+            } elseif ($workshop->phase > udmworkshop::PHASE_ASSESSMENT) {
                 $task->completed = false;
             }
             $phase->tasks['examples'] = $task;
@@ -3660,7 +3660,7 @@ class udmworkshop_user_plan implements renderable {
                 }
             }
             unset($a);
-            $conditionshowassessment = $workshop->phase > workshop::PHASE_SUBMISSION;
+            $conditionshowassessment = $workshop->phase > udmworkshop::PHASE_SUBMISSION;
             if ($numofpeers and $conditionshowassessment) {
                 $task = new stdclass();
                 $task->completed = 'warning';
@@ -3682,7 +3682,7 @@ class udmworkshop_user_plan implements renderable {
                             $task->completed = true;
                             $task->title = get_string('taskallpeersassessed', 'udmworkshop');
                         } else {
-                            if ($workshop->phase > workshop::PHASE_ASSESSMENT) {
+                            if ($workshop->phase > udmworkshop::PHASE_ASSESSMENT) {
                                 $task->completed = false;
                             }
                             $task->title = get_string('taskallpeersnotassessed', 'udmworkshop');
@@ -3706,8 +3706,8 @@ class udmworkshop_user_plan implements renderable {
                 $task->completed = 'warning';
                 if ($numofselftodo == 0) {
                     $task->completed = true;
-                } else if ($workshop->phase > workshop::PHASE_ASSESSMENT ||
-                        ($workshop->phase == workshop::PHASE_ASSESSMENT && $workshop->allowsubmission &&
+                } else if ($workshop->phase > udmworkshop::PHASE_ASSESSMENT ||
+                        ($workshop->phase == udmworkshop::PHASE_ASSESSMENT && $workshop->allowsubmission &&
                          $numselfnotsubmitted > 0)) {
                     $task->completed = false;
                 }
@@ -3717,13 +3717,13 @@ class udmworkshop_user_plan implements renderable {
         }
         if ($workshop->assessmentstart) {
             $task = new stdclass();
-            $task->title = get_string('assessmentstartdatetime', 'workshop', workshop::timestamp_formats($udmworkshop->assessmentstart));
+            $task->title = get_string('assessmentstartdatetime', 'workshop', udmworkshop::timestamp_formats($udmworkshop->assessmentstart));
             $task->completed = 'info';
             $phase->tasks['assessmentstartdatetime'] = $task;
         }
         if ($workshop->assessmentend) {
             $task = new stdclass();
-            $task->title = get_string('assessmentenddatetime', 'workshop', workshop::timestamp_formats($udmworkshop->assessmentend));
+            $task->title = get_string('assessmentenddatetime', 'workshop', udmworkshop::timestamp_formats($udmworkshop->assessmentend));
             $task->completed = 'info';
             $phase->tasks['assessmentenddatetime'] = $task;
         }
@@ -3735,7 +3735,7 @@ class udmworkshop_user_plan implements renderable {
                 $phase->tasks['deadlinesignored'] = $task;
             }
         }
-        $this->phases[workshop::PHASE_ASSESSMENT] = $phase;
+        $this->phases[udmworkshop::PHASE_ASSESSMENT] = $phase;
 
         //---------------------------------------------------------
         // setup | submission | assessment | * EVALUATION | closed
@@ -3756,7 +3756,7 @@ class udmworkshop_user_plan implements renderable {
             $task->details  = get_string('calculatesubmissiongradesdetails', 'udmworkshop', $a);
             if ($calculated >= $expected) {
                 $task->completed = true;
-            } elseif ($workshop->phase > workshop::PHASE_EVALUATION) {
+            } elseif ($workshop->phase > udmworkshop::PHASE_EVALUATION) {
                 $task->completed = false;
             }
             $phase->tasks['calculatesubmissiongrade'] = $task;
@@ -3772,12 +3772,12 @@ class udmworkshop_user_plan implements renderable {
             $task->details  = get_string('calculategradinggradesdetails', 'udmworkshop', $a);
             if ($calculated >= $expected) {
                 $task->completed = true;
-            } elseif ($workshop->phase > workshop::PHASE_EVALUATION) {
+            } elseif ($workshop->phase > udmworkshop::PHASE_EVALUATION) {
                 $task->completed = false;
             }
             $phase->tasks['calculategradinggrade'] = $task;
 
-        } elseif ($workshop->phase == workshop::PHASE_EVALUATION) {
+        } elseif ($workshop->phase == udmworkshop::PHASE_EVALUATION) {
             $task = new stdclass();
             $task->title = get_string('evaluategradeswait', 'udmworkshop');
             $task->completed = 'info';
@@ -3792,13 +3792,13 @@ class udmworkshop_user_plan implements renderable {
             $task->link = $url;
             if (trim($workshop->conclusion)) {
                 $task->completed = true;
-            } elseif ($workshop->phase >= workshop::PHASE_EVALUATION) {
+            } elseif ($workshop->phase >= udmworkshop::PHASE_EVALUATION) {
                 $task->completed = false;
             }
             $phase->tasks['conclusion'] = $task;
         }
 
-        $this->phases[workshop::PHASE_EVALUATION] = $phase;
+        $this->phases[udmworkshop::PHASE_EVALUATION] = $phase;
 
         //---------------------------------------------------------
         // setup | submission | assessment | evaluation | * CLOSED
@@ -3806,7 +3806,7 @@ class udmworkshop_user_plan implements renderable {
         $phase = new stdclass();
         $phase->title = get_string('phaseclosed', 'udmworkshop');
         $phase->tasks = array();
-        $this->phases[workshop::PHASE_CLOSED] = $phase;
+        $this->phases[udmworkshop::PHASE_CLOSED] = $phase;
 
         // Polish data, set default values if not done explicitly
         foreach ($this->phases as $phasecode => $phase) {
@@ -3833,16 +3833,16 @@ class udmworkshop_user_plan implements renderable {
         if (has_capability('mod/workshop:switchphase', $workshop->context, $userid)) {
             if ($workshop->allowsubmission) {
                 $nextphases = array(
-                    workshop::PHASE_SETUP => workshop::PHASE_SUBMISSION,
-                    workshop::PHASE_SUBMISSION => workshop::PHASE_ASSESSMENT,
-                    workshop::PHASE_ASSESSMENT => workshop::PHASE_EVALUATION,
-                    workshop::PHASE_EVALUATION => workshop::PHASE_CLOSED,
+                   udmworkshop::PHASE_SETUP =>udmworkshop::PHASE_SUBMISSION,
+                   udmworkshop::PHASE_SUBMISSION =>udmworkshop::PHASE_ASSESSMENT,
+                   udmworkshop::PHASE_ASSESSMENT =>udmworkshop::PHASE_EVALUATION,
+                   udmworkshop::PHASE_EVALUATION =>udmworkshop::PHASE_CLOSED,
                 );
             } else {
                 $nextphases = array(
-                    workshop::PHASE_SETUP => workshop::PHASE_ASSESSMENT,
-                    workshop::PHASE_ASSESSMENT => workshop::PHASE_EVALUATION,
-                    workshop::PHASE_EVALUATION => workshop::PHASE_CLOSED,
+                   udmworkshop::PHASE_SETUP =>udmworkshop::PHASE_ASSESSMENT,
+                   udmworkshop::PHASE_ASSESSMENT =>udmworkshop::PHASE_EVALUATION,
+                   udmworkshop::PHASE_EVALUATION =>udmworkshop::PHASE_CLOSED,
                 );
             }
             foreach ($this->phases as $phasecode => $phase) {
@@ -3871,7 +3871,7 @@ class udmworkshop_user_plan implements renderable {
      *
      * This is here to cache the DB query because the same list is needed later in view.php
      *
-     * @see workshop::get_examples_for_reviewer() for the format of returned value
+     * @seeudmworkshop::get_examples_for_reviewer() for the format of returned value
      * @return array
      */
     public function get_examples() {
@@ -3900,7 +3900,7 @@ class udmworkshop_user_plan implements renderable {
             if (trim($workshop->instructreviewers)) {
                 $task->completed = true;
             } else {
-                if ($workshop->phase >= workshop::PHASE_ASSESSMENT) {
+                if ($workshop->phase >=udmworkshop::PHASE_ASSESSMENT) {
                     $task->completed = false;
                 }
             }
@@ -3982,22 +3982,22 @@ class udmworkshop_user_plan implements renderable {
             $task->completed = true;
             if ($numnonallocated != 0 ){
                 $task->completed = null;
-                if (($workshop->phase > workshop::PHASE_SETUP && !$workshop->allowsubmission) ||
-                        ($workshop->phase > workshop::PHASE_SUBMISSION && $workshop->allowsubmission)) {
+                if (($workshop->phase >udmworkshop::PHASE_SETUP && !$workshop->allowsubmission) ||
+                        ($workshop->phase >udmworkshop::PHASE_SUBMISSION && $workshop->allowsubmission)) {
                    $task->completed = false;
                 }
             } else {
                 if ($workshop->allowsubmission) {
                     if ($numofsubmissions < $numofauthors) {
                         $task->completed = null;
-                        if ($workshop->phase > workshop::PHASE_SUBMISSION ||
-                                ($workshop->phase == workshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted)) {
+                        if ($workshop->phase >udmworkshop::PHASE_SUBMISSION ||
+                                ($workshop->phase ==udmworkshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted)) {
                             $task->completed = false;
                         }
                     }
                     if ($numwaitingtoassess != 0 || $numshouldnotassess != 0) {
                         $task->completed = null;
-                        if ($workshop->phase > workshop::PHASE_SUBMISSION) {
+                        if ($workshop->phase >udmworkshop::PHASE_SUBMISSION) {
                             $task->completed = false;
                         }
                     }
@@ -4012,16 +4012,16 @@ class udmworkshop_user_plan implements renderable {
             $a->shouldnotassess = $numshouldnotassess;
             if ($workshop->allowsubmission) {
                 $task->details  = get_string('allocatedetails', 'udmworkshop', $a);
-                if ($numwaitingtoassess && ($workshop->phase > workshop::PHASE_SUBMISSION ||
-                        ($workshop->phase == workshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
+                if ($numwaitingtoassess && ($workshop->phase > udmworkshop::PHASE_SUBMISSION ||
+                        ($workshop->phase ==udmworkshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
                     if ($workshop->assessassoonsubmitted) {
                         $task->details .= get_string('allocatewaitingtoassess', 'udmworkshop', $a);
                     } else {
                         $task->details .= get_string('allocatecannotassess', 'udmworkshop', $a);
                     }
                 }
-                if ($numshouldnotassess && ($workshop->phase > workshop::PHASE_SUBMISSION ||
-                        ($workshop->phase == workshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
+                if ($numshouldnotassess && ($workshop->phase > udmworkshop::PHASE_SUBMISSION ||
+                        ($workshop->phase ==udmworkshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
                     $task->details  .= get_string('allocateshouldnotassess', 'udmworkshop', $a);
                 }
             } else {
@@ -4030,7 +4030,7 @@ class udmworkshop_user_plan implements renderable {
             unset($a);
             $tasks['allocate'] = $task;
 
-            if ($numnonallocated != 0 && $workshop->phase >= workshop::PHASE_SUBMISSION) {
+            if ($numnonallocated != 0 && $workshop->phase >=udmworkshop::PHASE_SUBMISSION) {
                 $task = new stdclass();
                 $task->title = get_string('someusersnotallocated', 'udmworkshop');
                 $task->completed = 'info';
@@ -4038,21 +4038,21 @@ class udmworkshop_user_plan implements renderable {
             }
 
             if ($workshop->allowsubmission) {
-                if ($numofsubmissions < $numofauthors and $workshop->phase >= workshop::PHASE_SUBMISSION) {
+                if ($numofsubmissions < $numofauthors and $workshop->phase >= udmworkshop::PHASE_SUBMISSION) {
                     $task = new stdclass();
                     $task->title = get_string('someuserswosubmission', 'udmworkshop');
                     $task->completed = 'info';
                     $tasks['allocateinfo'] = $task;
                 }
-                if ($numwaitingtoassess && ($workshop->phase > workshop::PHASE_SUBMISSION ||
-                        ($workshop->phase == workshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
+                if ($numwaitingtoassess && ($workshop->phase > udmworkshop::PHASE_SUBMISSION ||
+                        ($workshop->phase ==udmworkshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
                     $task = new stdclass();
                     $task->title = get_string('someuserswaitingassess', 'udmworkshop');
                     $task->completed = 'info';
                     $tasks['waitinginfo'] = $task;
                 }
-                if ($numshouldnotassess && ($workshop->phase > workshop::PHASE_SUBMISSION ||
-                        ($workshop->phase == workshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
+                if ($numshouldnotassess && ($workshop->phase > udmworkshop::PHASE_SUBMISSION ||
+                        ($workshop->phase ==udmworkshop::PHASE_SUBMISSION && $workshop->assessassoonsubmitted))) {
                     $task = new stdclass();
                     $task->title = get_string('someusersshouldnotassess', 'udmworkshop');
                     $task->completed = 'info';
@@ -4069,7 +4069,7 @@ class udmworkshop_user_plan implements renderable {
  * Common base class for submissions and example submissions rendering
  *
  * Subclasses of this class convert raw submission record from
- * workshop_submissions table (as returned by {@see workshop::get_submission_by_id()}
+ * workshop_submissions table (as returned by {@see udmworkshop::get_submission_by_id()}
  * for example) into renderable objects.
  */
 abstract class udmworkshop_submission_base {
@@ -4218,7 +4218,7 @@ class udmworkshop_submission extends udmworkshop_submission_summary implements r
 /**
  * Renderable object containing a basic set of information needed to display the example submission summary
  *
- * @see workshop::prepare_example_summary()
+ * @see udmworkshop::prepare_example_summary()
  * @see workshop_renderer::render_workshop_example_submission_summary()
  */
 class udmworkshop_example_submission_summary extends udmworkshop_submission_base implements renderable {
@@ -4286,7 +4286,7 @@ class udmworkshop_example_submission extends udmworkshop_example_submission_summ
  * Common base class for assessments rendering
  *
  * Subclasses of this class convert raw assessment record from
- * workshop_assessments table (as returned by {@see workshop::get_assessment_by_id()}
+ * workshop_assessments table (as returned by {@see udmworkshop::get_assessment_by_id()}
  * for example) into renderable objects.
  */
 abstract class udmworkshop_assessment_base {
@@ -4542,7 +4542,7 @@ class udmworkshop_example_reference_assessment extends udmworkshop_assessment im
  * Message can contain an optional action link with a label that is supposed to be rendered
  * as a button or a link.
  *
- * @see workshop::renderer::render_workshop_message()
+ * @see udmworkshop::renderer::render_workshop_message()
  */
 class udmworkshop_message implements renderable {
 
@@ -4644,7 +4644,7 @@ class udmworkshop_message implements renderable {
  */
 class udmworkshop_grading_report implements renderable {
 
-    /** @var stdClass returned by {@see workshop::prepare_grading_report_data()} */
+    /** @var stdClass returned by {@see udmworkshop::prepare_grading_report_data()} */
     protected $data;
     /** @var stdClass rendering options */
     protected $options;
@@ -4653,7 +4653,7 @@ class udmworkshop_grading_report implements renderable {
      * Grades in $data must be already rounded to the set number of decimals or must be null
      * (in which later case, the [mod_udmworkshop,nullgrade] string shall be displayed)
      *
-     * @param stdClass $data prepared by {@link workshop::prepare_grading_report_data()}
+     * @param stdClass $data prepared by {@link udmworkshop::prepare_grading_report_data()}
      * @param stdClass $options display options (showauthornames, showreviewernames, sortby, sorthow, showsubmissiongrade, showgradinggrade)
      */
     public function __construct(stdClass $data, stdClass $options) {
