@@ -37,7 +37,7 @@ require_login($course, false, $cm);
 require_capability('mod/udmworkshop:editdimensions', $PAGE->context);
 
 $workshop   = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
-$workshop   = new workshop($workshop, $cm, $course);
+$workshop   = new udmworkshop($workshop, $cm, $course);
 if ($wizardstep) {
     $workshop->wizardstep = $wizardstep;
 }

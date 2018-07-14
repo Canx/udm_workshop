@@ -79,7 +79,7 @@ function workshopform_accumulative_pluginfile($course, $cm, $context, $filearea,
 /**
  * Accumulative grading strategy logic.
  */
-class workshop_accumulative_strategy implements workshop_strategy {
+class udmworkshop_accumulative_strategy implements workshop_strategy {
 
     /** @const default number of dimensions to show */
     const MINDIMS = 3;
@@ -102,7 +102,7 @@ class workshop_accumulative_strategy implements workshop_strategy {
      * @param workshop $workshop The workshop instance record
      * @return void
      */
-    public function __construct(workshop $workshop) {
+    public function __construct(udmworkshop $workshop) {
         $this->workshop         = $workshop;
         $this->dimensions       = $this->load_fields();
         $this->descriptionopts  = array('trusttext' => true, 'subdirs' => false, 'maxfiles' => -1);

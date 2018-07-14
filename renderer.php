@@ -295,7 +295,7 @@ class mod_udmworkshop_renderer extends plugin_renderer_base {
      * @param workshop_user_plan $plan prepared for the user
      * @return string html code to be displayed
      */
-    protected function render_workshop_user_plan(workshop_user_plan $plan) {
+    protected function render_udmworkshop_user_plan(udmworkshop_user_plan $plan) {
         if (user_has_phases_table_view($plan->workshop->context, $plan->userid)) {
             // Output HTML code.
             $o  = '';

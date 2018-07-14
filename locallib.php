@@ -1598,7 +1598,7 @@ class udmworkshop {
             } else {
                 throw new coding_exception('the grading forms subplugin must contain library ' . $strategylib);
             }
-            $classname = 'workshop_' . $this->strategy . '_strategy';
+            $classname = 'udmworkshop_' . $this->strategy . '_strategy';
             $this->strategyinstance = new $classname($this);
             if (!in_array('workshop_strategy', class_implements($this->strategyinstance))) {
                 throw new coding_exception($classname . ' does not implement workshop_strategy interface');
@@ -1800,7 +1800,7 @@ class udmworkshop {
         if ($this->wizardstep) {
             $params['wizardstep'] = $this->wizardstep;
         }
-        return new moodle_url('/mod/workshop/editform.php', $params);
+        return new moodle_url('/mod/udmworkshop/editform.php', $params);
     }
 
     /**
@@ -1812,7 +1812,7 @@ class udmworkshop {
         if ($this->wizardstep) {
             $params['wizardstep'] = $this->wizardstep;
         }
-        return new moodle_url('/mod/workshop/editformpreview.php', $params);
+        return new moodle_url('/mod/udmworkshop/editformpreview.php', $params);
     }
 
     /**
@@ -3395,7 +3395,7 @@ class udmworkshop_user_plan implements renderable {
             $task->completed = !(trim($workshop->instructauthors) == '');
             $phase->tasks['instructauthors'] = $task;
         }
-        if (has_capability('mod/workshop:editdimensions', $workshop->context, $userid)) {
+        if (has_capability('mod/udmworkshop:editdimensions', $workshop->context, $userid)) {
             $task = new stdclass();
             $task->title = get_string('editassessmentform', 'udmworkshop');
             $task->link = $workshop->editform_url();
@@ -3743,9 +3743,9 @@ class udmworkshop_user_plan implements renderable {
         $phase = new stdclass();
         $phase->title = get_string('phaseevaluation', 'udmworkshop');
         $phase->tasks = array();
-        if (has_capability('mod/workshop:overridegrades', $workshop->context)) {
+        if (has_capability('mod/udmworkshop:overridegrades', $workshop->context)) {
             $expected = $workshop->count_potential_authors(false);
-            $calculated = $DB->count_records_select('workshop_submissions',
+            $calculated = $DB->count_records_select('udmworkshop_submissions',
                     'workshopid = ? AND (grade IS NOT NULL OR gradeover IS NOT NULL)', array($workshop->id));
             $task = new stdclass();
             $task->title = $workshop->allowsubmission ? get_string('calculatesubmissiongrades', 'udmworkshop') :
@@ -3762,7 +3762,7 @@ class udmworkshop_user_plan implements renderable {
             $phase->tasks['calculatesubmissiongrade'] = $task;
 
             $expected = $workshop->count_potential_reviewers(true);
-            $calculated = $DB->count_records_select('workshop_aggregations',
+            $calculated = $DB->count_records_select('udmworkshop_aggregations',
                     'workshopid = ? AND gradinggrade IS NOT NULL', array($workshop->id));
             $task = new stdclass();
             $task->title = get_string('calculategradinggrades', 'udmworkshop');
@@ -3830,7 +3830,7 @@ class udmworkshop_user_plan implements renderable {
         }
 
         // Add phase switching actions.
-        if (has_capability('mod/workshop:switchphase', $workshop->context, $userid)) {
+        if (has_capability('mod/udmworkshop:switchphase', $workshop->context, $userid)) {
             if ($workshop->allowsubmission) {
                 $nextphases = array(
                    udmworkshop::PHASE_SETUP =>udmworkshop::PHASE_SUBMISSION,
@@ -3849,7 +3849,7 @@ class udmworkshop_user_plan implements renderable {
                 if ($phase->active) {
                     if (isset($nextphases[$workshop->phase])) {
                         $task = new stdClass();
-                        $task->title = get_string('switchphasenext', 'mod_udmudmworkshop');
+                        $task->title = get_string('switchphasenext', 'udmworkshop');
                         $task->link = $workshop->switchphase_url($nextphases[$workshop->phase]);
                         $task->details = '';
                         $task->completed = null;
@@ -3921,7 +3921,7 @@ class udmworkshop_user_plan implements renderable {
 
         $workshop = $this->workshop;
         $tasks = array();
-        if (has_capability('mod/workshop:allocate', $workshop->context, $userid)) {
+        if (has_capability('mod/udmworkshop:allocate', $workshop->context, $userid)) {
             if ($workshop->phaseswitchassessment) {
                 $task = new stdClass();
                 $allocator = $DB->get_record('workshopallocation_scheduled', array('workshopid' => $workshop->id));
@@ -3948,8 +3948,8 @@ class udmworkshop_user_plan implements renderable {
             if ($workshop->allowsubmission) {
                 // Number of reviewers who should evaluate someone who did not submit his work.
                 $sql = 'SELECT COUNT(DISTINCT a.reviewerid) AS $waitingtoassess
-                          FROM {workshop_submissions} s
-                          JOIN {workshop_assessments} a ON (a.submissionid = s.id)
+                          FROM {udmworkshop_submissions} s
+                          JOIN {udmworkshop_assessments} a ON (a.submissionid = s.id)
                          WHERE s.workshopid = :workshopid AND s.example=0 AND s.realsubmission = 0';
                 $params['workshopid'] = $workshop->id;
                 $numwaitingtoassess = $DB->count_records_sql($sql, $params);
@@ -3957,7 +3957,7 @@ class udmworkshop_user_plan implements renderable {
                 if (!$workshop->assesswithoutsubmission) {
                     // Number of author who should evaluate someone but did not submit their own work.
                     $sql = 'SELECT COUNT(DISTINCT s.authorid) AS nosubmission
-                              FROM {workshop_submissions} s
+                              FROM {udmworkshop_submissions} s
                              WHERE s.workshopid = :workshopid AND s.example=0 AND s.realsubmission = 0
                                AND s.authorid IN (SELECT DISTINCT a2.reviewerid
                                                     FROM {workshop_submissions} s2
@@ -3967,14 +3967,14 @@ class udmworkshop_user_plan implements renderable {
                     $params['workshopid2'] = $workshop->id;
                     $numshouldnotassess = $DB->count_records_sql($sql, $params);
                 }
-                $numofsubmissions = $DB->count_records('workshop_submissions',
+                $numofsubmissions = $DB->count_records('udmworkshop_submissions',
                     array('workshopid' => $workshop->id, 'example' => 0, 'realsubmission' => 1));
             }
 
             // Number of author that is not allocated to a reviewer.
             $sql = 'SELECT COUNT(s.id) AS nonallocated
-                      FROM {workshop_submissions} s
-                 LEFT JOIN {workshop_assessments} a ON (a.submissionid=s.id)
+                      FROM {udmworkshop_submissions} s
+                 LEFT JOIN {udmworkshop_assessments} a ON (a.submissionid=s.id)
                      WHERE s.workshopid = :workshopid AND s.example=0 AND a.submissionid IS NULL';
             $params['workshopid'] = $workshop->id;
             $numnonallocated = $DB->count_records_sql($sql, $params);
