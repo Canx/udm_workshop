@@ -262,7 +262,7 @@ function udmworkshop_update_instance(stdclass $workshop) {
 
     // todo - if the grading strategy is being changed, we may want to replace all aggregated peer grades with nulls
 
-    $DB->update_record('workshop', $workshop);
+    $DB->update_record('udmworkshop', $workshop);
     $context = context_module::instance($workshop->coursemodule);
 
     // process the custom wysiwyg editors
@@ -285,7 +285,7 @@ function udmworkshop_update_instance(stdclass $workshop) {
     }
 
     // re-save the record with the replaced URLs in editor fields
-    $DB->update_record('workshop', $workshop);
+    $DB->update_record('udmworkshop', $workshop);
 
     // update gradebook items
     workshop_grade_item_update($workshop);
@@ -294,7 +294,7 @@ function udmworkshop_update_instance(stdclass $workshop) {
     // update calendar events
     workshop_calendar_update($workshop, $workshop->coursemodule);
     $completionexpected = (!empty($workshop->completionexpected)) ? $workshop->completionexpected : null;
-    \core_completion\api::update_completion_date_event($workshop->coursemodule, 'workshop', $workshop->id, $completionexpected);
+    \core_completion\api::update_completion_date_event($workshop->coursemodule, 'udmworkshop', $workshop->id, $completionexpected);
 
     // Anonymity settings.
     $anonymity_settings = new \mod_udmworkshop\anonymity_settings($context);
@@ -315,23 +315,23 @@ function udmworkshop_delete_instance($id) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
-    if (! $workshop = $DB->get_record('workshop', array('id' => $id))) {
+    if (! $workshop = $DB->get_record('udmworkshop', array('id' => $id))) {
         return false;
     }
 
     // delete all associated aggregations
-    $DB->delete_records('workshop_aggregations', array('workshopid' => $workshop->id));
+    $DB->delete_records('udmworkshop_aggregations', array('workshopid' => $workshop->id));
 
     // get the list of ids of all submissions
-    $submissions = $DB->get_records('workshop_submissions', array('workshopid' => $workshop->id), '', 'id');
+    $submissions = $DB->get_records('udmworkshop_submissions', array('workshopid' => $workshop->id), '', 'id');
 
     // get the list of all allocated assessments
-    $assessments = $DB->get_records_list('workshop_assessments', 'submissionid', array_keys($submissions), '', 'id');
+    $assessments = $DB->get_records_list('udmworkshop_assessments', 'submissionid', array_keys($submissions), '', 'id');
 
     // delete the associated records from the workshop core tables
-    $DB->delete_records_list('workshop_grades', 'assessmentid', array_keys($assessments));
-    $DB->delete_records_list('workshop_assessments', 'id', array_keys($assessments));
-    $DB->delete_records_list('workshop_submissions', 'id', array_keys($submissions));
+    $DB->delete_records_list('udmworkshop_grades', 'assessmentid', array_keys($assessments));
+    $DB->delete_records_list('udmworkshop_assessments', 'id', array_keys($assessments));
+    $DB->delete_records_list('udmworkshop_submissions', 'id', array_keys($submissions));
 
     // call the static clean-up methods of all available subplugins
     $strategies = core_component::get_plugin_list('workshopform');
@@ -356,18 +356,18 @@ function udmworkshop_delete_instance($id) {
     }
 
     // delete the calendar events
-    $events = $DB->get_records('event', array('modulename' => 'workshop', 'instance' => $workshop->id));
+    $events = $DB->get_records('event', array('modulename' => 'udmworkshop', 'instance' => $workshop->id));
     foreach ($events as $event) {
         $event = calendar_event::load($event);
         $event->delete();
     }
 
     // finally remove the workshop record itself
-    $DB->delete_records('workshop', array('id' => $workshop->id));
+    $DB->delete_records('udmworkshop', array('id' => $workshop->id));
 
     // gradebook cleanup
-    grade_update('mod/workshop', $workshop->course, 'mod', 'workshop', $workshop->id, 0, null, array('deleted' => true));
-    grade_update('mod/workshop', $workshop->course, 'mod', 'workshop', $workshop->id, 1, null, array('deleted' => true));
+    grade_update('mod/udmworkshop', $workshop->course, 'mod', 'udmworkshop', $workshop->id, 0, null, array('deleted' => true));
+    grade_update('mod/udmworkshop', $workshop->course, 'mod', 'udmworkshop', $workshop->id, 1, null, array('deleted' => true));
 
     return true;
 }
@@ -389,14 +389,14 @@ function udmworkshop_refresh_events($courseid = 0, $instance = null, $cm = null)
     // If we have instance information then we can just update the one event instead of updating all events.
     if (isset($instance)) {
         if (!is_object($instance)) {
-            $instance = $DB->get_record('workshop', array('id' => $instance), '*', MUST_EXIST);
+            $instance = $DB->get_record('udmworkshop', array('id' => $instance), '*', MUST_EXIST);
         }
         if (isset($cm)) {
             if (!is_object($cm)) {
                 $cm = (object)array('id' => $cm);
             }
         } else {
-            $cm = get_coursemodule_from_instance('workshop', $instance->id);
+            $cm = get_coursemodule_from_instance('udmworkshop', $instance->id);
         }
         workshop_calendar_update($instance, $cm->id);
         return true;
@@ -407,16 +407,16 @@ function udmworkshop_refresh_events($courseid = 0, $instance = null, $cm = null)
         if (!is_numeric($courseid)) {
             return false;
         }
-        if (!$workshops = $DB->get_records('workshop', array('course' => $courseid))) {
+        if (!$workshops = $DB->get_records('udmworkshop', array('course' => $courseid))) {
             return false;
         }
     } else {
-        if (!$workshops = $DB->get_records('workshop')) {
+        if (!$workshops = $DB->get_records('udmworkshop')) {
             return false;
         }
     }
     foreach ($workshops as $workshop) {
-        if (!$cm = get_coursemodule_from_instance('workshop', $workshop->id, $courseid, false)) {
+        if (!$cm = get_coursemodule_from_instance('udmworkshop', $workshop->id, $courseid, false)) {
             continue;
         }
         workshop_calendar_update($workshop, $cm->id);
@@ -470,7 +470,7 @@ function udmworkshop_user_outline($course, $user, $mod, $workshop) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
-    $grades = grade_get_grades($course->id, 'mod', 'workshop', $workshop->id, $user->id);
+    $grades = grade_get_grades($course->id, 'mod', 'udmworkshop', $workshop->id, $user->id);
 
     $submissiongrade = null;
     $assessmentgrade = null;
@@ -515,7 +515,7 @@ function udmworkshop_user_complete($course, $user, $mod, $workshop) {
     require_once($CFG->libdir.'/gradelib.php');
 
     $workshop   = new workshop($workshop, $mod, $course);
-    $grades     = grade_get_grades($course->id, 'mod', 'workshop', $workshop->id, $user->id);
+    $grades     = grade_get_grades($course->id, 'mod', 'udmworkshop', $workshop->id, $user->id);
 
     if (!empty($grades->items[0]->grades)) {
         $submissiongrade = reset($grades->items[0]->grades);
@@ -582,13 +582,13 @@ function udmworkshop_print_recent_activity($course, $viewfullnames, $timestart) 
     $sql = "SELECT s.id AS submissionid, s.title AS submissiontitle, s.timemodified AS submissionmodified,
                    author.id AS authorid, $authoramefields, a.id AS assessmentid, a.timemodified AS assessmentmodified,
                    reviewer.id AS reviewerid, $reviewerfields, cm.id AS cmid, w.allowsubmission
-              FROM {workshop} w
+              FROM {udmworkshop} w
         INNER JOIN {course_modules} cm ON cm.instance = w.id
         INNER JOIN {modules} md ON md.id = cm.module
-        INNER JOIN {workshop_submissions} s ON s.workshopid = w.id
+        INNER JOIN {udmworkshop_submissions} s ON s.workshopid = w.id
                    AND s.realsubmission = 1
         INNER JOIN {user} author ON s.authorid = author.id
-         LEFT JOIN {workshop_assessments} a ON a.submissionid = s.id
+         LEFT JOIN {udmworkshop_assessments} a ON a.submissionid = s.id
          LEFT JOIN {user} reviewer ON a.reviewerid = reviewer.id
              WHERE cm.course = ?
                    AND md.name = 'workshop'
@@ -648,7 +648,7 @@ function udmworkshop_print_recent_activity($course, $viewfullnames, $timestart) 
                     break;
                 }
 
-                if (has_capability('mod/workshop:viewallsubmissions', $context)) {
+                if (has_capability('mod/udmworkshop:viewallsubmissions', $context)) {
                     if ($groupmode == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $context)) {
                         if (isguestuser()) {
                             // shortcut - guest user does not belong into any group
@@ -687,7 +687,7 @@ function udmworkshop_print_recent_activity($course, $viewfullnames, $timestart) 
             $a->reviewerid = $activity->reviewerid;
             $a->timemodified = $activity->assessmentmodified;
             $a->cmid = $activity->cmid;
-            if ($activity->reviewerid == $USER->id || has_capability('mod/workshop:viewreviewernames', $context)) {
+            if ($activity->reviewerid == $USER->id || has_capability('mod/udmworkshop:viewreviewernames', $context)) {
                 $a->reviewernamevisible = true;
             } else {
                 $a->reviewernamevisible = false;
@@ -701,7 +701,7 @@ function udmworkshop_print_recent_activity($course, $viewfullnames, $timestart) 
                     break;
                 }
 
-                if (has_capability('mod/workshop:viewallassessments', $context)) {
+                if (has_capability('mod/udmworkshop:viewallassessments', $context)) {
                     if ($groupmode == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $context)) {
                         if (isguestuser()) {
                             // shortcut - guest user does not belong into any group
@@ -798,7 +798,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
 
     $cm = $modinfo->cms[$cmid];
 
-    $workshop= $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+    $workshop= $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 
     $params = array();
     if ($userid) {
@@ -832,10 +832,10 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
                    author.email AS authoremail, a.id AS assessmentid, a.timemodified AS assessmentmodified,
                    reviewer.id AS reviewerid, $reviewerfields, reviewer.picture AS reviewerpicture,
                    reviewer.imagealt AS reviewerimagealt, reviewer.email AS revieweremail
-              FROM {workshop_submissions} s
-        INNER JOIN {workshop} w ON s.workshopid = w.id
+              FROM {udmworkshop_submissions} s
+        INNER JOIN {udmworkshop} w ON s.workshopid = w.id
         INNER JOIN {user} author ON s.authorid = author.id
-         LEFT JOIN {workshop_assessments} a ON a.submissionid = s.id
+         LEFT JOIN {udmworkshop_assessments} a ON a.submissionid = s.id
          LEFT JOIN {user} reviewer ON a.reviewerid = reviewer.id
         $groupjoin
              WHERE w.id = :cminstance
@@ -852,7 +852,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
     $grader          = has_capability('moodle/grade:viewall', $context);
     $accessallgroups = has_capability('moodle/site:accessallgroups', $context);
     $viewauthors     = (!$workshop->allowsubmission || has_capability('mod/workshop:viewauthornames', $context));
-    $viewreviewers   = has_capability('mod/workshop:viewreviewernames', $context);
+    $viewreviewers   = has_capability('mod/udmworkshop:viewreviewernames', $context);
 
     $submissions = array(); // recent submissions indexed by submission id
     $assessments = array(); // recent assessments indexed by assessment id
@@ -894,7 +894,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
                     break;
                 }
 
-                if (has_capability('mod/workshop:viewallsubmissions', $context)) {
+                if (has_capability('mod/udmworkshop:viewallsubmissions', $context)) {
                     if ($groupmode == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $context)) {
                         if (isguestuser()) {
                             // shortcut - guest user does not belong into any group
@@ -933,7 +933,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
             $a->submissiontitle = $activity->submissiontitle;
             $a->reviewerid = $activity->reviewerid;
             $a->timemodified = $activity->assessmentmodified;
-            if ($activity->reviewerid == $USER->id || has_capability('mod/workshop:viewreviewernames', $context)) {
+            if ($activity->reviewerid == $USER->id || has_capability('mod/udmworkshop:viewreviewernames', $context)) {
                 $a->reviewernamevisible = true;
             } else {
                 $a->reviewernamevisible = false;
@@ -947,7 +947,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
                     break;
                 }
 
-                if (has_capability('mod/workshop:viewallassessments', $context)) {
+                if (has_capability('mod/udmworkshop:viewallassessments', $context)) {
                     if ($groupmode == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $context)) {
                         if (isguestuser()) {
                             // shortcut - guest user does not belong into any group
@@ -990,7 +990,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
 
     foreach ($submissions as $submission) {
         $tmpactivity                = new stdclass();
-        $tmpactivity->type          = 'workshop';
+        $tmpactivity->type          = 'udmworkshop';
         $tmpactivity->cmid          = $cm->id;
         $tmpactivity->name          = $workshopname;
         $tmpactivity->sectionnum    = $cm->sectionnum;
@@ -1008,7 +1008,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
 
     foreach ($assessments as $assessment) {
         $tmpactivity                = new stdclass();
-        $tmpactivity->type          = 'workshop';
+        $tmpactivity->type          = 'udmworkshop';
         $tmpactivity->cmid          = $cm->id;
         $tmpactivity->name          = $workshopname;
         $tmpactivity->sectionnum    = $cm->sectionnum;
@@ -1128,14 +1128,14 @@ function udmworkshop_cron() {
 
     // now when the scheduled allocator had a chance to do its job, check if there
     // are some workshops to switch into the assessment phase
-    $workshops = $DB->get_records_select("workshop",
+    $workshops = $DB->get_records_select("udmworkshop",
         "phase = 20 AND phaseswitchassessment = 1 AND submissionend > 0 AND submissionend < ?", array($now));
 
     if (!empty($workshops)) {
         mtrace('Processing automatic assessment phase switch in '.count($workshops).' workshop(s) ... ', '');
-        require_once($CFG->dirroot.'/mod/workshop/locallib.php');
+        require_once($CFG->dirroot.'/mod/udmworkshop/locallib.php');
         foreach ($workshops as $workshop) {
-            $cm = get_coursemodule_from_instance('workshop', $workshop->id, $workshop->course, false, MUST_EXIST);
+            $cm = get_coursemodule_from_instance('udmworkshop', $workshop->id, $workshop->course, false, MUST_EXIST);
             $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
             $workshop = new udmworkshop($workshop, $cm, $course);
             $workshop->switch_phase(udmworkshop::PHASE_ASSESSMENT);
@@ -1266,14 +1266,14 @@ function udmworkshop_grade_item_update(stdclass $workshop, $submissiongrades=nul
     $item['gradetype'] = GRADE_TYPE_VALUE;
     $item['grademax']  = $workshop->grade;
     $item['grademin']  = 0;
-    grade_update('mod/workshop', $workshop->course, 'mod', 'workshop', $workshop->id, 0, $submissiongrades , $item);
+    grade_update('mod/udmworkshop', $workshop->course, 'mod', 'udmworkshop', $workshop->id, 0, $submissiongrades , $item);
 
     $item = array();
     $item['itemname'] = get_string('gradeitemassessment', 'udmworkshop', $a);
     $item['gradetype'] = GRADE_TYPE_VALUE;
     $item['grademax']  = $workshop->gradinggrade;
     $item['grademin']  = 0;
-    grade_update('mod/workshop', $workshop->course, 'mod', 'workshop', $workshop->id, 1, $assessmentgrades, $item);
+    grade_update('mod/workshop', $workshop->course, 'mod', 'udmworkshop', $workshop->id, 1, $assessmentgrades, $item);
 }
 
 /**
@@ -1293,7 +1293,7 @@ function udmworkshop_update_grades(stdclass $workshop, $userid=0) {
     $whereuser = $userid ? ' AND authorid = :userid' : '';
     $params = array('workshopid' => $workshop->id, 'userid' => $userid);
     $sql = 'SELECT authorid, grade, gradeover, gradeoverby, feedbackauthor, feedbackauthorformat, timemodified, timegraded
-              FROM {workshop_submissions}
+              FROM {udmworkshop_submissions}
              WHERE workshopid = :workshopid AND example=0' . $whereuser;
     $records = $DB->get_records_sql($sql, $params);
     $submissiongrades = array();
@@ -1316,7 +1316,7 @@ function udmworkshop_update_grades(stdclass $workshop, $userid=0) {
     $whereuser = $userid ? ' AND userid = :userid' : '';
     $params = array('workshopid' => $workshop->id, 'userid' => $userid);
     $sql = 'SELECT userid, gradinggrade, timegraded
-              FROM {workshop_aggregations}
+              FROM {udmworkshop_aggregations}
              WHERE workshopid = :workshopid' . $whereuser;
     $records = $DB->get_records_sql($sql, $params);
     $assessmentgrades = array();
@@ -1343,7 +1343,7 @@ function udmworkshop_grade_item_category_update($workshop) {
 
     $gradeitems = grade_item::fetch_all(array(
         'itemtype'      => 'mod',
-        'itemmodule'    => 'workshop',
+        'itemmodule'    => 'udmworkshop',
         'iteminstance'  => $workshop->id,
         'courseid'      => $workshop->course));
 
@@ -1446,10 +1446,10 @@ function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, 
 
     } else if ($filearea === 'submission_content' or $filearea === 'submission_attachment') {
         $itemid = (int)array_shift($args);
-        if (!$workshop = $DB->get_record('workshop', array('id' => $cm->instance))) {
+        if (!$workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance))) {
             return false;
         }
-        if (!$submission = $DB->get_record('workshop_submissions', array('id' => $itemid, 'workshopid' => $workshop->id))) {
+        if (!$submission = $DB->get_record('udmworkshop_submissions', array('id' => $itemid, 'workshopid' => $workshop->id))) {
             return false;
         }
 
@@ -1457,11 +1457,11 @@ function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, 
         if (empty($submission->example)) {
             if ($USER->id != $submission->authorid) {
                 if ($submission->published == 1 and $workshop->phase == 50
-                        and has_capability('mod/workshop:viewpublishedsubmissions', $context)) {
+                        and has_capability('mod/udmworkshop:viewpublishedsubmissions', $context)) {
                     // Published submission, we can go (workshop does not take the group mode
                     // into account in this case yet).
                 } else if (!$DB->record_exists('workshop_assessments', array('submissionid' => $submission->id, 'reviewerid' => $USER->id))) {
-                    if (!has_capability('mod/workshop:viewallsubmissions', $context)) {
+                    if (!has_capability('mod/udmworkshop:viewallsubmissions', $context)) {
                         send_file_not_found();
                     } else {
                         $gmode = groups_get_activity_groupmode($cm, $course);
@@ -1469,7 +1469,7 @@ function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, 
                             // check there is at least one common group with both the $USER
                             // and the submission author
                             $sql = "SELECT 'x'
-                                      FROM {workshop_submissions} s
+                                      FROM {udmworkshop_submissions} s
                                       JOIN {user} a ON (a.id = s.authorid)
                                       JOIN {groups_members} agm ON (a.id = agm.userid)
                                       JOIN {user} u ON (u.id = ?)
@@ -1497,13 +1497,13 @@ function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, 
 
     } else if ($filearea === 'overallfeedback_content' or $filearea === 'overallfeedback_attachment') {
         $itemid = (int)array_shift($args);
-        if (!$workshop = $DB->get_record('workshop', array('id' => $cm->instance))) {
+        if (!$workshop = $DB->get_record('udmworkshop', array('id' => $cm->instance))) {
             return false;
         }
-        if (!$assessment = $DB->get_record('workshop_assessments', array('id' => $itemid))) {
+        if (!$assessment = $DB->get_record('udmworkshop_assessments', array('id' => $itemid))) {
             return false;
         }
-        if (!$submission = $DB->get_record('workshop_submissions', array('id' => $assessment->submissionid, 'workshopid' => $workshop->id))) {
+        if (!$submission = $DB->get_record('udmworkshop_submissions', array('id' => $assessment->submissionid, 'workshopid' => $workshop->id))) {
             return false;
         }
 
@@ -1513,7 +1513,7 @@ function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, 
             // Authors can see the feedback once the workshop is closed.
         } else if (!empty($submission->example) and $assessment->weight == 1) {
             // Reference assessments of example submissions can be displayed.
-        } else if (!has_capability('mod/workshop:viewallassessments', $context)) {
+        } else if (!has_capability('mod/udmworkshop:viewallassessments', $context)) {
             send_file_not_found();
         } else {
             $gmode = groups_get_activity_groupmode($cm, $course);
@@ -1521,7 +1521,7 @@ function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, 
                 // Check there is at least one common group with both the $USER
                 // and the submission author.
                 $sql = "SELECT 'x'
-                          FROM {workshop_submissions} s
+                          FROM {udmworkshop_submissions} s
                           JOIN {user} a ON (a.id = s.authorid)
                           JOIN {groups_members} agm ON (a.id = agm.userid)
                           JOIN {user} u ON (u.id = ?)
@@ -1575,13 +1575,13 @@ function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $fi
 
     if ($filearea === 'submission_content' or $filearea === 'submission_attachment') {
 
-        if (!has_capability('mod/workshop:viewallsubmissions', $context)) {
+        if (!has_capability('mod/udmworkshop:viewallsubmissions', $context)) {
             return null;
         }
 
         if (is_null($itemid)) {
             // no itemid (submissionid) passed, display the list of all submissions
-            require_once($CFG->dirroot . '/mod/workshop/fileinfolib.php');
+            require_once($CFG->dirroot . '/mod/udmworkshop/fileinfolib.php');
             return new workshop_file_info_submissions_container($browser, $course, $cm, $context, $areas, $filearea);
         }
 
@@ -1593,7 +1593,7 @@ function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $fi
             // and the submission author (this is not expected to be a frequent
             // usecase so we can live with pretty ineffective one query per submission here...)
             $sql = "SELECT 'x'
-                      FROM {workshop_submissions} s
+                      FROM {udmworkshop_submissions} s
                       JOIN {user} a ON (a.id = s.authorid)
                       JOIN {groups_members} agm ON (a.id = agm.userid)
                       JOIN {user} u ON (u.id = ?)
@@ -1634,7 +1634,7 @@ function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $fi
 
             $userfields = get_all_user_name_fields(true, 'u');
             $sql = "SELECT s.id, $userfields
-                      FROM {workshop_submissions} s
+                      FROM {udmworkshop_submissions} s
                       JOIN {user} u ON (s.authorid = u.id)
                      WHERE s.example = 0 AND s.workshopid = ?";
             $params = array($cm->instance);
@@ -1661,13 +1661,13 @@ function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $fi
 
     if ($filearea === 'overallfeedback_content' or $filearea === 'overallfeedback_attachment') {
 
-        if (!has_capability('mod/workshop:viewallassessments', $context)) {
+        if (!has_capability('mod/udmworkshop:viewallassessments', $context)) {
             return null;
         }
 
         if (is_null($itemid)) {
             // No itemid (assessmentid) passed, display the list of all assessments.
-            require_once($CFG->dirroot . '/mod/workshop/fileinfolib.php');
+            require_once($CFG->dirroot . '/mod/udmworkshop/fileinfolib.php');
             return new workshop_file_info_overallfeedback_container($browser, $course, $cm, $context, $areas, $filearea);
         }
 
@@ -1677,7 +1677,7 @@ function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $fi
             // Check there is at least one common group with both the $USER
             // and the submission author.
             $sql = "SELECT 'x'
-                      FROM {workshop_submissions} s
+                      FROM {udmworkshop_submissions} s
                       JOIN {user} a ON (a.id = s.authorid)
                       JOIN {groups_members} agm ON (a.id = agm.userid)
                       JOIN {user} u ON (u.id = ?)
@@ -1749,7 +1749,7 @@ function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $fi
 function udmworkshop_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
     global $CFG;
 
-    if (has_capability('mod/workshop:submit', context_module::instance($cm->id))) {
+    if (has_capability('mod/udmworkshop:submit', context_module::instance($cm->id))) {
         $url = new moodle_url('/mod/udmworkshop/submission.php', array('cmid' => $cm->id));
         $mysubmission = $navref->add(get_string('mysubmission', 'udmworkshop'), $url);
         $mysubmission->mainnavonly = true;
@@ -1770,11 +1770,11 @@ function udmworkshop_extend_settings_navigation(settings_navigation $settingsnav
 
     //$workshopobject = $DB->get_record("workshop", array("id" => $PAGE->cm->instance));
 
-    if (has_capability('mod/workshop:editdimensions', $PAGE->cm->context)) {
+    if (has_capability('mod/udmworkshop:editdimensions', $PAGE->cm->context)) {
         $url = new moodle_url('/mod/udmworkshop/editform.php', array('cmid' => $PAGE->cm->id));
         $workshopnode->add(get_string('editassessmentform', 'udmworkshop'), $url, settings_navigation::TYPE_SETTING);
     }
-    if (has_capability('mod/workshop:allocate', $PAGE->cm->context)) {
+    if (has_capability('mod/udmworkshop:allocate', $PAGE->cm->context)) {
         $url = new moodle_url('/mod/udmworkshop/allocation.php', array('cmid' => $PAGE->cm->id));
         $workshopnode->add(get_string('allocate', 'udmworkshop'), $url, settings_navigation::TYPE_SETTING);
     }
@@ -1805,17 +1805,17 @@ function udmworkshop_calendar_update(stdClass $workshop, $cmid) {
     global $DB;
 
     // get the currently registered events so that we can re-use their ids
-    $currentevents = $DB->get_records('event', array('modulename' => 'workshop', 'instance' => $workshop->id));
+    $currentevents = $DB->get_records('event', array('modulename' => 'udmworkshop', 'instance' => $workshop->id));
 
     // the common properties for all events
     $base = new stdClass();
-    $base->description  = format_module_intro('workshop', $workshop, $cmid, false);
+    $base->description  = format_module_intro('udmworkshop', $workshop, $cmid, false);
     $base->courseid     = $workshop->course;
     $base->groupid      = 0;
     $base->userid       = 0;
-    $base->modulename   = 'workshop';
+    $base->modulename   = 'udmworkshop';
     $base->instance     = $workshop->id;
-    $base->visible      = instance_is_visible('workshop', $workshop);
+    $base->visible      = instance_is_visible('udmworkshop', $workshop);
     $base->timeduration = 0;
 
     if ($workshop->submissionstart) {
@@ -1910,7 +1910,7 @@ function udmworkshop_calendar_update(stdClass $workshop, $cmid) {
 function mod_udmworkshop_core_calendar_provide_event_action(calendar_event $event,
                                                          \core_calendar\action_factory $factory) {
 
-    $cm = get_fast_modinfo($event->courseid)->instances['workshop'][$event->instance];
+    $cm = get_fast_modinfo($event->courseid)->instances['udmworkshop'][$event->instance];
 
     return $factory->create_instance(
         get_string('viewworkshopsummary', 'udmworkshop'),
@@ -1931,17 +1931,17 @@ function mod_udmworkshop_core_calendar_provide_event_action(calendar_event $even
  */
 function udmworkshop_reset_course_form_definition($mform) {
 
-    $mform->addElement('header', 'workshopheader', get_string('modulenameplural', 'mod_udmudmworkshop'));
+    $mform->addElement('header', 'workshopheader', get_string('modulenameplural', 'udmworkshop'));
 
-    $mform->addElement('advcheckbox', 'reset_workshop_submissions', get_string('resetsubmissions', 'mod_udmudmworkshop'));
-    $mform->addHelpButton('reset_workshop_submissions', 'resetsubmissions', 'mod_udmworkshop');
+    $mform->addElement('advcheckbox', 'reset_workshop_submissions', get_string('resetsubmissions', 'udmworkshop'));
+    $mform->addHelpButton('reset_workshop_submissions', 'resetsubmissions', 'udmworkshop');
 
-    $mform->addElement('advcheckbox', 'reset_workshop_assessments', get_string('resetassessments', 'mod_udmudmworkshop'));
-    $mform->addHelpButton('reset_workshop_assessments', 'resetassessments', 'mod_udmworkshop');
+    $mform->addElement('advcheckbox', 'reset_workshop_assessments', get_string('resetassessments', 'udmworkshop'));
+    $mform->addHelpButton('reset_workshop_assessments', 'resetassessments', 'udmworkshop');
     $mform->disabledIf('reset_workshop_assessments', 'reset_workshop_submissions', 'checked');
 
-    $mform->addElement('advcheckbox', 'reset_workshop_phase', get_string('resetphase', 'mod_udmudmworkshop'));
-    $mform->addHelpButton('reset_workshop_phase', 'resetphase', 'mod_udmworkshop');
+    $mform->addElement('advcheckbox', 'reset_workshop_phase', get_string('resetphase', 'udmworkshop'));
+    $mform->addHelpButton('reset_workshop_phase', 'resetphase', 'udmworkshop');
 }
 
 /**
@@ -1976,20 +1976,20 @@ function udmworkshop_reset_userdata(stdClass $data) {
         return array();
     }
 
-    $workshoprecords = $DB->get_records('workshop', array('course' => $data->courseid));
+    $workshoprecords = $DB->get_records('udmworkshop', array('course' => $data->courseid));
 
     if (empty($workshoprecords)) {
         // What a boring course - no workshops here!
         return array();
     }
 
-    require_once($CFG->dirroot . '/mod/workshop/locallib.php');
+    require_once($CFG->dirroot . '/mod/udmworkshop/locallib.php');
 
     $course = $DB->get_record('course', array('id' => $data->courseid), '*', MUST_EXIST);
     $status = array();
 
     foreach ($workshoprecords as $workshoprecord) {
-        $cm = get_coursemodule_from_instance('workshop', $workshoprecord->id, $course->id, false, MUST_EXIST);
+        $cm = get_coursemodule_from_instance('udmworkshop', $workshoprecord->id, $course->id, false, MUST_EXIST);
         $workshop = new workshop($workshoprecord, $cm, $course);
         $status = array_merge($status, $workshop->reset_userdata($data));
     }
@@ -2038,6 +2038,6 @@ function map_fullname_with_email($user) {
  * @return boolean True if user has access to the table of phases
  */
 function user_has_phases_table_view($context, $userid) {
-    return has_capability('mod/workshop:switchphase', $context, $userid)
-            || has_capability('mod/workshop:allocate', $context, $userid);
+    return has_capability('mod/udmworkshop:switchphase', $context, $userid)
+            || has_capability('mod/udmworkshop:allocate', $context, $userid);
 }

@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * This container is used to display the list of all submissions in these areas (ie when
  * these areas are browsed with itemid == null).
  */
-class workshop_file_info_submissions_container extends file_info {
+class udmworkshop_file_info_submissions_container extends file_info {
     protected $course;
     protected $cm;
     protected $areas;
@@ -189,7 +189,7 @@ class workshop_file_info_submissions_container extends file_info {
  * This container is used to display the list of all submissions in these areas (ie when
  * these areas are browsed with itemid == null).
  */
-class workshop_file_info_overallfeedback_container extends file_info {
+class udmworkshop_file_info_overallfeedback_container extends file_info {
     protected $course;
     protected $cm;
     protected $areas;

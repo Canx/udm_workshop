@@ -48,7 +48,7 @@ class workshop_submission_form extends moodleform {
         $mform->setType('content', PARAM_RAW);
 
         if ($workshop->nattachments > 0) {
-            $mform->addElement('static', 'filemanagerinfo', get_string('nattachments', 'workshop'), $udmworkshop->nattachments);
+            $mform->addElement('static', 'filemanagerinfo', get_string('nattachments', 'udmworkshop'), $udmworkshop->nattachments);
             $mform->addElement('filemanager', 'attachment_filemanager', get_string('submissionattachment', 'udmworkshop'),
                                 null, $attachmentopts);
         }
@@ -81,10 +81,10 @@ class workshop_submission_form extends moodleform {
         if (empty($data['id']) and empty($data['example'])) {
             // make sure there is no submission saved meanwhile from another browser window
             $sql = "SELECT COUNT(s.id)
-                      FROM {workshop_submissions} s
-                      JOIN {workshop} w ON (s.workshopid = w.id)
+                      FROM {udmworkshop_submissions} s
+                      JOIN {udmworkshop} w ON (s.workshopid = w.id)
                       JOIN {course_modules} cm ON (w.id = cm.instance)
-                      JOIN {modules} m ON (m.name = 'workshop' AND m.id = cm.module)
+                      JOIN {modules} m ON (m.name = 'udmworkshop' AND m.id = cm.module)
                      WHERE cm.id = ? AND s.authorid = ? AND s.example = 0";
 
             if ($DB->count_records_sql($sql, array($data['cmid'], $USER->id))) {
@@ -114,7 +114,7 @@ class workshop_submission_form extends moodleform {
                             'whitelist' => workshop::clean_file_extensions($whitelist),
                             'wrongfiles' => implode(', ', $wrongfiles),
                         );
-                        $errors['attachment_filemanager'] = get_string('err_wrongfileextension', 'mod_udmudmworkshop', $a);
+                        $errors['attachment_filemanager'] = get_string('err_wrongfileextension', 'udmworkshop', $a);
                     }
                 }
             }
