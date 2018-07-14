@@ -27,9 +27,9 @@ require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/locallib.php');
 
 $cmid       = required_param('cmid', PARAM_INT);
-$cm         = get_coursemodule_from_id('workshop', $cmid, 0, false, MUST_EXIST);
+$cm         = get_coursemodule_from_id('udmworkshop', $cmid, 0, false, MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-$workshop   = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop   = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $wizardstep = optional_param('wizardstep', null, PARAM_ALPHA);
 
 require_login($course, false, $cm);
@@ -41,11 +41,11 @@ $workshop = new workshop($workshop, $cm, $course);
 if ($wizardstep) {
     $workshop->wizardstep = $wizardstep;
 }
-require_capability('mod/workshop:editdimensions', $workshop->context);
+require_capability('mod/udmworkshop:editdimensions', $workshop->context);
 $PAGE->set_url($workshop->previewform_url());
 $PAGE->set_title($workshop->name);
 $PAGE->set_heading($course->fullname);
-$PAGE->navbar->add(get_string('editingassessmentform', 'workshop'), $udmworkshop->editform_url(), navigation_node::TYPE_CUSTOM);
+$PAGE->navbar->add(get_string('editingassessmentform', 'udmworkshop'), $udmworkshop->editform_url(), navigation_node::TYPE_CUSTOM);
 $PAGE->navbar->add(get_string('previewassessmentform', 'udmworkshop'));
 $currenttab = 'editform';
 

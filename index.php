@@ -49,7 +49,7 @@ $event->trigger();
 
 /// Get all the appropriate data
 
-if (! $workshops = get_all_instances_in_course('workshop', $course)) {
+if (! $workshops = get_all_instances_in_course('udmworkshop', $course)) {
     echo $OUTPUT->heading(get_string('modulenameplural', 'udmworkshop'));
     notice(get_string('noworkshops', 'udmworkshop'), new moodle_url('/course/view.php', array('id' => $course->id)));
     echo $OUTPUT->footer();

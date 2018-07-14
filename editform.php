@@ -30,13 +30,13 @@ use mod_udmworkshop\wizard\gradingmethod_step;
 $cmid       = required_param('cmid', PARAM_INT);
 $wizardstep = optional_param('wizardstep', null, PARAM_ALPHA);
 
-$cm         = get_coursemodule_from_id('workshop', $cmid, 0, false, MUST_EXIST);
+$cm         = get_coursemodule_from_id('udmworkshop', $cmid, 0, false, MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, false, $cm);
-require_capability('mod/workshop:editdimensions', $PAGE->context);
+require_capability('mod/udmworkshop:editdimensions', $PAGE->context);
 
-$workshop   = $DB->get_record('workshop', array('id' => $cm->instance), '*', MUST_EXIST);
+$workshop   = $DB->get_record('udmworkshop', array('id' => $cm->instance), '*', MUST_EXIST);
 $workshop   = new workshop($workshop, $cm, $course);
 if ($wizardstep) {
     $workshop->wizardstep = $wizardstep;

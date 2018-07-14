@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion the version we are upgrading from
  * @return bool result
  */
-function xmldb_workshop_upgrade($oldversion) {
+function xmldb_udmworkshop_upgrade($oldversion) {
     global $CFG, $DB;
 
     // Moodle v2.8.0 release upgrade line.
@@ -50,7 +50,7 @@ function xmldb_workshop_upgrade($oldversion) {
 
     if ($oldversion < 2016022200) {
         // Add field submissionfiletypes to the table workshop.
-        $table = new xmldb_table('workshop');
+        $table = new xmldb_table('udmworkshop');
         $field = new xmldb_field('submissionfiletypes', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'nattachments');
 
         if (!$dbman->field_exists($table, $field)) {
@@ -65,7 +65,7 @@ function xmldb_workshop_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        upgrade_mod_savepoint(true, 2016022200, 'workshop');
+        upgrade_mod_savepoint(true, 2016022200, 'udmworkshop');
     }
 
     // Moodle v3.1.0 release upgrade line.
@@ -79,7 +79,7 @@ function xmldb_workshop_upgrade($oldversion) {
 
     if ($oldversion < 2017081400) {
         // Add field submissionfiletypes to the table workshop.
-        $table = new xmldb_table('workshop');
+        $table = new xmldb_table('udmworkshop');
 
         // Add field assessmentype to the table workshop.
         $field = new xmldb_field('assessmenttype', XMLDB_TYPE_INTEGER, '3', null, XMLDB_NOTNULL, null, 1, null);
@@ -106,24 +106,24 @@ function xmldb_workshop_upgrade($oldversion) {
         }
 
         // Add field realsubmission to the table workshop.
-        $tablesubmission = new xmldb_table('workshop_submissions');
+        $tablesubmission = new xmldb_table('udmworkshop_submissions');
         $field = new xmldb_field('realsubmission', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, 1, null);
         if (!$dbman->field_exists($tablesubmission, $field)) {
             $dbman->add_field($tablesubmission, $field);
         }
 
         // For existing workshop set some values to avoid compatibility problems.
-        $DB->execute("UPDATE {workshop}
+        $DB->execute("UPDATE {udmworkshop}
                          SET assesswithoutsubmission = 1");
 
-        $DB->execute("UPDATE {workshop}
+        $DB->execute("UPDATE {udmworkshop}
                          SET assessmenttype = 3
                        WHERE id IN (SELECT DISTINCT s.workshopid
-                                      FROM {workshop_submissions} as s
-                                      JOIN {workshop_assessments} as a ON (s.id = a.submissionid)
+                                      FROM {udmworkshop_submissions} as s
+                                      JOIN {udmworkshop_assessments} as a ON (s.id = a.submissionid)
                                      WHERE s.authorid = a.reviewerid)");
 
-        upgrade_mod_savepoint(true, 2017081400, 'workshop');
+        upgrade_mod_savepoint(true, 2017081400, 'udmworkshop');
 
     }
 
