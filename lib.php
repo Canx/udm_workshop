@@ -30,10 +30,11 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/calendar/lib.php');
 
-define('WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN',   'opensubmission');
-define('WORKSHOP_EVENT_TYPE_SUBMISSION_CLOSE',  'closesubmission');
-define('WORKSHOP_EVENT_TYPE_ASSESSMENT_OPEN',   'openassessment');
-define('WORKSHOP_EVENT_TYPE_ASSESSMENT_CLOSE',  'closeassessment');
+// Events already defined in workshop plugin
+//define('WORKSHOP_EVENT_TYPE_SUBMISSION_OPEN',   'opensubmission');
+//define('WORKSHO P_EVENT_TYPE_SUBMISSION_CLOSE',  'closesubmission');
+//define('WORKSHOP_EVENT_TYPE_ASSESSMENT_OPEN',   'openassessment');
+//define('WORKSHOP_EVENT_TYPE_ASSESSMENT_CLOSE',  'closeassessment');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Moodle core API                                                            //
@@ -46,7 +47,7 @@ define('WORKSHOP_EVENT_TYPE_ASSESSMENT_CLOSE',  'closeassessment');
  * @param string $feature FEATURE_xx constant for requested feature
  * @return mixed true if the feature is supported, null if unknown
  */
-function workshop_supports($feature) {
+function udmworkshop_supports($feature) {
     switch($feature) {
         case FEATURE_GRADE_HAS_GRADE:   return true;
         case FEATURE_GROUPS:            return true;
@@ -72,7 +73,7 @@ function workshop_supports($feature) {
  * @param stdClass $workshop An object from the form in mod_form.php
  * @return int The id of the newly inserted workshop record
  */
-function workshop_add_instance(stdclass $workshop) {
+function udmworkshop_add_instance(stdclass $workshop) {
     global $CFG, $DB;
     require_once(__DIR__ . '/locallib.php');
 
@@ -191,7 +192,7 @@ function workshop_add_instance(stdclass $workshop) {
  * @param stdClass $workshop An object from the form in mod_form.php
  * @return bool success
  */
-function workshop_update_instance(stdclass $workshop) {
+function udmworkshop_update_instance(stdclass $workshop) {
     global $CFG, $DB;
     require_once(__DIR__ . '/locallib.php');
 
@@ -310,7 +311,7 @@ function workshop_update_instance(stdclass $workshop) {
  * @param int $id Id of the module instance
  * @return boolean Success/Failure
  */
-function workshop_delete_instance($id) {
+function udmworkshop_delete_instance($id) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
@@ -382,7 +383,7 @@ function workshop_delete_instance($id) {
  * @param int|stdClass $cm Course module object or ID.
  * @return bool Returns true if the calendar events were successfully updated.
  */
-function workshop_refresh_events($courseid = 0, $instance = null, $cm = null) {
+function udmworkshop_refresh_events($courseid = 0, $instance = null, $cm = null) {
     global $DB;
 
     // If we have instance information then we can just update the one event instead of updating all events.
@@ -433,7 +434,7 @@ function workshop_refresh_events($courseid = 0, $instance = null, $cm = null) {
  *
  * @return array
  */
-function workshop_get_view_actions() {
+function udmworkshop_get_view_actions() {
     return array('view', 'view all', 'view submission', 'view example');
 }
 
@@ -447,7 +448,7 @@ function workshop_get_view_actions() {
  *
  * @return array
  */
-function workshop_get_post_actions() {
+function udmworkshop_get_post_actions() {
     return array('add', 'add assessment', 'add example', 'add submission',
                  'update', 'update assessment', 'update example', 'update submission');
 }
@@ -465,7 +466,7 @@ function workshop_get_post_actions() {
  * @param stdClass $workshop The workshop instance record.
  * @return stdclass|null
  */
-function workshop_user_outline($course, $user, $mod, $workshop) {
+function udmworkshop_user_outline($course, $user, $mod, $workshop) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
@@ -508,7 +509,7 @@ function workshop_user_outline($course, $user, $mod, $workshop) {
  * @param stdClass $workshop The workshop instance record.
  * @return string HTML
  */
-function workshop_user_complete($course, $user, $mod, $workshop) {
+function udmworkshop_user_complete($course, $user, $mod, $workshop) {
     global $CFG, $DB, $OUTPUT;
     require_once(__DIR__.'/locallib.php');
     require_once($CFG->libdir.'/gradelib.php');
@@ -572,7 +573,7 @@ function workshop_user_complete($course, $user, $mod, $workshop) {
  * @param int $timestart
  * @return boolean
  */
-function workshop_print_recent_activity($course, $viewfullnames, $timestart) {
+function udmworkshop_print_recent_activity($course, $viewfullnames, $timestart) {
     global $CFG, $USER, $DB, $OUTPUT;
 
     $authoramefields = get_all_user_name_fields(true, 'author', null, 'author');
@@ -784,7 +785,7 @@ function workshop_print_recent_activity($course, $viewfullnames, $timestart) {
  * @param int $groupid defaults to 0
  * @return void adds items into $activities and increases $index
  */
-function workshop_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
+function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $cmid, $userid=0, $groupid=0) {
     global $CFG, $COURSE, $USER, $DB;
 
     if ($COURSE->id == $courseid) {
@@ -1027,7 +1028,7 @@ function workshop_get_recent_mod_activity(&$activities, &$index, $timestart, $co
 /**
  * Print single activity item prepared by {@see workshop_get_recent_mod_activity()}
  */
-function workshop_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
+function udmworkshop_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
     global $CFG, $OUTPUT;
 
     if (!empty($activity->user)) {
@@ -1117,7 +1118,7 @@ function workshop_print_recent_mod_activity($activity, $courseid, $detail, $modn
  *
  * @return boolean true on success, false otherwise
  */
-function workshop_cron() {
+function udmworkshop_cron() {
     global $CFG, $DB;
 
     $now = time();
@@ -1173,7 +1174,7 @@ function workshop_cron() {
  * @param int $scaleid id of the scale to check
  * @return bool
  */
-function workshop_scale_used($workshopid, $scaleid) {
+function udmworkshop_scale_used($workshopid, $scaleid) {
     global $CFG; // other files included from here
 
     $strategies = core_component::get_plugin_list('workshopform');
@@ -1206,7 +1207,7 @@ function workshop_scale_used($workshopid, $scaleid) {
  * @param int $scaleid id of the scale to check
  * @return bool
  */
-function workshop_scale_used_anywhere($scaleid) {
+function udmworkshop_scale_used_anywhere($scaleid) {
     global $CFG; // other files included from here
 
     $strategies = core_component::get_plugin_list('workshopform');
@@ -1234,7 +1235,7 @@ function workshop_scale_used_anywhere($scaleid) {
  *
  * @return array
  */
-function workshop_get_extra_capabilities() {
+function udmworkshop_get_extra_capabilities() {
     return array('moodle/site:accessallgroups');
 }
 
@@ -1253,7 +1254,7 @@ function workshop_get_extra_capabilities() {
  * @param stdClass $assessmentgrades data for the second grade item
  * @return void
  */
-function workshop_grade_item_update(stdclass $workshop, $submissiongrades=null, $assessmentgrades=null) {
+function udmworkshop_grade_item_update(stdclass $workshop, $submissiongrades=null, $assessmentgrades=null) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
@@ -1285,7 +1286,7 @@ function workshop_grade_item_update(stdclass $workshop, $submissiongrades=null, 
  * @param int $userid        update grade of specific user only, 0 means all participants
  * @return void
  */
-function workshop_update_grades(stdclass $workshop, $userid=0) {
+function udmworkshop_update_grades(stdclass $workshop, $userid=0) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
@@ -1338,7 +1339,7 @@ function workshop_update_grades(stdclass $workshop, $userid=0) {
  *
  * @param stdClass $workshop An object from the form in mod_form.php
  */
-function workshop_grade_item_category_update($workshop) {
+function udmworkshop_grade_item_category_update($workshop) {
 
     $gradeitems = grade_item::fetch_all(array(
         'itemtype'      => 'mod',
@@ -1389,7 +1390,7 @@ function workshop_grade_item_category_update($workshop) {
  * @param stdClass $context
  * @return array of [(string)filearea] => (string)description
  */
-function workshop_get_file_areas($course, $cm, $context) {
+function udmworkshop_get_file_areas($course, $cm, $context) {
     $areas = array();
     $areas['instructauthors']          = get_string('areainstructauthors', 'udmworkshop');
     $areas['instructreviewers']        = get_string('areainstructreviewers', 'udmworkshop');
@@ -1423,7 +1424,7 @@ function workshop_get_file_areas($course, $cm, $context) {
  * @param array $options additional options affecting the file serving
  * @return bool false if the file not found, just send the file otherwise and do not return anything
  */
-function workshop_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
+function udmworkshop_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
     global $DB, $CFG, $USER;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -1564,7 +1565,7 @@ function workshop_pluginfile($course, $cm, $context, $filearea, array $args, $fo
  * @param string $filename
  * @return file_info instance or null if not found
  */
-function workshop_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
+function udmworkshop_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
     global $CFG, $DB, $USER;
 
     /** @var array internal cache for author names */
@@ -1745,7 +1746,7 @@ function workshop_get_file_info($browser, $areas, $course, $cm, $context, $filea
  * @param stdClass $module
  * @param cm_info $cm
  */
-function workshop_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
+function udmworkshop_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
     global $CFG;
 
     if (has_capability('mod/workshop:submit', context_module::instance($cm->id))) {
@@ -1764,7 +1765,7 @@ function workshop_extend_navigation(navigation_node $navref, stdclass $course, s
  * @param settings_navigation $settingsnav {@link settings_navigation}
  * @param navigation_node $workshopnode {@link navigation_node}
  */
-function workshop_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $workshopnode=null) {
+function udmworkshop_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $workshopnode=null) {
     global $PAGE;
 
     //$workshopobject = $DB->get_record("workshop", array("id" => $PAGE->cm->instance));
@@ -1785,7 +1786,7 @@ function workshop_extend_settings_navigation(settings_navigation $settingsnav, n
  * @param stdClass $parentcontext Block's parent context
  * @param stdClass $currentcontext Current context of block
  */
-function workshop_page_type_list($pagetype, $parentcontext, $currentcontext) {
+function udmworkshop_page_type_list($pagetype, $parentcontext, $currentcontext) {
     $module_pagetype = array('mod-workshop-*'=>get_string('page-mod-workshop-x', 'udmworkshop'));
     return $module_pagetype;
 }
@@ -1800,7 +1801,7 @@ function workshop_page_type_list($pagetype, $parentcontext, $currentcontext) {
  * @param stdClass $workshop the workshop instance record
  * @param int $cmid course module id
  */
-function workshop_calendar_update(stdClass $workshop, $cmid) {
+function udmworkshop_calendar_update(stdClass $workshop, $cmid) {
     global $DB;
 
     // get the currently registered events so that we can re-use their ids
@@ -1928,7 +1929,7 @@ function mod_udmworkshop_core_calendar_provide_event_action(calendar_event $even
  *
  * @param MoodleQuickForm $mform
  */
-function workshop_reset_course_form_definition($mform) {
+function udmworkshop_reset_course_form_definition($mform) {
 
     $mform->addElement('header', 'workshopheader', get_string('modulenameplural', 'mod_udmudmworkshop'));
 
@@ -1948,7 +1949,7 @@ function workshop_reset_course_form_definition($mform) {
  *
  * @param stdClass $course The course to be reset.
  */
-function workshop_reset_course_form_defaults(stdClass $course) {
+function udmworkshop_reset_course_form_defaults(stdClass $course) {
 
     $defaults = array(
         'reset_workshop_submissions'    => 1,
@@ -1965,7 +1966,7 @@ function workshop_reset_course_form_defaults(stdClass $course) {
  * @param stdClass $data The actual course reset settings.
  * @return array List of results, each being array[(string)component, (string)item, (string)error]
  */
-function workshop_reset_userdata(stdClass $data) {
+function udmworkshop_reset_userdata(stdClass $data) {
     global $CFG, $DB;
 
     if (empty($data->reset_workshop_submissions)

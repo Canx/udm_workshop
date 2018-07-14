@@ -3350,7 +3350,7 @@ class udmworkshop {
  * Planner contains list of phases. Each phase contains list of tasks. Task is a simple object with
  * title, link and completed (true/false/null logic).
  */
-class workshop_user_plan implements renderable {
+class udmworkshop_user_plan implements renderable {
 
     /** @var int id of the user this plan is for */
     public $userid;
@@ -4072,7 +4072,7 @@ class workshop_user_plan implements renderable {
  * workshop_submissions table (as returned by {@see workshop::get_submission_by_id()}
  * for example) into renderable objects.
  */
-abstract class workshop_submission_base {
+abstract class udmworkshop_submission_base {
 
     /** @var bool is the submission anonymous (i.e. contains author information) */
     protected $anonymous;
@@ -4141,7 +4141,7 @@ abstract class workshop_submission_base {
  *
  * @see workshop_renderer::render_workshop_submission_summary
  */
-class workshop_submission_summary extends workshop_submission_base implements renderable {
+class udmworkshop_submission_summary extends udmworkshop_submission_base implements renderable {
 
     /** @var int */
     public $id;
@@ -4194,7 +4194,7 @@ class workshop_submission_summary extends workshop_submission_base implements re
  *
  * @see workshop_renderer::render_workshop_submission()
  */
-class workshop_submission extends workshop_submission_summary implements renderable {
+class udmworkshop_submission extends udmworkshop_submission_summary implements renderable {
 
     /** @var string */
     public $content;
@@ -4221,7 +4221,7 @@ class workshop_submission extends workshop_submission_summary implements rendera
  * @see workshop::prepare_example_summary()
  * @see workshop_renderer::render_workshop_example_submission_summary()
  */
-class workshop_example_submission_summary extends workshop_submission_base implements renderable {
+class udmworkshop_example_submission_summary extends udmworkshop_submission_base implements renderable {
 
     /** @var int */
     public $id;
@@ -4263,7 +4263,7 @@ class workshop_example_submission_summary extends workshop_submission_base imple
  *
  * @see workshop_renderer::render_workshop_example_submission()
  */
-class workshop_example_submission extends workshop_example_submission_summary implements renderable {
+class udmworkshop_example_submission extends udmworkshop_example_submission_summary implements renderable {
 
     /** @var string */
     public $content;
@@ -4289,7 +4289,7 @@ class workshop_example_submission extends workshop_example_submission_summary im
  * workshop_assessments table (as returned by {@see workshop::get_assessment_by_id()}
  * for example) into renderable objects.
  */
-abstract class workshop_assessment_base {
+abstract class udmworkshop_assessment_base {
 
     /** @var string the optional title of the assessment */
     public $title = '';
@@ -4385,7 +4385,7 @@ abstract class workshop_assessment_base {
 /**
  * Represents a rendarable full assessment
  */
-class workshop_assessment extends workshop_assessment_base implements renderable {
+class udmworkshop_assessment extends udmworkshop_assessment_base implements renderable {
 
     /** @var int */
     public $id;
@@ -4505,7 +4505,7 @@ class workshop_assessment extends workshop_assessment_base implements renderable
 /**
  * Represents a renderable training assessment of an example submission
  */
-class workshop_example_assessment extends workshop_assessment implements renderable {
+class udmworkshop_example_assessment extends udmworkshop_assessment implements renderable {
 
     /**
      * @see parent::validate_raw_record()
@@ -4522,7 +4522,7 @@ class workshop_example_assessment extends workshop_assessment implements rendera
 /**
  * Represents a renderable reference assessment of an example submission
  */
-class workshop_example_reference_assessment extends workshop_assessment implements renderable {
+class udmworkshop_example_reference_assessment extends udmworkshop_assessment implements renderable {
 
     /**
      * @see parent::validate_raw_record()
@@ -4544,7 +4544,7 @@ class workshop_example_reference_assessment extends workshop_assessment implemen
  *
  * @see workshop::renderer::render_workshop_message()
  */
-class workshop_message implements renderable {
+class udmworkshop_message implements renderable {
 
     const TYPE_INFO     = 10;
     const TYPE_OK       = 20;
@@ -4642,7 +4642,7 @@ class workshop_message implements renderable {
 /**
  * Renderable component containing all the data needed to display the grading report
  */
-class workshop_grading_report implements renderable {
+class udmworkshop_grading_report implements renderable {
 
     /** @var stdClass returned by {@see workshop::prepare_grading_report_data()} */
     protected $data;
@@ -4680,7 +4680,7 @@ class workshop_grading_report implements renderable {
 /**
  * Base class for renderable feedback for author and feedback for reviewer
  */
-abstract class workshop_feedback {
+abstract class udmworkshop_feedback {
 
     /** @var stdClass the user info */
     protected $provider = null;
@@ -4732,7 +4732,7 @@ abstract class workshop_feedback {
 /**
  * Renderable feedback for the author of submission
  */
-class workshop_feedback_author extends workshop_feedback implements renderable {
+class udmworkshop_feedback_author extends udmworkshop_feedback implements renderable {
 
     /**
      * Extracts feedback from the given submission record
@@ -4751,7 +4751,7 @@ class workshop_feedback_author extends workshop_feedback implements renderable {
 /**
  * Renderable feedback for the reviewer
  */
-class workshop_feedback_reviewer extends workshop_feedback implements renderable {
+class udmworkshop_feedback_reviewer extends udmworkshop_feedback implements renderable {
 
     /**
      * Extracts feedback from the given assessment record
@@ -4770,7 +4770,7 @@ class workshop_feedback_reviewer extends workshop_feedback implements renderable
 /**
  * Holds the final grades for the activity as are stored in the gradebook
  */
-class workshop_final_grades implements renderable {
+class udmworkshop_final_grades implements renderable {
 
     /** @var object the info from the gradebook about the grade for submission */
     public $submissiongrade = null;
