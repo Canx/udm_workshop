@@ -236,7 +236,7 @@ class udmworkshop {
         $this->fieldnames = array();
 
         foreach ($dbrecord as $field => $value) {
-            if (property_exists('workshop', $field)) {
+            if (property_exists('udmworkshop', $field)) {
                 $this->fieldnames[] = $field;
                 $this->{$field} = $value;
             }
@@ -1616,7 +1616,7 @@ class udmworkshop {
         $record = new stdClass();
         foreach ($this->fieldnames as $field) {
             $value = $this->{$field};
-            if (property_exists('workshop', $field) && is_scalar($value)) {
+            if (property_exists('udmworkshop', $field) && is_scalar($value)) {
                 $record->{$field} = $value;
             }
         }
@@ -1683,7 +1683,7 @@ class udmworkshop {
         if (is_readable($evaluationlib)) {
             $this->evaluationinstance = null;
             $this->evaluation = $method;
-            $DB->set_field('workshop', 'evaluation', $method, array('id' => $this->id));
+            $DB->set_field('udmworkshop', 'evaluation', $method, array('id' => $this->id));
             return true;
         }
 
@@ -1964,7 +1964,7 @@ class udmworkshop {
         }
 
         $logurl = $this->log_convert_url($url);
-        $args = array($this->course->id, 'workshop', $action, $logurl, $info, $this->cm->id);
+        $args = array($this->course->id, 'udmworkshop', $action, $logurl, $info, $this->cm->id);
         if ($return) {
             return $args;
         }
@@ -2126,11 +2126,11 @@ class udmworkshop {
             }
             $workshop->course     = $this->course->id;
             $workshop->cmidnumber = $this->cm->id;
-            $workshop->modname    = 'workshop';
+            $workshop->modname    = 'udmworkshop';
             workshop_update_grades($workshop);
         }
 
-        $DB->set_field('workshop', 'phase', $newphase, array('id' => $this->id));
+        $DB->set_field('udmworkshop', 'phase', $newphase, array('id' => $this->id));
         $this->phase = $newphase;
         $eventdata = array(
             'objectid' => $this->id,
@@ -2684,7 +2684,7 @@ class udmworkshop {
         $current = file_prepare_standard_editor($current, 'feedbackreviewer', array());
 
         return new workshop_feedbackreviewer_form($actionurl,
-                array('workshop' => $this, 'current' => $current, 'editoropts' => array(), 'options' => $options),
+                array('udmworkshop' => $this, 'current' => $current, 'editoropts' => array(), 'options' => $options),
                 'post', '', null, $editable);
     }
 
@@ -2720,7 +2720,7 @@ class udmworkshop {
         $current = file_prepare_standard_editor($current, 'feedbackauthor', array());
 
         return new workshop_feedbackauthor_form($actionurl,
-                array('workshop' => $this, 'current' => $current, 'editoropts' => array(), 'options' => $options),
+                array('udmworkshop' => $this, 'current' => $current, 'editoropts' => array(), 'options' => $options),
                 'post', '', null, $editable);
     }
 
@@ -2744,7 +2744,7 @@ class udmworkshop {
         }
 
         // Read data via the Gradebook API
-        $gradebook = grade_get_grades($this->course->id, 'mod', 'workshop', $this->id, $userid);
+        $gradebook = grade_get_grades($this->course->id, 'mod', 'udmworkshop', $this->id, $userid);
 
         $grades = new workshop_final_grades();
 
@@ -3289,7 +3289,7 @@ class udmworkshop {
     protected function reset_phase() {
         global $DB;
 
-        $DB->set_field('workshop', 'phase', self::PHASE_SETUP, array('id' => $this->id));
+        $DB->set_field('udmworkshop', 'phase', self::PHASE_SETUP, array('id' => $this->id));
         $this->phase = self::PHASE_SETUP;
     }
 
@@ -3717,13 +3717,13 @@ class udmworkshop_user_plan implements renderable {
         }
         if ($workshop->assessmentstart) {
             $task = new stdclass();
-            $task->title = get_string('assessmentstartdatetime', 'workshop', udmworkshop::timestamp_formats($udmworkshop->assessmentstart));
+            $task->title = get_string('assessmentstartdatetime', 'udmworkshop', udmworkshop::timestamp_formats($udmworkshop->assessmentstart));
             $task->completed = 'info';
             $phase->tasks['assessmentstartdatetime'] = $task;
         }
         if ($workshop->assessmentend) {
             $task = new stdclass();
-            $task->title = get_string('assessmentenddatetime', 'workshop', udmworkshop::timestamp_formats($udmworkshop->assessmentend));
+            $task->title = get_string('assessmentenddatetime', 'udmworkshop', udmworkshop::timestamp_formats($udmworkshop->assessmentend));
             $task->completed = 'info';
             $phase->tasks['assessmentenddatetime'] = $task;
         }

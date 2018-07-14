@@ -138,7 +138,7 @@ function udmworkshop_add_instance(stdclass $workshop) {
     }
 
     // insert the new record so we get the id
-    $workshop->id = $DB->insert_record('workshop', $workshop);
+    $workshop->id = $DB->insert_record('udmworkshop', $workshop);
 
     // we need to use context now, so we need to make sure all needed info is already in db
     $cmid = $workshop->coursemodule;
@@ -165,7 +165,7 @@ function udmworkshop_add_instance(stdclass $workshop) {
     }
 
     // re-save the record with the replaced URLs in editor fields
-    $DB->update_record('workshop', $workshop);
+    $DB->update_record('udmworkshop', $workshop);
 
     // create gradebook items
     udmworkshop_grade_item_update($workshop);
@@ -174,7 +174,7 @@ function udmworkshop_add_instance(stdclass $workshop) {
     // create calendar events
     udmworkshop_calendar_update($workshop, $workshop->coursemodule);
     if (!empty($workshop->completionexpected)) {
-        \core_completion\api::update_completion_date_event($cmid, 'workshop', $workshop->id, $workshop->completionexpected);
+        \core_completion\api::update_completion_date_event($cmid, 'udmworkshop', $workshop->id, $workshop->completionexpected);
     }
 
     // Anonymity settings.
@@ -206,7 +206,7 @@ function udmworkshop_update_instance(stdclass $workshop) {
     $workshop->assessassoonsubmitted = (int)!empty($workshop->assessassoonsubmitted);
     $workshop->assesswithoutsubmission = (int)!empty($workshop->assesswithoutsubmission);
 
-    $originalworkshop = $DB->get_record('workshop', array('id' => $workshop->id));
+    $originalworkshop = $DB->get_record('udmworkshop', array('id' => $workshop->id));
     if (\udmworkshop::is_allowsubmission_disabled($originalworkshop)) {
         $workshop->allowsubmission = $originalworkshop->allowsubmission;
     } else {
@@ -591,7 +591,7 @@ function udmworkshop_print_recent_activity($course, $viewfullnames, $timestart) 
          LEFT JOIN {udmworkshop_assessments} a ON a.submissionid = s.id
          LEFT JOIN {user} reviewer ON a.reviewerid = reviewer.id
              WHERE cm.course = ?
-                   AND md.name = 'workshop'
+                   AND md.name = 'udmworkshop'
                    AND s.example = 0
                    AND (s.timemodified > ? OR a.timemodified > ?)
           ORDER BY s.timemodified";
@@ -985,7 +985,7 @@ function udmworkshop_get_recent_mod_activity(&$activities, &$index, $timestart, 
 
     if ($grader) {
         require_once($CFG->libdir.'/gradelib.php');
-        $grades = grade_get_grades($courseid, 'mod', 'workshop', $cm->instance, array_keys($users));
+        $grades = grade_get_grades($courseid, 'mod', 'udmworkshop', $cm->instance, array_keys($users));
     }
 
     foreach ($submissions as $submission) {
@@ -1153,7 +1153,7 @@ function udmworkshop_cron() {
 
             // disable the automatic switching now so that it is not executed again by accident
             // if the teacher changes the phase back to the submission one
-            $DB->set_field('workshop', 'phaseswitchassessment', 0, array('id' => $workshop->id));
+            $DB->set_field('udmworkshop', 'phaseswitchassessment', 0, array('id' => $workshop->id));
 
             // todo inform the teachers
         }
